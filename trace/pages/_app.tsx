@@ -6,4 +6,5 @@ function MyApp({ Component, pageProps }: AppProps) {
     return <Component {...pageProps} />;
 }
 
+// 리덕스로 쓰겠다는 뜻.
 export default wrapper.withRedux(withReduxSaga(MyApp));
