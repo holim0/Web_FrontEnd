@@ -11,6 +11,7 @@
         "@emotion/react": "^11.1.2",
         "@emotion/styled": "^11.0.0",
         "@reduxjs/toolkit": "^1.5.0",
+        "@types/next-redux-saga": "^3.0.2",
         "next": "10.0.3",
         "next-redux-saga": "^4.1.2",
         "next-redux-wrapper": "^6.0.2",
