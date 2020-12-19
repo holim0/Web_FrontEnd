@@ -1,22 +1,26 @@
 import styled from "@emotion/styled";
-import Rating from "../common/Rating";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
+import { SelectForm } from "./SelectForm";
 
 const Container = styled.main`
-    max-width: 1200px;
+    max-width: 900px;
     width: 100%;
     margin: 0 auto;
+    text-align: center;
 `;
 
-const SubTitle = styled.div`
+export const SubTitle = styled.div`
     font-size: 18px;
 `;
 
 const Address = styled.div`
     display: flex;
     padding: 12px;
+
+    button {
+    }
 `;
 
 const AddImg = styled.div`
@@ -31,8 +35,8 @@ const ImgBox = styled.div`
     position: relative;
     text-shadow: 1px 1px 1px #333;
     background: #dbdbdb;
-    width: 400px;
-    height: 300px;
+    width: 450px;
+    height: 350px;
     color: #ffffff;
     font-size: 140px;
     cursor: pointer;
@@ -51,9 +55,9 @@ const ImgBox = styled.div`
 `;
 
 const ShowImg = styled.div`
-    width: 400px;
-    height: 300px;
-    border: 1px solid #dbdbdb;
+    width: 450px;
+    height: 350px;
+    border: 1px solid ${(props) => props.theme.border};
     img {
         width: 100%;
         height: 100%;
@@ -62,18 +66,19 @@ const ShowImg = styled.div`
 
 const Calendar = styled.div`
     display: flex;
+    justify-content: center;
     input {
         cursor: pointer;
         margin: 0 6px;
+        padding: 6px 12px;
+        border: 1px solid ${(props) => props.theme.border};
+        text-align: center;
+        &:hover {
+            background: #dbdbdb;
+            outline: none;
+            border: 1px solid #ffffff;
+        }
     }
-`;
-
-const Cost = styled.div`
-    display: flex;
-`;
-
-const TotalRating = styled.div`
-    display: flex;
 `;
 
 interface Props {
@@ -95,10 +100,8 @@ const WriteForm = ({
 }: Props) => {
     return (
         <Container>
-            <SubTitle>리뷰 작성</SubTitle>
             <Address>
-                <div>주소작성</div>
-                <button type="button">검색</button>
+                <button type="button">상세 주소작성</button>
             </Address>
 
             <AddImg>
@@ -128,87 +131,7 @@ const WriteForm = ({
                     />
                 </Calendar>
             </div>
-
-            <form onChange={handleFormChange}>
-                <SubTitle>거주비용</SubTitle>
-                <label htmlFor="month">월세</label>
-                <input
-                    type="radio"
-                    name="cost"
-                    id="month"
-                    value="monthlyRent"
-                />
-                <label htmlFor="charter">전세</label>
-                <input type="radio" name="cost" id="lease" value="lease" />
-                <Cost>
-                    <div>보증금</div>
-                    <input type="text" name="deposit" />
-                </Cost>
-                <Cost>
-                    <div>월세</div>
-                    <input type="text" name="rent" />
-                </Cost>
-
-                <TotalRating>
-                    총점 <Rating />
-                </TotalRating>
-
-                <SubTitle>리모델링 여부</SubTitle>
-                <label htmlFor="remodeling">되어있어요</label>
-                <input
-                    type="radio"
-                    name="remodeling"
-                    id="remodeling"
-                    value="yes"
-                />
-                <label htmlFor="noRemodeling">되어있지 않아요</label>
-                <input
-                    type="radio"
-                    name="remodeling"
-                    id="noRemodeling"
-                    value="no"
-                />
-                <SubTitle>수압</SubTitle>
-                <label htmlFor="high">좋아요</label>
-                <input type="radio" name="pressure" id="high" value="high" />
-                <label htmlFor="low">아쉬워요</label>
-                <input type="radio" name="pressure" id="low" value="low" />
-                <SubTitle>동파 경험</SubTitle>
-                <label htmlFor="freeze">없어요</label>
-                <input
-                    type="radio"
-                    name="freeze"
-                    id="noFreeze"
-                    value="noFreeze"
-                />
-                <label htmlFor="freeze">있어요</label>
-                <input type="radio" name="freeze" id="freeze" value="freeze" />
-                <SubTitle>채광</SubTitle>
-                <label htmlFor="sunny">좋아요</label>
-                <input type="radio" name="sunny" id="month" value="good" />
-                <label htmlFor="sunny">아쉬워요</label>
-                <input type="radio" name="sunny" id="lease" value="bad" />
-
-                <div>
-                    <SubTitle>방음</SubTitle>
-                    <select name="silence">
-                        <option>독서실</option>
-                        <option>옆사람과 동거중</option>
-                        <option>종종 들림</option>
-                    </select>
-                </div>
-
-                <div>
-                    <SubTitle>벌레여부</SubTitle>
-                    <select name="bugs">
-                        <option>가끔나와요</option>
-                        <option>전혀 안나와요</option>
-                        <option>꽤 안나와요</option>
-                        <option>항상 같이 살아요</option>
-                    </select>
-                </div>
-            </form>
-
+            <SelectForm handleFormChange={handleFormChange} />
             <div>다음으로 이동해 작성 완료하기</div>
         </Container>
     );
