@@ -3,7 +3,6 @@ import Rating from "../common/Rating";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
-import { MutableRefObject, RefObject } from "react";
 
 const Container = styled.main`
     max-width: 1200px;
@@ -17,18 +16,23 @@ const SubTitle = styled.div`
 
 const Address = styled.div`
     display: flex;
+    padding: 12px;
 `;
 
 const AddImg = styled.div`
     display: flex;
+    justify-content: center;
+    div {
+        margin: 0 5px;
+    }
 `;
 
 const ImgBox = styled.div`
-    width: 400px;
-    height: 300px;
     position: relative;
     text-shadow: 1px 1px 1px #333;
     background: #dbdbdb;
+    width: 400px;
+    height: 300px;
     color: #ffffff;
     font-size: 140px;
     cursor: pointer;
@@ -43,6 +47,16 @@ const ImgBox = styled.div`
         top: calc(50% - 20px);
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+`;
+
+const ShowImg = styled.div`
+    width: 400px;
+    height: 300px;
+    border: 1px solid #dbdbdb;
+    img {
+        width: 100%;
+        height: 100%;
     }
 `;
 
@@ -92,9 +106,9 @@ const WriteForm = ({
                     <div>+</div>
                 </ImgBox>
                 <input ref={imgInput} type="file" hidden />
-                <div>
+                <ShowImg>
                     <img src="" alt="올린이미지" />
-                </div>
+                </ShowImg>
             </AddImg>
 
             <div>

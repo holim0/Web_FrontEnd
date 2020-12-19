@@ -1,5 +1,7 @@
 // theme
 
-const theme = {};
+const theme = {
+    border: "#dbdbdb",
+};
 
 export default theme;
