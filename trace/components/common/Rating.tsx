@@ -4,6 +4,7 @@ import { BsStarFill } from "react-icons/bs";
 
 const Stars = styled.div`
     display: flex;
+    align-items: center;
     svg {
         cursor: pointer;
         margin-right: 3px;
@@ -13,11 +14,11 @@ const Stars = styled.div`
 const Rating = () => {
     return (
         <Stars>
-            <BsStarFill size={22} fill="#dbdbdb" />
-            <BsStarFill size={22} fill="#dbdbdb" />
-            <BsStarFill size={22} fill="#dbdbdb" />
-            <BsStarFill size={22} fill="#dbdbdb" />
-            <BsStarFill size={22} fill="#dbdbdb" />
+            <BsStarFill size={24} fill="#dbdbdb" />
+            <BsStarFill size={24} fill="#dbdbdb" />
+            <BsStarFill size={24} fill="#dbdbdb" />
+            <BsStarFill size={24} fill="#dbdbdb" />
+            <BsStarFill size={24} fill="#dbdbdb" />
         </Stars>
     );
 };

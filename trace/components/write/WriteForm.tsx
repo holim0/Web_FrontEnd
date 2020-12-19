@@ -13,6 +13,12 @@ const Container = styled.main`
 
 export const SubTitle = styled.div`
     font-size: 18px;
+    height: 55px;
+    line-height: 55px;
+    margin: 24px auto;
+    border-bottom: 1px solid ${(props) => props.theme.darkWhite};
+    width: fit-content;
+    font-weight: 600;
 `;
 
 const Address = styled.div`
@@ -20,6 +26,13 @@ const Address = styled.div`
     padding: 12px;
 
     button {
+        all: unset;
+        cursor: pointer;
+        border: 1px solid ${(props) => props.theme.darkWhite};
+        padding: 8px;
+        &:hover {
+            background-color: ${(props) => props.theme.darkWhite};
+        }
     }
 `;
 
@@ -33,17 +46,17 @@ const AddImg = styled.div`
 
 const ImgBox = styled.div`
     position: relative;
-    text-shadow: 1px 1px 1px #333;
-    background: #dbdbdb;
+    text-shadow: 1px 1px 1px ${(props) => props.theme.black};
+    background: ${(props) => props.theme.darkWhite};
     width: 450px;
     height: 350px;
-    color: #ffffff;
+    color: ${(props) => props.theme.white};
     font-size: 140px;
     cursor: pointer;
 
     &:hover {
-        background: #afafaf;
-        color: #dbdbdb;
+        background-color: ${(props) => props.theme.gray};
+        color: ${(props) => props.theme.darkWhite};
     }
 
     div {
@@ -57,7 +70,7 @@ const ImgBox = styled.div`
 const ShowImg = styled.div`
     width: 450px;
     height: 350px;
-    border: 1px solid ${(props) => props.theme.border};
+    border: 1px solid ${(props) => props.theme.darkWhite};
     img {
         width: 100%;
         height: 100%;
@@ -71,12 +84,31 @@ const Calendar = styled.div`
         cursor: pointer;
         margin: 0 6px;
         padding: 6px 12px;
-        border: 1px solid ${(props) => props.theme.border};
+        border: 1px solid ${(props) => props.theme.darkWhite};
         text-align: center;
         &:hover {
-            background: #dbdbdb;
+            background: ${(props) => props.theme.darkWhite};
             outline: none;
-            border: 1px solid #ffffff;
+            border: 1px solid ${(props) => props.theme.white};
+        }
+    }
+`;
+
+const NextBtn = styled.div`
+    min-height: 200px;
+    line-height: 200px;
+    text-align: right;
+
+    button {
+        background: transparent;
+        outline: none;
+        border: none;
+        padding: 0 12px;
+        font-size: 14px;
+        color: #0c84cd;
+
+        &:hover {
+            text-decoration: underline;
         }
     }
 `;
@@ -132,7 +164,9 @@ const WriteForm = ({
                 </Calendar>
             </div>
             <SelectForm handleFormChange={handleFormChange} />
-            <div>다음으로 이동해 작성 완료하기</div>
+            <NextBtn>
+                <button type="button">다음으로 이동해 작성 완료하기</button>
+            </NextBtn>
         </Container>
     );
 };
