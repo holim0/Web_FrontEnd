@@ -18,7 +18,6 @@ export default function Home() {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
-    console.log(ctx);
     return {
         props: {},
     };
