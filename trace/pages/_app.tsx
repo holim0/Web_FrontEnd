@@ -1,6 +1,7 @@
 import wrapper from "../store/configureStore";
 import withReduxSaga from "next-redux-saga";
 import { AppProps } from "next/dist/next-server/lib/router/router";
+import "../styles/global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
     return <Component {...pageProps} />;
