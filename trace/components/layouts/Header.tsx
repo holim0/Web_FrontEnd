@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up("md")]: {
             width: "25ch",
             "&:focus": {
-                width: "50ch",
+                width: "35ch",
             },
         },
     },
@@ -121,6 +121,9 @@ const Header = () => {
                 />
             </div>
             <MenuContainer>
+                <MenuBtn href="/">
+                    <a>홈</a>
+                </MenuBtn>
                 <MenuBtn href="/room">
                     <a>원룸</a>
                 </MenuBtn>
