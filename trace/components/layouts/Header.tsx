@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import styled from "@emotion/styled";
-import AppBar from "@material-ui/core/AppBar";
-import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import Image from "next/image";
@@ -58,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const Container = styled.div`
     display: flex;
     align-items: center;
-    height: 100px;
+    height: 50px;
     background-color: #90caf8;
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
         0px 4px 5px 0px rgba(0, 0, 0, 0.14),
@@ -136,8 +134,7 @@ const Header = () => {
                     title="로그인/회원가입 모달"
                     visible={isModalVisible}
                     onOk={handleOk}
-                    onCancel={handleCancel}
-                >
+                    onCancel={handleCancel}>
                     로그인/회원가입 모달
                 </Modal>
             </MenuContainer>
