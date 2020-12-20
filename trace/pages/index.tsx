@@ -11,7 +11,7 @@ export default function Home() {
     return (
         <Container>
             <Link href="/user">
-                <div>유저보기</div>
+                <div>홈</div>
             </Link>
         </Container>
     );
