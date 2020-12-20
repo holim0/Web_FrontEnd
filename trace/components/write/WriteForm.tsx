@@ -1,8 +1,10 @@
-import styled from "@emotion/styled";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import { SelectForm } from "./SelectForm";
+import BtnLink from "../common/write/Btn";
+import { WriteClick } from "../../@types/interface";
+import styled from "@emotion/styled";
 
 const Container = styled.main`
     max-width: 900px;
@@ -94,25 +96,6 @@ const Calendar = styled.div`
     }
 `;
 
-const NextBtn = styled.div`
-    min-height: 200px;
-    line-height: 200px;
-    text-align: right;
-
-    button {
-        background: transparent;
-        outline: none;
-        border: none;
-        padding: 0 12px;
-        font-size: 14px;
-        color: #0c84cd;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-`;
-
 interface Props {
     startDate: Date;
     handelSelectDate: (data: Date) => void;
@@ -125,11 +108,12 @@ registerLocale("ko", ko);
 
 const WriteForm = ({
     startDate,
+    handleNext,
     handelSelectDate,
     handleFormChange,
     handleImg,
     imgInput,
-}: Props) => {
+}: Props & WriteClick) => {
     return (
         <Container>
             <Address>
@@ -164,9 +148,7 @@ const WriteForm = ({
                 </Calendar>
             </div>
             <SelectForm handleFormChange={handleFormChange} />
-            <NextBtn>
-                <button type="button">다음으로 이동해 작성 완료하기</button>
-            </NextBtn>
+            <BtnLink handleNext={handleNext} />
         </Container>
     );
 };

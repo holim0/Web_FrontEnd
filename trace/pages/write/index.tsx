@@ -1,8 +1,11 @@
 import { useFormInput } from "@cooksmelon/event";
+import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useRef, useState } from "react";
 import WriteForm from "../../components/write/WriteForm";
 
 const index = () => {
+    const router = useRouter();
+
     // img 업로드
     const imgInput = useRef<HTMLInputElement>(null!);
 
@@ -25,13 +28,17 @@ const index = () => {
     // 작성 form data
     const [form, handleFormChange] = useFormInput();
 
-    console.log(startDate);
     console.log(form);
+
+    const handleNext = useCallback(() => {
+        router.push("/write/review");
+    }, []);
 
     return (
         <WriteForm
             imgInput={imgInput}
             startDate={startDate}
+            handleNext={handleNext}
             handleFormChange={handleFormChange}
             handleImg={handleImg}
             handelSelectDate={handelSelectDate}></WriteForm>
