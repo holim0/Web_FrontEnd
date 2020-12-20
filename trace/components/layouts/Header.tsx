@@ -56,8 +56,8 @@ const useStyles = makeStyles((theme) => ({
 const Container = styled.div`
     display: flex;
     align-items: center;
-    height: 50px;
-    background-color: #90caf8;
+    height: 70px;
+    background-color: ${(props) => props.theme.mainColor};
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
         0px 4px 5px 0px rgba(0, 0, 0, 0.14),
         0px 1px 10px 0px rgba(0, 0, 0, 0.12);
@@ -134,7 +134,8 @@ const Header = () => {
                     title="로그인/회원가입 모달"
                     visible={isModalVisible}
                     onOk={handleOk}
-                    onCancel={handleCancel}>
+                    onCancel={handleCancel}
+                >
                     로그인/회원가입 모달
                 </Modal>
             </MenuContainer>
