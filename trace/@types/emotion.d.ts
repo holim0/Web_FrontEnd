@@ -11,6 +11,7 @@ declare module "@emotion/react" {
         ms: string;
         ls: string;
         xls: string;
+        blue: string;
     }
 }
 

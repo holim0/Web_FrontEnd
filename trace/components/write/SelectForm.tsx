@@ -73,7 +73,7 @@ const Select = styled.div`
 
     input[type="radio"]:checked + label {
         background-color: #1da1f2;
-        border: none;
+        border: 1px solid ${(props) => props.theme.darkWhite};
         color: ${(props) => props.theme.white};
     }
 `;
