@@ -5,6 +5,7 @@ const theme = {
     white: "#ffffff",
     darkWhite: "#dbdbdb",
     black: "#333",
+    mainColor: "#96ccfb",
 };
 
 export default theme;
