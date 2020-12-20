@@ -5,6 +5,7 @@ import { SelectForm } from "./SelectForm";
 import BtnLink from "../common/write/Btn";
 import { WriteClick } from "../../@types/interface";
 import styled from "@emotion/styled";
+import Address from "components/common/write/Address";
 
 const Container = styled.main`
     max-width: 900px;
@@ -21,21 +22,6 @@ export const SubTitle = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.darkWhite};
     width: fit-content;
     font-weight: 600;
-`;
-
-const Address = styled.div`
-    display: flex;
-    padding: 12px;
-
-    button {
-        all: unset;
-        cursor: pointer;
-        border: 1px solid ${(props) => props.theme.darkWhite};
-        padding: 8px;
-        &:hover {
-            background-color: ${(props) => props.theme.darkWhite};
-        }
-    }
 `;
 
 const AddImg = styled.div`
@@ -116,9 +102,7 @@ const WriteForm = ({
 }: Props & WriteClick) => {
     return (
         <Container>
-            <Address>
-                <button type="button">상세 주소작성</button>
-            </Address>
+            <Address />
 
             <AddImg>
                 <ImgBox onClick={handleImg}>

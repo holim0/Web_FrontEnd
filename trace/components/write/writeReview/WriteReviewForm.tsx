@@ -2,6 +2,7 @@ import { WriteClick } from "../../../@types/interface";
 import React from "react";
 import BtnLink from "../../common/write/Btn";
 import styled from "@emotion/styled";
+import Address from "components/common/write/Address";
 
 const Container = styled.main`
     max-width: 900px;
@@ -13,6 +14,7 @@ const Container = styled.main`
 const WriteReviewForm = ({ handleSubmit, handlePrev }: WriteClick) => {
     return (
         <Container>
+            <Address />
             <BtnLink handleSubmit={handleSubmit} handlePrev={handlePrev} />
         </Container>
     );
