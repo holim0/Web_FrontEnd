@@ -4,12 +4,14 @@ import BtnLink from "../../common/write/Btn";
 import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { SubTitle } from "../WriteForm";
+import { Container } from "styles/commonStyle";
 
-const Container = styled.main`
+const Write = styled.div`
     max-width: 900px;
     width: 100%;
     margin: 0 auto;
     text-align: center;
+    background: #ffffff;
 `;
 
 const TextArea = styled.textarea`
@@ -38,16 +40,26 @@ const WriteReviewForm = ({
 }: Props) => {
     return (
         <Container>
-            <Address />
-            <form onChange={handleFormChange}>
-                <SubTitle>옵션</SubTitle>
-                <TextArea name="option"></TextArea>
-                <SubTitle>주변정보</SubTitle>
-                <TextArea name="info"></TextArea>
-                <SubTitle>마음의 소리</SubTitle>
-                <TextArea name="voice"></TextArea>
-            </form>
-            <BtnLink handleSubmit={handleSubmit} handlePrev={handlePrev} />
+            <Write>
+                <Address />
+                <form onChange={handleFormChange}>
+                    <SubTitle>옵션</SubTitle>
+                    <TextArea name="option"></TextArea>
+                    <SubTitle>주변정보</SubTitle>
+                    <TextArea name="info"></TextArea>
+                    <SubTitle>마음의 소리</SubTitle>
+                    <TextArea name="voice"></TextArea>
+
+                    <div>
+                        <label htmlFor="release">방을 내놓을까요?</label>
+                        <input
+                            type="checkbox"
+                            id="release"
+                            name="release"></input>
+                    </div>
+                </form>
+                <BtnLink handleSubmit={handleSubmit} handlePrev={handlePrev} />
+            </Write>
         </Container>
     );
 };

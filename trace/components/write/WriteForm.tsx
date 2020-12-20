@@ -6,8 +6,9 @@ import BtnLink from "../common/write/Btn";
 import { WriteClick } from "../../@types/interface";
 import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
+import { Container } from "styles/commonStyle";
 
-const Container = styled.main`
+const Write = styled.div`
     max-width: 900px;
     width: 100%;
     margin: 0 auto;
@@ -102,37 +103,39 @@ const WriteForm = ({
 }: Props & WriteClick) => {
     return (
         <Container>
-            <Address />
+            <Write>
+                <Address />
 
-            <AddImg>
-                <ImgBox onClick={handleImg}>
-                    <div>+</div>
-                </ImgBox>
-                <input ref={imgInput} type="file" hidden />
-                <ShowImg>
-                    <img src="" alt="올린이미지" />
-                </ShowImg>
-            </AddImg>
+                <AddImg>
+                    <ImgBox onClick={handleImg}>
+                        <div>+</div>
+                    </ImgBox>
+                    <input ref={imgInput} type="file" hidden />
+                    <ShowImg>
+                        <img src="" alt="올린이미지" />
+                    </ShowImg>
+                </AddImg>
 
-            <div>
-                <SubTitle>거주기간</SubTitle>
-                <Calendar>
-                    <DatePicker
-                        selected={startDate}
-                        onChange={handelSelectDate}
-                        dateFormat="yy/MM/dd"
-                        locale="ko"
-                    />
-                    <DatePicker
-                        selected={startDate}
-                        onChange={handelSelectDate}
-                        dateFormat="yy/MM/dd"
-                        locale="ko"
-                    />
-                </Calendar>
-            </div>
-            <SelectForm handleFormChange={handleFormChange} />
-            <BtnLink handleNext={handleNext} />
+                <div>
+                    <SubTitle>거주기간</SubTitle>
+                    <Calendar>
+                        <DatePicker
+                            selected={startDate}
+                            onChange={handelSelectDate}
+                            dateFormat="yy/MM/dd"
+                            locale="ko"
+                        />
+                        <DatePicker
+                            selected={startDate}
+                            onChange={handelSelectDate}
+                            dateFormat="yy/MM/dd"
+                            locale="ko"
+                        />
+                    </Calendar>
+                </div>
+                <SelectForm handleFormChange={handleFormChange} />
+                <BtnLink handleNext={handleNext} />
+            </Write>
         </Container>
     );
 };
