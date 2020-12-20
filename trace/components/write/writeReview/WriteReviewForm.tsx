@@ -109,7 +109,9 @@ interface Props extends WriteClick {
     toggle: boolean;
     handleToggle: () => void;
     persistDate: Date;
-    handelSelectDate: (date: Date) => void;
+    finishDate: Date;
+    handleFinishDate: (date: Date) => void;
+    handleStartDate: (date: Date) => void;
 }
 
 registerLocale("ko", ko);
@@ -121,7 +123,9 @@ const WriteReviewForm = ({
     toggle,
     handleToggle,
     persistDate,
-    handelSelectDate,
+    finishDate,
+    handleFinishDate,
+    handleStartDate,
 }: Props) => {
     return (
         <Container>
@@ -158,13 +162,13 @@ const WriteReviewForm = ({
                                 <Calendar>
                                     <DatePicker
                                         selected={persistDate}
-                                        onChange={handelSelectDate}
+                                        onChange={handleStartDate}
                                         dateFormat="yy/MM/dd"
                                         locale="ko"
                                     />
                                     <DatePicker
-                                        selected={persistDate}
-                                        onChange={handelSelectDate}
+                                        selected={finishDate}
+                                        onChange={handleFinishDate}
                                         dateFormat="yy/MM/dd"
                                         locale="ko"
                                     />

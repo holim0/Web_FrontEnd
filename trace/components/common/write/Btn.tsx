@@ -55,7 +55,7 @@ const BtnLink = ({ handleNext, handlePrev, handleSubmit }: WriteClick) => {
             <NextBtn>
                 {handleSubmit ? (
                     <button type="submit" onSubmit={handleSubmit}>
-                        완료!
+                        완료 및 저장
                     </button>
                 ) : (
                     <button type="button" onClick={handleNext}>

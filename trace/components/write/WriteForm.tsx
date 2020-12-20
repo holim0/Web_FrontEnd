@@ -87,7 +87,9 @@ const Calendar = styled.div`
 
 interface Props {
     startDate: Date;
-    handelSelectDate: (data: Date) => void;
+    finishDate: Date;
+    handleStartDate: (data: Date) => void;
+    handleFinishDate: (data: Date) => void;
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     handleImg: () => void;
     imgInput: React.MutableRefObject<HTMLInputElement>;
@@ -97,8 +99,10 @@ registerLocale("ko", ko);
 
 const WriteForm = ({
     startDate,
+    finishDate,
     handleNext,
-    handelSelectDate,
+    handleStartDate,
+    handleFinishDate,
     handleFormChange,
     handleImg,
     imgInput,
@@ -122,13 +126,13 @@ const WriteForm = ({
                     <Calendar>
                         <DatePicker
                             selected={startDate}
-                            onChange={handelSelectDate}
+                            onChange={handleStartDate}
                             dateFormat="yy/MM/dd"
                             locale="ko"
                         />
                         <DatePicker
-                            selected={startDate}
-                            onChange={handelSelectDate}
+                            selected={finishDate}
+                            onChange={handleFinishDate}
                             dateFormat="yy/MM/dd"
                             locale="ko"
                         />

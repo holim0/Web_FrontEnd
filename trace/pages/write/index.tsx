@@ -22,8 +22,13 @@ const index = () => {
 
     // 거주기간 날짜 선택
     const [startDate, setStartDate] = useState(new Date());
-    const handelSelectDate = useCallback((data: Date) => {
+    const handleStartDate = useCallback((data: Date) => {
         setStartDate(() => data);
+    }, []);
+
+    const [finishDate, setFinishDate] = useState(new Date());
+    const handleFinishDate = useCallback((data: Date) => {
+        setFinishDate(() => data);
     }, []);
 
     // 작성 form data
@@ -42,10 +47,12 @@ const index = () => {
         <WriteForm
             imgInput={imgInput}
             startDate={startDate}
+            finishDate={finishDate}
             handleNext={handleNext}
             handleFormChange={handleFormChange}
+            handleFinishDate={handleFinishDate}
             handleImg={handleImg}
-            handelSelectDate={handelSelectDate}></WriteForm>
+            handleStartDate={handleStartDate}></WriteForm>
     );
 };
 

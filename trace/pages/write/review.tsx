@@ -23,9 +23,13 @@ const Review = () => {
 
     // 유지 기간
     const [persistDate, setPresistDate] = useState(new Date());
-
-    const handelSelectDate = useCallback((data: Date) => {
+    const handleStartDate = useCallback((data: Date) => {
         setPresistDate(() => data);
+    }, []);
+
+    const [finishDate, setFinishDate] = useState(new Date());
+    const handleFinishDate = useCallback((data: Date) => {
+        setFinishDate(() => data);
     }, []);
 
     // 이전 단계로 이동합니다.
@@ -40,7 +44,9 @@ const Review = () => {
         <WriteReviewForm
             toggle={toggle}
             persistDate={persistDate}
-            handelSelectDate={handelSelectDate}
+            finishDate={finishDate}
+            handleFinishDate={handleFinishDate}
+            handleStartDate={handleStartDate}
             handleToggle={handleToggle}
             handleFormChange={handleFormChange}
             handleSubmit={handleSubmit}
