@@ -1,4 +1,5 @@
 import { useFormInput } from "@cooksmelon/event";
+import { useScrollTop } from "hook";
 import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useRef, useState } from "react";
 import WriteForm from "../../components/write/WriteForm";
@@ -33,6 +34,9 @@ const index = () => {
     const handleNext = useCallback(() => {
         router.push("/write/review");
     }, []);
+
+    // 위로 이동
+    useScrollTop();
 
     return (
         <WriteForm

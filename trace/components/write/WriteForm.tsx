@@ -107,7 +107,6 @@ const WriteForm = ({
         <Container>
             <Write>
                 <Address />
-
                 <AddImg>
                     <ImgBox onClick={handleImg}>
                         <div>+</div>

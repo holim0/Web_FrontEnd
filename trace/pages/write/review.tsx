@@ -1,5 +1,6 @@
 import { useFormInput, useToggle } from "@cooksmelon/event";
 import WriteReviewForm from "components/write/writeReview/WriteReviewForm";
+import { useScrollTop } from "hook";
 import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useState } from "react";
 
@@ -31,6 +32,9 @@ const Review = () => {
     const handlePrev = useCallback(() => {
         router.back();
     }, []);
+
+    // 렌더링 시 맨 위로 이동
+    useScrollTop();
 
     return (
         <WriteReviewForm
