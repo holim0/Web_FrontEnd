@@ -1,14 +1,20 @@
-import styled from "@emotion/styled";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import { SelectForm } from "./SelectForm";
+import BtnLink from "../common/write/Btn";
+import { WriteClick } from "../../@types/interface";
+import styled from "@emotion/styled";
+import Address from "components/common/write/Address";
+import { Container } from "styles/commonStyle";
 
-const Container = styled.main`
-    max-width: 900px;
+const Write = styled.div`
+    max-width: 1000px;
+    padding: 12px;
     width: 100%;
     margin: 0 auto;
     text-align: center;
+    background-color: ${(props) => props.theme.white};
 `;
 
 export const SubTitle = styled.div`
@@ -19,21 +25,6 @@ export const SubTitle = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.darkWhite};
     width: fit-content;
     font-weight: 600;
-`;
-
-const Address = styled.div`
-    display: flex;
-    padding: 12px;
-
-    button {
-        all: unset;
-        cursor: pointer;
-        border: 1px solid ${(props) => props.theme.darkWhite};
-        padding: 8px;
-        &:hover {
-            background-color: ${(props) => props.theme.darkWhite};
-        }
-    }
 `;
 
 const AddImg = styled.div`
@@ -94,28 +85,11 @@ const Calendar = styled.div`
     }
 `;
 
-const NextBtn = styled.div`
-    min-height: 200px;
-    line-height: 200px;
-    text-align: right;
-
-    button {
-        background: transparent;
-        outline: none;
-        border: none;
-        padding: 0 12px;
-        font-size: 14px;
-        color: #0c84cd;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-`;
-
 interface Props {
     startDate: Date;
-    handelSelectDate: (data: Date) => void;
+    finishDate: Date;
+    handleStartDate: (data: Date) => void;
+    handleFinishDate: (data: Date) => void;
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     handleImg: () => void;
     imgInput: React.MutableRefObject<HTMLInputElement>;
@@ -125,48 +99,48 @@ registerLocale("ko", ko);
 
 const WriteForm = ({
     startDate,
-    handelSelectDate,
+    finishDate,
+    handleNext,
+    handleStartDate,
+    handleFinishDate,
     handleFormChange,
     handleImg,
     imgInput,
-}: Props) => {
+}: Props & WriteClick) => {
     return (
         <Container>
-            <Address>
-                <button type="button">상세 주소작성</button>
-            </Address>
+            <Write>
+                <Address />
+                <AddImg>
+                    <ImgBox onClick={handleImg}>
+                        <div>+</div>
+                    </ImgBox>
+                    <input ref={imgInput} type="file" hidden />
+                    <ShowImg>
+                        <img src="" alt="올린이미지" />
+                    </ShowImg>
+                </AddImg>
 
-            <AddImg>
-                <ImgBox onClick={handleImg}>
-                    <div>+</div>
-                </ImgBox>
-                <input ref={imgInput} type="file" hidden />
-                <ShowImg>
-                    <img src="" alt="올린이미지" />
-                </ShowImg>
-            </AddImg>
-
-            <div>
-                <SubTitle>거주기간</SubTitle>
-                <Calendar>
-                    <DatePicker
-                        selected={startDate}
-                        onChange={handelSelectDate}
-                        dateFormat="yy/MM/dd"
-                        locale="ko"
-                    />
-                    <DatePicker
-                        selected={startDate}
-                        onChange={handelSelectDate}
-                        dateFormat="yy/MM/dd"
-                        locale="ko"
-                    />
-                </Calendar>
-            </div>
-            <SelectForm handleFormChange={handleFormChange} />
-            <NextBtn>
-                <button type="button">다음으로 이동해 작성 완료하기</button>
-            </NextBtn>
+                <div>
+                    <SubTitle>거주기간</SubTitle>
+                    <Calendar>
+                        <DatePicker
+                            selected={startDate}
+                            onChange={handleStartDate}
+                            dateFormat="yy/MM/dd"
+                            locale="ko"
+                        />
+                        <DatePicker
+                            selected={finishDate}
+                            onChange={handleFinishDate}
+                            dateFormat="yy/MM/dd"
+                            locale="ko"
+                        />
+                    </Calendar>
+                </div>
+                <SelectForm handleFormChange={handleFormChange} />
+                <BtnLink handleNext={handleNext} />
+            </Write>
         </Container>
     );
 };
