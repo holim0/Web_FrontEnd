@@ -9,10 +9,12 @@ import Address from "components/common/write/Address";
 import { Container } from "styles/commonStyle";
 
 const Write = styled.div`
-    max-width: 900px;
+    max-width: 1000px;
+    padding: 12px;
     width: 100%;
     margin: 0 auto;
     text-align: center;
+    background-color: ${(props) => props.theme.white};
 `;
 
 export const SubTitle = styled.div`

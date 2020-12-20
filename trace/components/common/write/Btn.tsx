@@ -4,8 +4,10 @@ import { WriteClick } from "../../../@types/interface";
 
 const Container = styled.div`
     max-width: 900px;
-    margin: 48px auto;
+    margin: 0 auto;
     width: 100%;
+    min-height: 200px;
+    line-height: 200px;
     display: flex;
     justify-content: space-between;
 `;

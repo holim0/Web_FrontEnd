@@ -5,13 +5,17 @@ import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { SubTitle } from "../WriteForm";
 import { Container } from "styles/commonStyle";
+import { css, keyframes } from "@emotion/react";
+import DatePicker, { registerLocale } from "react-datepicker";
+import ko from "date-fns/locale/ko";
 
 const Write = styled.div`
-    max-width: 900px;
+    max-width: 1000px;
+    padding: 12px;
     width: 100%;
     margin: 0 auto;
     text-align: center;
-    background: #ffffff;
+    background: ${(props) => props.theme.white};
 `;
 
 const TextArea = styled.textarea`
@@ -29,34 +33,145 @@ const TextArea = styled.textarea`
         0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `;
 
+const Release = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    input {
+        all: unset;
+        margin: 12px 0;
+        border: 1px solid ${(props) => props.theme.darkWhite};
+        padding: 6px 12px;
+        font-size: 12px;
+        text-align: left;
+    }
+`;
+
+const ToggleBtn = styled.button<styled>`
+    all: unset;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 12px;
+    padding: 6px 12px;
+    border: 1px solid #dbdbdb;
+    color: ${(props) => props.theme.black};
+    background-color: ${(props) => props.theme.white};
+
+    ${(props) =>
+        props.toggle &&
+        css`
+            color: #ffffff;
+            background-color: #1da1f2;
+        `}
+`;
+
+const bounce = keyframes`
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+`;
+
+const ToRelease = styled.div`
+    display: flex;
+    flex-direction: column;
+    animation: ${bounce} 500ms forwards;
+`;
+
+const Calendar = styled.div`
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    input {
+        margin: 0 6px;
+        padding: 6px 12px;
+        border: 1px solid ${(props) => props.theme.darkWhite};
+        text-align: center;
+        &:hover {
+            background: ${(props) => props.theme.darkWhite};
+            outline: none;
+            border: 1px solid ${(props) => props.theme.white};
+        }
+    }
+`;
+
+interface styled {
+    toggle: boolean;
+}
+
 interface Props extends WriteClick {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
+    toggle: boolean;
+    handleToggle: () => void;
+    persistDate: Date;
+    handelSelectDate: (date: Date) => void;
 }
+
+registerLocale("ko", ko);
 
 const WriteReviewForm = ({
     handleSubmit,
     handlePrev,
     handleFormChange,
+    toggle,
+    handleToggle,
+    persistDate,
+    handelSelectDate,
 }: Props) => {
     return (
         <Container>
             <Write>
                 <Address />
                 <form onChange={handleFormChange}>
-                    <SubTitle>옵션</SubTitle>
-                    <TextArea name="option"></TextArea>
-                    <SubTitle>주변정보</SubTitle>
-                    <TextArea name="info"></TextArea>
-                    <SubTitle>마음의 소리</SubTitle>
-                    <TextArea name="voice"></TextArea>
+                    <SubTitle>⚙️옵션</SubTitle>
+                    <TextArea
+                        name="option"
+                        placeholder="냉장고, 책상 등 방에 포함된 옵션을 작성해 주세요."></TextArea>
+                    <SubTitle>ℹ️주변정보</SubTitle>
+                    <TextArea
+                        placeholder="교통, 편의시설, 외부소음, 음식점, 술집, 학교와의 거리 등을 입력해 주세요."
+                        name="info"></TextArea>
+                    <SubTitle>🔉마음의 소리</SubTitle>
+                    <TextArea
+                        name="voice"
+                        placeholder="솔직한 후기를 가감없이 말해주세요."></TextArea>
 
-                    <div>
-                        <label htmlFor="release">방을 내놓을까요?</label>
-                        <input
-                            type="checkbox"
-                            id="release"
-                            name="release"></input>
-                    </div>
+                    <Release>
+                        <ToggleBtn
+                            type="button"
+                            onClick={handleToggle}
+                            toggle={toggle}>
+                            방을 내놓을까요? {toggle ? "❌" : "✔️"}
+                        </ToggleBtn>
+                        {toggle && (
+                            <ToRelease>
+                                <input
+                                    type="text"
+                                    placeholder="연락가능한 수단을 입력해 주세요 (번호, 카톡 아이디 등)"
+                                />
+                                <SubTitle>유지기간</SubTitle>
+                                <Calendar>
+                                    <DatePicker
+                                        selected={persistDate}
+                                        onChange={handelSelectDate}
+                                        dateFormat="yy/MM/dd"
+                                        locale="ko"
+                                    />
+                                    <DatePicker
+                                        selected={persistDate}
+                                        onChange={handelSelectDate}
+                                        dateFormat="yy/MM/dd"
+                                        locale="ko"
+                                    />
+                                </Calendar>
+                            </ToRelease>
+                        )}
+                    </Release>
                 </form>
                 <BtnLink handleSubmit={handleSubmit} handlePrev={handlePrev} />
             </Write>
