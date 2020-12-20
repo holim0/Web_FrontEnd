@@ -5,6 +5,7 @@ import WriteForm from "../../components/write/WriteForm";
 const index = () => {
     // img 업로드
     const imgInput = useRef<HTMLInputElement>(null!);
+
     const handleImg = useCallback(() => {
         const input = imgInput.current;
         input.click();
