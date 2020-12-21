@@ -7,6 +7,7 @@ import { ReviewWrite, WriteClick } from "../../@types/interface";
 import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { Container } from "styles/commonStyle";
+import { css } from "@emotion/react";
 
 const Write = styled.div`
     max-width: 1000px;
@@ -30,6 +31,7 @@ export const SubTitle = styled.div`
 const AddImg = styled.div`
     display: flex;
     justify-content: center;
+
     div {
         margin: 0 5px;
     }
@@ -40,7 +42,7 @@ const ImgBox = styled.div`
     text-shadow: 1px 1px 1px ${(props) => props.theme.black};
     background: ${(props) => props.theme.darkWhite};
     width: 450px;
-    height: 350px;
+    height: 400px;
     color: ${(props) => props.theme.white};
     font-size: 140px;
     cursor: pointer;
@@ -60,17 +62,60 @@ const ImgBox = styled.div`
 
 const ShowImg = styled.div`
     width: 450px;
-    height: 350px;
+    height: 400px;
     border: 1px solid ${(props) => props.theme.darkWhite};
+    display: flex;
+    position: relative;
+    overflow: hidden;
     img {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
+        object-fit: contain;
         height: 100%;
     }
+`;
+
+const Btns = styled.button<Style>`
+    all: unset;
+    z-index: 55;
+    cursor: pointer;
+    padding: 3px 6px;
+    border-radius: 12px;
+    background-color: ${(props) => props.theme.black};
+    color: ${(props) => props.theme.white};
+    opacity: 0.8;
+    position: absolute;
+    bottom: 10px;
+    ${(props) =>
+        props.next
+            ? css`
+                  right: 3px;
+              `
+            : css`
+                  left: 3px;
+              `}
+`;
+
+const Length = styled.div`
+    z-index: 55;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    background-color: ${(props) => props.theme.black};
+    color: ${(props) => props.theme.white};
+    opacity: 0.8;
+    padding: 3px 12px;
+    border-radius: 12px;
 `;
 
 const Calendar = styled.div`
     display: flex;
     justify-content: center;
+    .react-datepicker__header {
+        background-color: ${(props) => props.theme.white};
+    }
     input {
         cursor: pointer;
         margin: 0 6px;
@@ -85,14 +130,21 @@ const Calendar = styled.div`
     }
 `;
 
+interface Style {
+    next?: boolean;
+}
+
 interface Props {
     writeState: ReviewWrite;
     livingStart: Date;
     livingEnd: Date;
+    countIdx: number;
     handleStartDate: (data: Date) => void;
     handleFinishDate: (data: Date) => void;
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     handleImg: () => void;
+    handleNextSlide: () => void;
+    handlePrevSlide: () => void;
     imgInput: React.MutableRefObject<HTMLInputElement>;
     onFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
 }
@@ -103,14 +155,18 @@ const WriteForm = ({
     writeState,
     livingStart,
     livingEnd,
+    countIdx,
     handleNext,
     handleStartDate,
     handleFinishDate,
     handleFormChange,
     handleImg,
+    handleNextSlide,
+    handlePrevSlide,
     imgInput,
     onFix,
 }: Props & WriteClick) => {
+    const { images } = writeState;
     return (
         <Container>
             <Write>
@@ -119,9 +175,37 @@ const WriteForm = ({
                     <ImgBox onClick={handleImg}>
                         <div>+</div>
                     </ImgBox>
-                    <input ref={imgInput} type="file" hidden />
+                    <input ref={imgInput} type="file" accept="image/*" hidden />
                     <ShowImg>
-                        <img src="" alt="올린이미지" />
+                        {images.length > 0 && (
+                            <>
+                                {countIdx !== 1 && (
+                                    <Btns
+                                        type="button"
+                                        onClick={handlePrevSlide}>
+                                        이전
+                                    </Btns>
+                                )}
+                                <div>
+                                    <img
+                                        src={images[countIdx - 1]}
+                                        alt="올린이미지"
+                                    />
+                                    <Length>
+                                        {countIdx}/{images.length}
+                                    </Length>
+                                </div>
+                                {images.length >= 2 &&
+                                    countIdx !== images.length && (
+                                        <Btns
+                                            next={true}
+                                            type="button"
+                                            onClick={handleNextSlide}>
+                                            다음
+                                        </Btns>
+                                    )}
+                            </>
+                        )}
                     </ShowImg>
                 </AddImg>
 
@@ -129,16 +213,18 @@ const WriteForm = ({
                     <SubTitle>거주기간</SubTitle>
                     <Calendar>
                         <DatePicker
-                            selected={livingStart}
+                            selected={livingStart || new Date()}
                             onChange={handleStartDate}
                             dateFormat="yy/MM/dd"
                             locale="ko"
+                            required
                         />
                         <DatePicker
-                            selected={livingEnd}
+                            selected={livingEnd || new Date()}
                             onChange={handleFinishDate}
                             dateFormat="yy/MM/dd"
                             locale="ko"
+                            required
                         />
                     </Calendar>
                 </div>

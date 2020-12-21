@@ -21,19 +21,15 @@ const Review = () => {
 
     // 유지 기간
     const { durationStart, durationEnd } = writeReview;
-    const [startDate, setStartDate] = useState(new Date());
     const handleStartDate = useCallback(
         (data: Date) => {
-            setStartDate(() => data);
             setForm({ ...form, durationStart: data });
         },
         [dispatch]
     );
 
-    const [endDate, setEndDate] = useState(new Date());
     const handleFinishDate = useCallback(
         (data: Date) => {
-            setEndDate(() => data);
             setForm({ ...form, durationEnd: data });
         },
         [dispatch]
@@ -46,12 +42,11 @@ const Review = () => {
                 ...writeReview,
                 ...form,
                 isSell: toggle,
-                durationStart: startDate,
-                durationEnd: endDate,
             })
         );
     }, [form]);
 
+    // 만약 방을 내놓으면, isSell에 상태를 저장합니다
     useEffect(() => {
         dispatch(
             reviewWrite({
@@ -65,7 +60,9 @@ const Review = () => {
     const handleSubmit = useCallback(
         (e: React.FormEvent<HTMLButtonElement | HTMLFormElement>) => {
             e.preventDefault();
-            console.log(writeReview);
+            if (window.confirm("작성 하십니까?")) {
+                console.log(writeReview);
+            }
         },
         []
     );
