@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { SubTitle } from "./WriteForm";
 import Rating from "../common/Rating";
 import { ReviewWrite } from "../../@types/interface";
+import Select from "react-select";
 
 const Rent = styled.input`
     margin: 0 3px;
@@ -68,7 +69,7 @@ const TotalRating = styled.div`
     }
 `;
 
-const Select = styled.div`
+const SelectSection = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 300px);
     gap: 8px;
@@ -104,7 +105,11 @@ const OptionsGrid = styled.div`
 `;
 
 const Options = styled.div`
-    select {
+    width: 200px;
+    text-align: center;
+    margin: 0 auto;
+
+    /* Select {
         padding: 6px;
         width: 200px;
         height: 50px;
@@ -112,7 +117,7 @@ const Options = styled.div`
         cursor: pointer;
         border: 1px solid ${(props) => props.theme.darkWhite};
         outline: none;
-    }
+    } */
 `;
 
 interface Props {
@@ -120,6 +125,25 @@ interface Props {
     writeState: ReviewWrite;
     onFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
 }
+
+// Select option interface
+interface OptionType {
+    value: string;
+    label: string;
+}
+
+const Soundoptions: OptionType[] = [
+    { value: "독서실", label: "독서실" },
+    { value: "옆사람과 동거중", label: "옆사람과 동거중" },
+    { value: "종종 들림", label: "종종 들림" },
+];
+
+const Bugoptions: OptionType[] = [
+    { value: "가끔 나와요", label: "가끔 나와요" },
+    { value: "전혀 안나와요", label: "전혀 안나와요" },
+    { value: "꽤 안나와요", label: "꽤 안나와요" },
+    { value: "항상 같이 살아요", label: "항상 같이 살아요" },
+];
 
 export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
     const {
@@ -187,7 +211,7 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
                 <div>별을 클릭해 평가해 주세요!</div>
             </TotalRating>
 
-            <Select>
+            <SelectSection>
                 <div>
                     <SubTitle>리모델링 여부🏠</SubTitle>
                     <input
@@ -267,26 +291,19 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
                     />
                     <label htmlFor="bad">아쉬워요</label>
                 </div>
-            </Select>
+            </SelectSection>
 
             <OptionsGrid>
                 <Options>
                     <SubTitle>방음🗣️</SubTitle>
-                    <select name="noise" defaultValue={noise}>
-                        <option>독서실</option>
-                        <option>옆사람과 동거중</option>
-                        <option>종종 들림</option>
-                    </select>
+
+                    <Select options={Soundoptions} />
                 </Options>
 
                 <Options>
                     <SubTitle>벌레여부🐛</SubTitle>
-                    <select name="bug" defaultValue={bug}>
-                        <option>가끔나와요</option>
-                        <option>전혀 안나와요</option>
-                        <option>꽤 안나와요</option>
-                        <option>항상 같이 살아요</option>
-                    </select>
+
+                    <Select options={Bugoptions} />
                 </Options>
             </OptionsGrid>
         </form>
