@@ -2,13 +2,16 @@ import { useFormInput } from "@cooksmelon/event";
 import { useScrollTop } from "hook";
 import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import WriteForm from "../../components/write/WriteForm";
 import { reviewWrite } from "redux/review";
+import { RootState } from "redux";
 
 const index = () => {
     const router = useRouter();
     const dispatch = useDispatch();
+    const writeState = useSelector((state: RootState) => state.review.write);
+    const { isSell } = useSelector((state: RootState) => state.review);
     // img 업로드
     const imgInput = useRef<HTMLInputElement>(null!);
 
@@ -23,30 +26,48 @@ const index = () => {
     }, []);
 
     // 작성 form data
-    const [form, handleFormChange] = useFormInput();
-
-    useEffect(() => {
-        dispatch(reviewWrite(form));
-    }, [form]);
+    const [form, handleFormChange, setForm] = useFormInput();
 
     // 거주기간 날짜 선택
-    const [livingStart, setLivingStart] = useState(new Date());
+    const { livingStart, livingEnd } = writeState;
+
+    // 시작 날짜
+    const [startDate, setLivingStart] = useState(
+        livingStart ? livingStart : new Date()
+    );
     const handleStartDate = useCallback(
         (data: Date) => {
             setLivingStart(() => data);
-            dispatch(reviewWrite({ livingStart: data }));
+            setForm({ ...form, livingStart: data });
         },
-        [dispatch]
+        [form]
     );
 
-    const [livingEnd, setLivingEnd] = useState(new Date());
+    // 끝나는 날짜
+    const [endDate, setLivingEnd] = useState(
+        livingEnd ? livingEnd : new Date()
+    );
     const handleFinishDate = useCallback(
         (data: Date) => {
             setLivingEnd(() => data);
-            dispatch(reviewWrite({ livingEnd: data }));
+            setForm({ ...form, livingEnd: data });
         },
-        [dispatch]
+        [form]
     );
+
+    // form이 변할 때마다 리덕스 데이터에 폼 데이터를 씌움
+    // startDate, endDate를 설정한 이유는 초기 값을 설정하기 때문
+    useEffect(() => {
+        dispatch(
+            reviewWrite({
+                ...writeState,
+                ...form,
+                isSell,
+                livingStart: startDate,
+                livingEnd: endDate,
+            })
+        );
+    }, [form]);
 
     const handleNext = useCallback(() => {
         router.push("/write/review");
@@ -57,6 +78,7 @@ const index = () => {
 
     return (
         <WriteForm
+            writeState={writeState}
             imgInput={imgInput}
             livingStart={livingStart}
             livingEnd={livingEnd}

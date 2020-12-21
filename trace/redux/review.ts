@@ -1,64 +1,64 @@
 // 리뷰 글쓰기 리덕스입니다.
 import { createSlice } from "@reduxjs/toolkit";
+import { ReviewWrite } from "../@types/interface";
 
-interface InitialState {
-    write: {
-        roomNumber: string;
-        images: any;
-        rentType: string;
-        deposit: number;
-        monthlyRent: number;
-        score: number;
-        area: number;
-        livingStart: Date | number;
-        livingEnd: Date | number;
-        remodel: false;
-        waterPressure: string;
-        lighting: string;
-        frozen: string;
-        bug: string;
-        noise: string;
-        option: string;
-        nearBy: string;
-        trueStory: string;
-        contact: string;
-        durationStart: Date | number;
-        durationEnd: Date | number;
-    };
+export interface ReviewState {
+    isSell: boolean;
+    write: ReviewWrite;
 }
 
-const initialState: InitialState = {
+export const reviewState: ReviewState = {
+    isSell: false,
     write: {
         roomNumber: "",
         images: [],
-        rentType: "",
+        rentType: "월세",
         deposit: 0,
         monthlyRent: 0,
         score: 0,
-        area: 0,
-        livingStart: Date.now(),
-        livingEnd: Date.now(),
-        remodel: false,
-        waterPressure: "",
-        lighting: "",
-        frozen: "",
-        bug: "",
-        noise: "",
+        livingStart: null,
+        livingEnd: null,
+        remodeled: true,
+        waterPressure: "좋아요",
+        lighting: "좋아요",
+        frozen: "없어요",
+        bug: "가끔나와요",
+        noise: "독서실",
         option: "",
         nearBy: "",
         trueStory: "",
         contact: "",
-        durationStart: Date.now(),
-        durationEnd: Date.now(),
+        durationStart: null,
+        durationEnd: null,
     },
 };
 
 const review = createSlice({
     name: "review",
-    initialState,
+    initialState: reviewState,
     reducers: {
         reviewWrite: (state, { payload }) => {
-            state.write = payload;
+            state.isSell = payload.isSell;
+            state.write.roomNumber = payload.roomNumber;
+            state.write.images = payload.images;
+            state.write.rentType = payload.rentType;
+            state.write.deposit = payload.deposit;
+            state.write.monthlyRent = payload.monthlyRent;
+            state.write.score = payload.score;
+            state.write.livingStart = payload.livingStart;
+            state.write.livingEnd = payload.livingEnd;
+            state.write.remodeled = payload.remodeled !== "";
+            state.write.waterPressure = payload.waterPressure;
+            state.write.lighting = payload.lighting;
+            state.write.frozen = payload.frozen;
+            state.write.bug = payload.bug;
+            state.write.noise = payload.noise;
+            state.write.option = payload.option;
+            state.write.nearBy = payload.nearBy;
+            state.write.trueStory = payload.trueStory;
+            state.write.contact = payload.contact;
+            state.write.durationStart = payload.durationStart;
+            state.write.durationEnd = payload.durationEnd;
         },
         reviewWriteSubmit: (state, { payload }) => {
             state = payload;

@@ -3,10 +3,11 @@ import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import { SelectForm } from "./SelectForm";
 import BtnLink from "../common/write/Btn";
-import { WriteClick } from "../../@types/interface";
+import { ReviewWrite, WriteClick } from "../../@types/interface";
 import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { Container } from "styles/commonStyle";
+import { ReviewState } from "redux/review";
 
 const Write = styled.div`
     max-width: 1000px;
@@ -86,6 +87,7 @@ const Calendar = styled.div`
 `;
 
 interface Props {
+    writeState: ReviewWrite;
     livingStart: Date;
     livingEnd: Date;
     handleStartDate: (data: Date) => void;
@@ -98,6 +100,7 @@ interface Props {
 registerLocale("ko", ko);
 
 const WriteForm = ({
+    writeState,
     livingStart,
     livingEnd,
     handleNext,
@@ -138,7 +141,10 @@ const WriteForm = ({
                         />
                     </Calendar>
                 </div>
-                <SelectForm handleFormChange={handleFormChange} />
+                <SelectForm
+                    writeState={writeState}
+                    handleFormChange={handleFormChange}
+                />
                 <BtnLink handleNext={handleNext} />
             </Write>
         </Container>

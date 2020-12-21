@@ -160,10 +160,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@cooksmelon/event@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/@cooksmelon/event/-/event-1.0.10.tgz#83eee6f7365279e5e74be97da768605665b7d69c"
-  integrity sha512-+NyQOmuJI3l2J7x+ltSV0XkTbo3WmyGFXV0JNPEvGXgYPIxuoJ1vQdEi2YjZsqgRRNfOo2JwrlAXZJwmgSQ7jA==
+"@cooksmelon/event@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@cooksmelon/event/-/event-1.0.11.tgz#6d7f3c43c4b72280b058cc18026b11e5e6d12f1f"
+  integrity sha512-9HIc2lb7a2ioD9DJIZYePMPdBXM/J0l00HPUKBZa595fFWm7ZZ0n5G6Wn+AfN75U/nfLfcG77dN44moo6b5Deg==
   dependencies:
     "@types/react" "^17.0.0"
     "@types/react-dom" "^17.0.0"
