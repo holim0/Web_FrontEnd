@@ -45,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create("width"),
         width: "100%",
         [theme.breakpoints.up("md")]: {
-            width: "25ch",
+            width: "30ch",
             "&:focus": {
-                width: "35ch",
+                width: "40ch",
             },
         },
     },
@@ -122,9 +122,7 @@ const Header = () => {
                 <MenuBtn href="/">
                     <a>홈</a>
                 </MenuBtn>
-                <MenuBtn href="/room">
-                    <a>원룸</a>
-                </MenuBtn>
+
                 <MenuBtn href="/community">커뮤니티</MenuBtn>
                 <MenuBtn href="/write">글쓰기</MenuBtn>
                 <Button type="primary" onClick={showModal}>
