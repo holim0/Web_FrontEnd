@@ -1,12 +1,14 @@
 import { useFormInput } from "@cooksmelon/event";
 import { useScrollTop } from "hook";
 import { useRouter } from "next/dist/client/router";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import WriteForm from "../../components/write/WriteForm";
+import { reviewWrite } from "redux/review";
 
 const index = () => {
     const router = useRouter();
-
+    const dispatch = useDispatch();
     // img 업로드
     const imgInput = useRef<HTMLInputElement>(null!);
 
@@ -20,21 +22,31 @@ const index = () => {
         };
     }, []);
 
-    // 거주기간 날짜 선택
-    const [startDate, setStartDate] = useState(new Date());
-    const handleStartDate = useCallback((data: Date) => {
-        setStartDate(() => data);
-    }, []);
-
-    const [finishDate, setFinishDate] = useState(new Date());
-    const handleFinishDate = useCallback((data: Date) => {
-        setFinishDate(() => data);
-    }, []);
-
     // 작성 form data
     const [form, handleFormChange] = useFormInput();
 
-    console.log(form);
+    useEffect(() => {
+        dispatch(reviewWrite(form));
+    }, [form]);
+
+    // 거주기간 날짜 선택
+    const [livingStart, setLivingStart] = useState(new Date());
+    const handleStartDate = useCallback(
+        (data: Date) => {
+            setLivingStart(() => data);
+            dispatch(reviewWrite({ livingStart: data }));
+        },
+        [dispatch]
+    );
+
+    const [livingEnd, setLivingEnd] = useState(new Date());
+    const handleFinishDate = useCallback(
+        (data: Date) => {
+            setLivingEnd(() => data);
+            dispatch(reviewWrite({ livingEnd: data }));
+        },
+        [dispatch]
+    );
 
     const handleNext = useCallback(() => {
         router.push("/write/review");
@@ -46,8 +58,8 @@ const index = () => {
     return (
         <WriteForm
             imgInput={imgInput}
-            startDate={startDate}
-            finishDate={finishDate}
+            livingStart={livingStart}
+            livingEnd={livingEnd}
             handleNext={handleNext}
             handleFormChange={handleFormChange}
             handleFinishDate={handleFinishDate}

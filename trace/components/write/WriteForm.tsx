@@ -86,8 +86,8 @@ const Calendar = styled.div`
 `;
 
 interface Props {
-    startDate: Date;
-    finishDate: Date;
+    livingStart: Date;
+    livingEnd: Date;
     handleStartDate: (data: Date) => void;
     handleFinishDate: (data: Date) => void;
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -98,8 +98,8 @@ interface Props {
 registerLocale("ko", ko);
 
 const WriteForm = ({
-    startDate,
-    finishDate,
+    livingStart,
+    livingEnd,
     handleNext,
     handleStartDate,
     handleFinishDate,
@@ -125,13 +125,13 @@ const WriteForm = ({
                     <SubTitle>거주기간</SubTitle>
                     <Calendar>
                         <DatePicker
-                            selected={startDate}
+                            selected={livingStart}
                             onChange={handleStartDate}
                             dateFormat="yy/MM/dd"
                             locale="ko"
                         />
                         <DatePicker
-                            selected={finishDate}
+                            selected={livingEnd}
                             onChange={handleFinishDate}
                             dateFormat="yy/MM/dd"
                             locale="ko"

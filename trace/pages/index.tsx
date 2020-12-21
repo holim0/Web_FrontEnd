@@ -18,7 +18,5 @@ export default function Home() {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
-    return {
-        props: {},
-    };
+    console.log(ctx.store);
 });

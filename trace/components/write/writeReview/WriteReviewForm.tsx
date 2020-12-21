@@ -108,8 +108,8 @@ interface Props extends WriteClick {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     toggle: boolean;
     handleToggle: () => void;
-    persistDate: Date;
-    finishDate: Date;
+    durationStart: Date;
+    durationEnd: Date;
     handleFinishDate: (date: Date) => void;
     handleStartDate: (date: Date) => void;
 }
@@ -122,8 +122,8 @@ const WriteReviewForm = ({
     handleFormChange,
     toggle,
     handleToggle,
-    persistDate,
-    finishDate,
+    durationStart,
+    durationEnd,
     handleFinishDate,
     handleStartDate,
 }: Props) => {
@@ -139,10 +139,10 @@ const WriteReviewForm = ({
                     <SubTitle>ℹ️주변정보</SubTitle>
                     <TextArea
                         placeholder="교통, 편의시설, 외부소음, 음식점, 술집, 학교와의 거리 등을 입력해 주세요."
-                        name="info"></TextArea>
+                        name="nearBy"></TextArea>
                     <SubTitle>🔉마음의 소리</SubTitle>
                     <TextArea
-                        name="voice"
+                        name="trueStory"
                         placeholder="솔직한 후기를 가감없이 말해주세요."></TextArea>
 
                     <Release>
@@ -156,18 +156,19 @@ const WriteReviewForm = ({
                             <ToRelease>
                                 <input
                                     type="text"
+                                    name="contact"
                                     placeholder="연락가능한 수단을 입력해 주세요 (번호, 카톡 아이디 등)"
                                 />
                                 <SubTitle>유지기간</SubTitle>
                                 <Calendar>
                                     <DatePicker
-                                        selected={persistDate}
+                                        selected={durationStart}
                                         onChange={handleStartDate}
                                         dateFormat="yy/MM/dd"
                                         locale="ko"
                                     />
                                     <DatePicker
-                                        selected={finishDate}
+                                        selected={durationEnd}
                                         onChange={handleFinishDate}
                                         dateFormat="yy/MM/dd"
                                         locale="ko"

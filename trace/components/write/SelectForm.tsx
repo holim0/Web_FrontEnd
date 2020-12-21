@@ -104,19 +104,19 @@ export const SelectForm = ({ handleFormChange }: Props) => {
         <form onChange={handleFormChange}>
             <SubTitle>거주비용</SubTitle>
             <label htmlFor="month">월세</label>
-            <input type="radio" name="cost" id="month" value="monthlyRent" />
+            <input type="radio" name="rentType" id="month" value="월세" />
             <label htmlFor="charter">전세</label>
-            <input type="radio" name="cost" id="lease" value="lease" />
+            <input type="radio" name="rentType" id="lease" value="전세" />
 
             <Cost>
                 <CostBox>
                     <label htmlFor="deposit">보증금</label>
-                    <input type="text" id="deposit" name="deposit" />
+                    <input type="number" id="deposit" name="deposit" />
                     <span>만원</span>
                 </CostBox>
                 <CostBox>
                     <label htmlFor="rent">월세</label>
-                    <input type="text" id="rent" name="rent" />
+                    <input type="number" id="rent" name="monthlyRent" />
                     <span>만원</span>
                 </CostBox>
             </Cost>
@@ -131,16 +131,16 @@ export const SelectForm = ({ handleFormChange }: Props) => {
                     <SubTitle>리모델링 여부🏠</SubTitle>
                     <input
                         type="radio"
-                        name="remodeling"
+                        name="remodeled"
                         id="remodeling"
-                        value="yes"
+                        value="true"
                     />
                     <label htmlFor="remodeling">되어있어요</label>
                     <input
                         type="radio"
-                        name="remodeling"
+                        name="remodeled"
                         id="noRemodeling"
-                        value="no"
+                        value=""
                     />
                     <label htmlFor="noRemodeling">되어있지 않아요</label>
                 </div>
@@ -149,38 +149,43 @@ export const SelectForm = ({ handleFormChange }: Props) => {
                     <SubTitle>수압🌊</SubTitle>
                     <input
                         type="radio"
-                        name="pressure"
+                        name="waterPressure"
                         id="high"
-                        value="high"
+                        value="true"
                     />
                     <label htmlFor="high">좋아요</label>
-                    <input type="radio" name="pressure" id="low" value="low" />
+                    <input
+                        type="radio"
+                        name="waterPressure"
+                        id="low"
+                        value=""
+                    />
                     <label htmlFor="low">아쉬워요</label>
                 </div>
 
                 <div>
                     <SubTitle>동파 경험🥶</SubTitle>
+                    <input type="radio" name="frozen" id="nofrozen" value="" />
+                    <label htmlFor="nofrozen">없어요</label>
                     <input
                         type="radio"
-                        name="freeze"
-                        id="noFreeze"
-                        value="noFreeze"
+                        name="frozen"
+                        id="frozen"
+                        value="true"
                     />
-                    <label htmlFor="noFreeze">없어요</label>
-                    <input
-                        type="radio"
-                        name="freeze"
-                        id="freeze"
-                        value="freeze"
-                    />
-                    <label htmlFor="freeze">있어요</label>
+                    <label htmlFor="frozen">있어요</label>
                 </div>
 
                 <div>
                     <SubTitle>채광🌞</SubTitle>
-                    <input type="radio" name="sunny" id="good" value="good" />
+                    <input
+                        type="radio"
+                        name="lighting"
+                        id="good"
+                        value="true"
+                    />
                     <label htmlFor="good">좋아요</label>
-                    <input type="radio" name="sunny" id="bad" value="bad" />
+                    <input type="radio" name="lighting" id="bad" value="" />
                     <label htmlFor="bad">아쉬워요</label>
                 </div>
             </Select>
@@ -188,7 +193,7 @@ export const SelectForm = ({ handleFormChange }: Props) => {
             <OptionsGrid>
                 <Options>
                     <SubTitle>방음🗣️</SubTitle>
-                    <select name="silence">
+                    <select name="noise">
                         <option>독서실</option>
                         <option>옆사람과 동거중</option>
                         <option>종종 들림</option>
@@ -197,7 +202,7 @@ export const SelectForm = ({ handleFormChange }: Props) => {
 
                 <Options>
                     <SubTitle>벌레여부🐛</SubTitle>
-                    <select name="bugs">
+                    <select name="bug">
                         <option>가끔나와요</option>
                         <option>전혀 안나와요</option>
                         <option>꽤 안나와요</option>

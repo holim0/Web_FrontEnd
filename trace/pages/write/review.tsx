@@ -3,10 +3,12 @@ import WriteReviewForm from "components/write/writeReview/WriteReviewForm";
 import { useScrollTop } from "hook";
 import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { reviewWrite } from "redux/review";
 
 const Review = () => {
     const router = useRouter();
-
+    const dispatch = useDispatch();
     // 폼을 작성합니다.
     const [form, handleFormChange] = useFormInput();
 
@@ -14,6 +16,7 @@ const Review = () => {
     const handleSubmit = useCallback(
         (e: React.FormEvent<HTMLButtonElement>) => {
             e.preventDefault();
+            console.log(form);
         },
         []
     );
@@ -22,15 +25,23 @@ const Review = () => {
     const [toggle, handleToggle] = useToggle(false);
 
     // 유지 기간
-    const [persistDate, setPresistDate] = useState(new Date());
-    const handleStartDate = useCallback((data: Date) => {
-        setPresistDate(() => data);
-    }, []);
+    const [durationStart, setDurationStart] = useState(new Date());
+    const handleStartDate = useCallback(
+        (data: Date) => {
+            setDurationStart(() => data);
+            dispatch(reviewWrite({ durationStart: data }));
+        },
+        [dispatch]
+    );
 
-    const [finishDate, setFinishDate] = useState(new Date());
-    const handleFinishDate = useCallback((data: Date) => {
-        setFinishDate(() => data);
-    }, []);
+    const [durationEnd, setDurationEnd] = useState(new Date());
+    const handleFinishDate = useCallback(
+        (data: Date) => {
+            setDurationEnd(() => data);
+            dispatch(reviewWrite({ durationEnd: data }));
+        },
+        [dispatch]
+    );
 
     // 이전 단계로 이동합니다.
     const handlePrev = useCallback(() => {
@@ -43,8 +54,8 @@ const Review = () => {
     return (
         <WriteReviewForm
             toggle={toggle}
-            persistDate={persistDate}
-            finishDate={finishDate}
+            durationStart={durationStart}
+            durationEnd={durationEnd}
             handleFinishDate={handleFinishDate}
             handleStartDate={handleStartDate}
             handleToggle={handleToggle}

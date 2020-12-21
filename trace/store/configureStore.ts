@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose } from "node_modules/redux";
 import { createWrapper } from "next-redux-wrapper";
 import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -12,9 +12,8 @@ const configureStore = () => {
     const logger = createLogger(); // 로거 생성
     const middlewares = [sagaMiddleware, logger];
     const enhancer =
-        process.env.NODE_ENV === "production"
-            ? compose(applyMiddleware(sagaMiddleware))
-            : compose(composeWithDevTools(applyMiddleware(...middlewares)));
+        process.env.NODE_ENV !== "production" &&
+        compose(composeWithDevTools(applyMiddleware(...middlewares)));
     const store = createStore(rootReducer, enhancer); // 스토어 생성
     store.sagaTask = sagaMiddleware.run(rootSaga); // 미들웨어 실행 그리고 sagaTask에 할당.
     return store;
