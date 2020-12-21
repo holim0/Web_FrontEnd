@@ -1,4 +1,4 @@
-import { combineReducers } from "@reduxjs/toolkit";
+import { combineReducers } from "node_modules/redux";
 import { HYDRATE } from "next-redux-wrapper";
 
 const rootReducer = (state: any, action: any) => {
