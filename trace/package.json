@@ -17,7 +17,6 @@
         "@types/next-redux-saga": "^3.0.2",
         "@types/react-datepicker": "^3.1.2",
         "@types/react-redux": "^7.1.12",
-        "@types/react-slick": "^0.23.4",
         "@types/redux": "^3.6.0",
         "@types/redux-logger": "^3.0.8",
         "@types/redux-saga": "^0.10.5",
