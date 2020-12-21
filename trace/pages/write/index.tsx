@@ -62,27 +62,19 @@ const index = () => {
     }, [saveImg]);
 
     // 거주기간 날짜 선택
-    const { livingStart, livingEnd } = writeState;
+    const { livingStart, livingEnd, score, deposit, monthlyRent } = writeState;
 
     // 시작 날짜
-    const [startDate, setLivingStart] = useState(
-        livingStart ? livingStart : new Date()
-    );
     const handleStartDate = useCallback(
         (data: Date) => {
-            setLivingStart(() => data);
             setForm({ ...form, livingStart: data });
         },
         [form]
     );
 
     // 끝나는 날짜
-    const [endDate, setLivingEnd] = useState(
-        livingEnd ? livingEnd : new Date()
-    );
     const handleFinishDate = useCallback(
         (data: Date) => {
-            setLivingEnd(() => data);
             setForm({ ...form, livingEnd: data });
         },
         [form]
@@ -104,15 +96,19 @@ const index = () => {
                 ...writeState,
                 ...form,
                 isSell,
-                livingStart: startDate,
-                livingEnd: endDate,
             })
         );
     }, [form]);
 
     const handleNext = useCallback(() => {
+        if (score === 0) {
+            return alert("별점을 눌러주세요");
+        }
+        if (!deposit || !monthlyRent) {
+            return alert("금액을 적어주세요");
+        }
         router.push("/write/review");
-    }, []);
+    }, [score, deposit, monthlyRent]);
 
     // 위로 이동
     useScrollTop();

@@ -5,6 +5,9 @@ import { ReviewWrite } from "../../@types/interface";
 
 const Rent = styled.input`
     margin: 0 3px;
+    &[type="radio"] {
+        cursor: pointer;
+    }
 `;
 
 const Cost = styled.div`
@@ -134,15 +137,15 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
     return (
         <form onChange={handleFormChange}>
             <SubTitle>거주비용</SubTitle>
-            <label htmlFor="month">월세</label>
             <Rent
                 type="radio"
                 name="rentType"
                 id="month"
                 value="월세"
                 defaultChecked={rentType === "월세"}
+                required
             />
-            <label htmlFor="charter">전세</label>
+            <label htmlFor="month">월세</label>
             <Rent
                 type="radio"
                 name="rentType"
@@ -150,6 +153,7 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
                 value="전세"
                 defaultChecked={rentType === "전세"}
             />
+            <label htmlFor="charter">전세</label>
 
             <Cost>
                 <CostBox>
@@ -159,17 +163,19 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
                         id="deposit"
                         name="deposit"
                         defaultValue={deposit}
+                        required
                     />
                     <span>만원</span>
                 </CostBox>
                 <Preview>₩{(deposit * 10000).toLocaleString()}</Preview>
                 <CostBox>
-                    <label htmlFor="rent">월세</label>
+                    <label htmlFor="rent">{rentType}</label>
                     <input
                         type="number"
                         id="rent"
                         name="monthlyRent"
                         defaultValue={monthlyRent}
+                        required
                     />
                     <span>만원</span>
                 </CostBox>

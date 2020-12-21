@@ -7,7 +7,7 @@ import { ReviewWrite, WriteClick } from "../../@types/interface";
 import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { Container } from "styles/commonStyle";
-import { css, keyframes } from "@emotion/react";
+import { css } from "@emotion/react";
 
 const Write = styled.div`
     max-width: 1000px;
@@ -42,7 +42,7 @@ const ImgBox = styled.div`
     text-shadow: 1px 1px 1px ${(props) => props.theme.black};
     background: ${(props) => props.theme.darkWhite};
     width: 450px;
-    height: 350px;
+    height: 400px;
     color: ${(props) => props.theme.white};
     font-size: 140px;
     cursor: pointer;
@@ -62,7 +62,7 @@ const ImgBox = styled.div`
 
 const ShowImg = styled.div`
     width: 450px;
-    height: 350px;
+    height: 400px;
     border: 1px solid ${(props) => props.theme.darkWhite};
     display: flex;
     position: relative;
@@ -72,6 +72,7 @@ const ShowImg = styled.div`
         top: 0;
         left: 0;
         width: 100%;
+        object-fit: contain;
         height: 100%;
     }
 `;
@@ -112,6 +113,9 @@ const Length = styled.div`
 const Calendar = styled.div`
     display: flex;
     justify-content: center;
+    .react-datepicker__header {
+        background-color: ${(props) => props.theme.white};
+    }
     input {
         cursor: pointer;
         margin: 0 6px;
@@ -163,7 +167,6 @@ const WriteForm = ({
     onFix,
 }: Props & WriteClick) => {
     const { images } = writeState;
-    console.log(countIdx);
     return (
         <Container>
             <Write>
@@ -210,16 +213,18 @@ const WriteForm = ({
                     <SubTitle>거주기간</SubTitle>
                     <Calendar>
                         <DatePicker
-                            selected={livingStart}
+                            selected={livingStart || new Date()}
                             onChange={handleStartDate}
                             dateFormat="yy/MM/dd"
                             locale="ko"
+                            required
                         />
                         <DatePicker
-                            selected={livingEnd}
+                            selected={livingEnd || new Date()}
                             onChange={handleFinishDate}
                             dateFormat="yy/MM/dd"
                             locale="ko"
+                            required
                         />
                     </Calendar>
                 </div>
