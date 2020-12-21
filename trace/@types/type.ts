@@ -1,1 +1,3 @@
-export type Submit = (event: React.FormEvent<HTMLButtonElement>) => void;
+export type Submit = (
+    event: React.FormEvent<HTMLButtonElement | HTMLFormElement>
+) => void;

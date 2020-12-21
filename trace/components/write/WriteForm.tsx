@@ -3,7 +3,7 @@ import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import { SelectForm } from "./SelectForm";
 import BtnLink from "../common/write/Btn";
-import { WriteClick } from "../../@types/interface";
+import { ReviewWrite, WriteClick } from "../../@types/interface";
 import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { Container } from "styles/commonStyle";
@@ -86,26 +86,30 @@ const Calendar = styled.div`
 `;
 
 interface Props {
-    startDate: Date;
-    finishDate: Date;
+    writeState: ReviewWrite;
+    livingStart: Date;
+    livingEnd: Date;
     handleStartDate: (data: Date) => void;
     handleFinishDate: (data: Date) => void;
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     handleImg: () => void;
     imgInput: React.MutableRefObject<HTMLInputElement>;
+    onFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
 }
 
 registerLocale("ko", ko);
 
 const WriteForm = ({
-    startDate,
-    finishDate,
+    writeState,
+    livingStart,
+    livingEnd,
     handleNext,
     handleStartDate,
     handleFinishDate,
     handleFormChange,
     handleImg,
     imgInput,
+    onFix,
 }: Props & WriteClick) => {
     return (
         <Container>
@@ -125,20 +129,24 @@ const WriteForm = ({
                     <SubTitle>거주기간</SubTitle>
                     <Calendar>
                         <DatePicker
-                            selected={startDate}
+                            selected={livingStart}
                             onChange={handleStartDate}
                             dateFormat="yy/MM/dd"
                             locale="ko"
                         />
                         <DatePicker
-                            selected={finishDate}
+                            selected={livingEnd}
                             onChange={handleFinishDate}
                             dateFormat="yy/MM/dd"
                             locale="ko"
                         />
                     </Calendar>
                 </div>
-                <SelectForm handleFormChange={handleFormChange} />
+                <SelectForm
+                    onFix={onFix}
+                    writeState={writeState}
+                    handleFormChange={handleFormChange}
+                />
                 <BtnLink handleNext={handleNext} />
             </Write>
         </Container>

@@ -1,4 +1,4 @@
-import { WriteClick } from "../../../@types/interface";
+import { ReviewWrite, WriteClick } from "../../../@types/interface";
 import React from "react";
 import BtnLink from "../../common/write/Btn";
 import styled from "@emotion/styled";
@@ -8,6 +8,7 @@ import { Container } from "styles/commonStyle";
 import { css, keyframes } from "@emotion/react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
+import { Submit } from "../../../@types/type";
 
 const Write = styled.div`
     max-width: 1000px;
@@ -106,12 +107,14 @@ interface styled {
 
 interface Props extends WriteClick {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
-    toggle: boolean;
     handleToggle: () => void;
-    persistDate: Date;
-    finishDate: Date;
-    handleFinishDate: (date: Date) => void;
     handleStartDate: (date: Date) => void;
+    handleFinishDate: (date: Date) => void;
+    handleSubmit: Submit;
+    toggle: boolean;
+    durationStart: Date;
+    durationEnd: Date;
+    writeReview: ReviewWrite;
 }
 
 registerLocale("ko", ko);
@@ -120,29 +123,34 @@ const WriteReviewForm = ({
     handleSubmit,
     handlePrev,
     handleFormChange,
+    writeReview,
     toggle,
     handleToggle,
-    persistDate,
-    finishDate,
+    durationStart,
+    durationEnd,
     handleFinishDate,
     handleStartDate,
 }: Props) => {
+    const { option, nearBy, trueStory, contact } = writeReview;
     return (
         <Container>
             <Write>
                 <Address />
-                <form onChange={handleFormChange}>
+                <form onSubmit={handleSubmit} onChange={handleFormChange}>
                     <SubTitle>⚙️옵션</SubTitle>
                     <TextArea
                         name="option"
+                        defaultValue={option}
                         placeholder="냉장고, 책상 등 방에 포함된 옵션을 작성해 주세요."></TextArea>
                     <SubTitle>ℹ️주변정보</SubTitle>
                     <TextArea
                         placeholder="교통, 편의시설, 외부소음, 음식점, 술집, 학교와의 거리 등을 입력해 주세요."
-                        name="info"></TextArea>
+                        defaultValue={nearBy}
+                        name="nearBy"></TextArea>
                     <SubTitle>🔉마음의 소리</SubTitle>
                     <TextArea
-                        name="voice"
+                        name="trueStory"
+                        defaultValue={trueStory}
                         placeholder="솔직한 후기를 가감없이 말해주세요."></TextArea>
 
                     <Release>
@@ -156,18 +164,20 @@ const WriteReviewForm = ({
                             <ToRelease>
                                 <input
                                     type="text"
+                                    name="contact"
+                                    defaultValue={contact}
                                     placeholder="연락가능한 수단을 입력해 주세요 (번호, 카톡 아이디 등)"
                                 />
                                 <SubTitle>유지기간</SubTitle>
                                 <Calendar>
                                     <DatePicker
-                                        selected={persistDate}
+                                        selected={durationStart}
                                         onChange={handleStartDate}
                                         dateFormat="yy/MM/dd"
                                         locale="ko"
                                     />
                                     <DatePicker
-                                        selected={finishDate}
+                                        selected={durationEnd}
                                         onChange={handleFinishDate}
                                         dateFormat="yy/MM/dd"
                                         locale="ko"
@@ -176,8 +186,11 @@ const WriteReviewForm = ({
                             </ToRelease>
                         )}
                     </Release>
+                    <BtnLink
+                        handleSubmit={handleSubmit}
+                        handlePrev={handlePrev}
+                    />
                 </form>
-                <BtnLink handleSubmit={handleSubmit} handlePrev={handlePrev} />
             </Write>
         </Container>
     );
