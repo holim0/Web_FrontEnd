@@ -7,7 +7,6 @@ import { ReviewWrite, WriteClick } from "../../@types/interface";
 import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { Container } from "styles/commonStyle";
-import { ReviewState } from "redux/review";
 
 const Write = styled.div`
     max-width: 1000px;
@@ -95,6 +94,7 @@ interface Props {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     handleImg: () => void;
     imgInput: React.MutableRefObject<HTMLInputElement>;
+    onFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
 }
 
 registerLocale("ko", ko);
@@ -109,6 +109,7 @@ const WriteForm = ({
     handleFormChange,
     handleImg,
     imgInput,
+    onFix,
 }: Props & WriteClick) => {
     return (
         <Container>
@@ -142,6 +143,7 @@ const WriteForm = ({
                     </Calendar>
                 </div>
                 <SelectForm
+                    onFix={onFix}
                     writeState={writeState}
                     handleFormChange={handleFormChange}
                 />

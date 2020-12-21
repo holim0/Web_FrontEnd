@@ -107,13 +107,13 @@ interface styled {
 
 interface Props extends WriteClick {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
+    handleToggle: () => void;
+    handleStartDate: (date: Date) => void;
+    handleFinishDate: (date: Date) => void;
     handleSubmit: Submit;
     toggle: boolean;
-    handleToggle: () => void;
     durationStart: Date;
     durationEnd: Date;
-    handleFinishDate: (date: Date) => void;
-    handleStartDate: (date: Date) => void;
     writeReview: ReviewWrite;
 }
 

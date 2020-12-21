@@ -55,8 +55,16 @@ const index = () => {
         [form]
     );
 
+    // 별점 스코어 픽스
+    const onFix = useCallback(
+        (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+            const { value } = e.currentTarget.dataset;
+            setForm({ ...form, score: parseInt(value as string) });
+        },
+        [dispatch]
+    );
+
     // form이 변할 때마다 리덕스 데이터에 폼 데이터를 씌움
-    // startDate, endDate를 설정한 이유는 초기 값을 설정하기 때문
     useEffect(() => {
         dispatch(
             reviewWrite({
@@ -79,6 +87,7 @@ const index = () => {
     return (
         <WriteForm
             writeState={writeState}
+            onFix={onFix}
             imgInput={imgInput}
             livingStart={livingStart}
             livingEnd={livingEnd}

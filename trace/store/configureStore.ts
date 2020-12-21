@@ -3,12 +3,12 @@ import { createWrapper } from "next-redux-wrapper";
 import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
-
 import rootReducer from "../redux";
 import rootSaga from "../sagas";
 
+const sagaMiddleware = createSagaMiddleware(); // 미들웨어 생성
+
 const configureStore = () => {
-    const sagaMiddleware = createSagaMiddleware(); // 미들웨어 생성
     const logger = createLogger(); // 로거 생성
     const middlewares = [sagaMiddleware, logger];
     const enhancer =

@@ -99,9 +99,10 @@ const Options = styled.div`
 interface Props {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     writeState: ReviewWrite;
+    onFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
 }
 
-export const SelectForm = ({ handleFormChange, writeState }: Props) => {
+export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
     const {
         rentType,
         deposit,
@@ -158,8 +159,8 @@ export const SelectForm = ({ handleFormChange, writeState }: Props) => {
             </Cost>
 
             <TotalRating>
-                <Rating />
-                <div>별로 평가해 주세요!</div>
+                <Rating score={score} onFix={onFix} />
+                <div>별을 클릭해 평가해 주세요!</div>
             </TotalRating>
 
             <Select>
