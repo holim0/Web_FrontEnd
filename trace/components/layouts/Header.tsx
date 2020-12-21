@@ -85,6 +85,10 @@ const MenuBtn = styled(Link)`
     text-decoration: none;
 `;
 
+const LogoImg = styled(Image)`
+    cursor: pointer;
+`;
+
 const Header = () => {
     const classes = useStyles();
 
@@ -104,7 +108,14 @@ const Header = () => {
 
     return (
         <Container>
-            <Image src={MainLogo} alt="MainLogo" width={250} height={150} />
+            <Link href="/">
+                <LogoImg
+                    src={MainLogo}
+                    alt="MainLogo"
+                    width={250}
+                    height={150}
+                />
+            </Link>
             <div className={classes.search}>
                 <div className={classes.searchIcon}>
                     <SearchIcon />
