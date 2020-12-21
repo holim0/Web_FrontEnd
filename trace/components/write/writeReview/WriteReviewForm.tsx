@@ -166,21 +166,24 @@ const WriteReviewForm = ({
                                     type="text"
                                     name="contact"
                                     defaultValue={contact}
+                                    required={toggle}
                                     placeholder="연락가능한 수단을 입력해 주세요 (번호, 카톡 아이디 등)"
                                 />
                                 <SubTitle>유지기간</SubTitle>
                                 <Calendar>
                                     <DatePicker
-                                        selected={durationStart}
+                                        selected={durationStart || new Date()}
                                         onChange={handleStartDate}
                                         dateFormat="yy/MM/dd"
                                         locale="ko"
+                                        required={toggle}
                                     />
                                     <DatePicker
-                                        selected={durationEnd}
+                                        selected={durationEnd || new Date()}
                                         onChange={handleFinishDate}
                                         dateFormat="yy/MM/dd"
                                         locale="ko"
+                                        required={toggle}
                                     />
                                 </Calendar>
                             </ToRelease>
