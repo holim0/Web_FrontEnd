@@ -23,6 +23,7 @@
         "@types/redux-logger": "^3.0.8",
         "@types/redux-saga": "^0.10.5",
         "antd": "^4.9.4",
+        "axios": "^0.21.0",
         "cross-env": "^7.0.3",
         "next": "10.0.3",
         "next-images": "^1.6.2",
