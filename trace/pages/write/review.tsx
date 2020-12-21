@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux";
 import { reviewWrite } from "redux/review";
+import Select from "react-select";
 
 const Review = () => {
     const router = useRouter();
@@ -86,7 +87,8 @@ const Review = () => {
             handleToggle={handleToggle}
             handleFormChange={handleFormChange}
             handleSubmit={handleSubmit}
-            handlePrev={handlePrev}></WriteReviewForm>
+            handlePrev={handlePrev}
+        ></WriteReviewForm>
     );
 };
 

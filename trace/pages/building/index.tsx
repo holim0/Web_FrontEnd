@@ -1,4 +1,4 @@
-import BuildingComtainer from "components/BuildingContainer";
+import BuildingComtainer from "components/Building/BuildingContainer";
 
 const index = () => {
     return <BuildingComtainer></BuildingComtainer>;

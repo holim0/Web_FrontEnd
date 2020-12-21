@@ -58,9 +58,10 @@ const Buildings = styled.div`
     background-color: #efefef;
     border: 2px solid black;
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 50px;
     border-radius: 10px;
     font-size: ${(props) => props.theme.xls};
+    box-shadow: 5px 5px 5px 5px gray;
 `;
 
 const Title = styled.div`
@@ -69,10 +70,6 @@ const Title = styled.div`
 `;
 
 const HomeContainer = () => {
-    const handleButton = () => {
-        return Router.push("/building");
-    };
-
     return (
         <>
             <Container>

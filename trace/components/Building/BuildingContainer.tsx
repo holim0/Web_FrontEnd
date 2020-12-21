@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Container } from "styles/commonStyle";
-import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import Button from "@material-ui/core/Button";
+import Link from "next/link";
 
 const Container2 = styled(Container)`
     height: 100vh;
@@ -12,7 +12,6 @@ const Container2 = styled(Container)`
 `;
 
 const BtnContainer = styled.div`
-    /* background-color: red; */
     display: flex;
     width: 50%;
     margin: 50px auto 0 auto;
@@ -80,9 +79,12 @@ const BuildingContainer = () => {
                 </Button>
             </BtnContainer>
             <MainContainer>
-                <Building>
-                    <Info>hihi</Info>
-                </Building>
+                <Link href="/building/123">
+                    <Building>
+                        <Info>hihi</Info>
+                    </Building>
+                </Link>
+
                 <Building>
                     <Info>hihi</Info>
                 </Building>
