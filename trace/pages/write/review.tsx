@@ -52,6 +52,7 @@ const Review = () => {
         );
     }, [form]);
 
+    // 만약 방을 내놓으면, isSell에 상태를 저장합니다
     useEffect(() => {
         dispatch(
             reviewWrite({

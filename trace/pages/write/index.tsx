@@ -12,21 +12,54 @@ const index = () => {
     const dispatch = useDispatch();
     const writeState = useSelector((state: RootState) => state.review.write);
     const { isSell } = useSelector((state: RootState) => state.review);
+
+    // 작성 form data
+    const [form, handleFormChange, setForm] = useFormInput();
+
     // img 업로드
     const imgInput = useRef<HTMLInputElement>(null!);
-
+    const [saveImg, setSaveImg] = useState<string[]>(writeState.images);
     const handleImg = useCallback(() => {
         const input = imgInput.current;
         input.click();
         input.onchange = (e) => {
             const target = e.target as HTMLInputElement;
-            const files = target.files;
-            console.log(files);
+            const files = target.files as FileList;
+            const file = files[0];
+            const reader = new FileReader();
+            reader.onload = (progress) => {
+                const { result } = progress.target as FileReader;
+                setSaveImg([result as string, ...saveImg]);
+            };
+            reader.readAsDataURL(file);
         };
-    }, []);
+    }, [dispatch, saveImg]);
 
-    // 작성 form data
-    const [form, handleFormChange, setForm] = useFormInput();
+    // 올린 이미지 슬라이더
+    const [countIdx, setCountIdx] = useState(1);
+
+    const handleNextSlide = useCallback(() => {
+        const max = saveImg.length || 1;
+        if (max === countIdx) {
+            return;
+        }
+        setCountIdx((prev) => (prev += 1));
+    }, [saveImg, countIdx]);
+
+    const handlePrevSlide = useCallback(() => {
+        if (1 === countIdx) {
+            return;
+        }
+        setCountIdx((prev) => (prev -= 1));
+    }, [saveImg, countIdx]);
+
+    // img 리덕스에 전송
+    useEffect(() => {
+        setCountIdx((prev) => 1);
+        dispatch(
+            reviewWrite({ ...writeState, ...form, isSell, images: saveImg })
+        );
+    }, [saveImg]);
 
     // 거주기간 날짜 선택
     const { livingStart, livingEnd } = writeState;
@@ -91,10 +124,13 @@ const index = () => {
             imgInput={imgInput}
             livingStart={livingStart}
             livingEnd={livingEnd}
+            countIdx={countIdx}
             handleNext={handleNext}
             handleFormChange={handleFormChange}
             handleFinishDate={handleFinishDate}
             handleImg={handleImg}
+            handleNextSlide={handleNextSlide}
+            handlePrevSlide={handlePrevSlide}
             handleStartDate={handleStartDate}></WriteForm>
     );
 };

@@ -3,12 +3,23 @@ import { SubTitle } from "./WriteForm";
 import Rating from "../common/Rating";
 import { ReviewWrite } from "../../@types/interface";
 
+const Rent = styled.input`
+    margin: 0 3px;
+`;
+
 const Cost = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 300px;
     margin: 20px auto;
+`;
+
+const Preview = styled.div`
+    width: 100%;
+    text-align: right;
+    font-size: ${(props) => props.theme.ss};
+    color: ${(props) => props.theme.mainColor};
 `;
 
 const CostBox = styled.div`
@@ -25,13 +36,18 @@ const CostBox = styled.div`
     }
     input {
         all: unset;
-        text-align: right;
+        text-align: center;
         padding: 6px;
         color: ${(props) => props.theme.black};
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     }
     span {
         padding-right: 3px;
-        font-size: 12px;
+        font-size: ${(props) => props.theme.ss};
         line-height: 33px;
         color: ${(props) => props.theme.gray};
     }
@@ -43,7 +59,7 @@ const TotalRating = styled.div`
     justify-content: center;
     align-items: center;
     div {
-        font-size: 12px;
+        font-size: ${(props) => props.theme.ss};
         margin-bottom: 6px;
         color: ${(props) => props.theme.gray};
     }
@@ -119,7 +135,7 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
         <form onChange={handleFormChange}>
             <SubTitle>거주비용</SubTitle>
             <label htmlFor="month">월세</label>
-            <input
+            <Rent
                 type="radio"
                 name="rentType"
                 id="month"
@@ -127,7 +143,7 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
                 defaultChecked={rentType === "월세"}
             />
             <label htmlFor="charter">전세</label>
-            <input
+            <Rent
                 type="radio"
                 name="rentType"
                 id="lease"
@@ -146,6 +162,7 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
                     />
                     <span>만원</span>
                 </CostBox>
+                <Preview>₩{(deposit * 10000).toLocaleString()}</Preview>
                 <CostBox>
                     <label htmlFor="rent">월세</label>
                     <input
@@ -156,6 +173,7 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
                     />
                     <span>만원</span>
                 </CostBox>
+                <Preview>₩{(monthlyRent * 10000).toLocaleString()}</Preview>
             </Cost>
 
             <TotalRating>
