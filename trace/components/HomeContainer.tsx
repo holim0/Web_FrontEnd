@@ -2,6 +2,8 @@ import React from "react";
 import Map from "assets/images/Map.png";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
+import Router from "next/router";
+import Link from "next/Link";
 
 const Container = styled.div`
     width: 100%;
@@ -67,27 +69,41 @@ const Title = styled.div`
 `;
 
 const HomeContainer = () => {
+    const handleButton = () => {
+        return Router.push("/building");
+    };
+
     return (
         <>
             <Container>
                 <Title>지역을 선택해주세요!</Title>
                 <MapContainer>
                     <MapImg src={Map}></MapImg>
-                    <Btn x="530px" y="320px">
-                        🔵 정문/로터리
-                    </Btn>
-                    <Btn x="270px" y="590px">
-                        🔵 철문
-                    </Btn>
-                    <Btn x="140px" y="180px">
-                        🔵 쪽문
-                    </Btn>
-                    <Btn x="510px" y="190px">
-                        🔵 한성대/성신
-                    </Btn>
-                    <Btn x="300px" y="600px">
-                        🔵 대명/대학로
-                    </Btn>
+                    <Link href="/building">
+                        <Btn x="530px" y="320px">
+                            🔵 정문/로터리
+                        </Btn>
+                    </Link>
+                    <Link href="/building">
+                        <Btn x="270px" y="590px">
+                            🔵 철문
+                        </Btn>
+                    </Link>
+                    <Link href="/building">
+                        <Btn x="140px" y="180px">
+                            🔵 쪽문
+                        </Btn>
+                    </Link>
+                    <Link href="/building">
+                        <Btn x="510px" y="190px">
+                            🔵 한성대/성신
+                        </Btn>
+                    </Link>
+                    <Link href="/building">
+                        <Btn x="300px" y="600px">
+                            🔵 대명/대학로
+                        </Btn>
+                    </Link>
                 </MapContainer>
             </Container>
             <BuildingContainer>
