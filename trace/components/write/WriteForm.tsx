@@ -153,6 +153,8 @@ interface Props {
     livingStart: Date;
     livingEnd: Date;
     countIdx: number;
+    address: string;
+    onAddress: () => void;
     handleStartDate: (data: Date) => void;
     handleFinishDate: (data: Date) => void;
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -168,6 +170,8 @@ interface Props {
 registerLocale("ko", ko);
 
 const WriteForm = ({
+    address,
+    onAddress,
     writeState,
     livingStart,
     livingEnd,
@@ -188,7 +192,7 @@ const WriteForm = ({
     return (
         <Container>
             <Write>
-                <Address />
+                <Address address={address} onAddress={onAddress} />
                 <AddImg>
                     <ImgBox onClick={handleImg}>
                         <div>+</div>

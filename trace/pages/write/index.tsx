@@ -17,6 +17,20 @@ const index = () => {
     // 작성 form data
     const [form, handleFormChange, setForm] = useFormInput();
 
+    // 주소 검색
+    const [address, setAddress] = useState("");
+    const onAddress = () => {
+        if (process.browser) {
+            new daum.Postcode({
+                oncomplete: (data: any) => {
+                    if (data.userSelectedType === "R") {
+                    }
+                    setAddress(data.jibunAddress);
+                },
+            }).open();
+        }
+    };
+
     // 리액트 셀렉 값 저장
     const handleSelectForm = useCallback((value, action) => {
         setForm({ ...form, [action.name]: value.value });
@@ -144,6 +158,8 @@ const index = () => {
         <>
             <Space></Space>
             <WriteForm
+                address={address}
+                onAddress={onAddress}
                 handleSelectForm={handleSelectForm}
                 writeState={writeState}
                 handleFix={handleFix}
