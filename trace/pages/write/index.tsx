@@ -16,6 +16,11 @@ const index = () => {
     // 작성 form data
     const [form, handleFormChange, setForm] = useFormInput();
 
+    const handleSelectForm = useCallback((value, action) => {
+        console.log(value, action);
+        setForm({ ...form, [action.name]: value.value });
+    }, []);
+
     // img 업로드
     const imgInput = useRef<HTMLInputElement>(null!);
     const [saveImg, setSaveImg] = useState<string[]>(writeState.images);
@@ -115,6 +120,7 @@ const index = () => {
 
     return (
         <WriteForm
+            handleSelectForm={handleSelectForm}
             writeState={writeState}
             handleFix={handleFix}
             imgInput={imgInput}

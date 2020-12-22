@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { SubTitle } from "./WriteForm";
 import Rating from "../common/Rating";
 import { ReviewWrite } from "../../@types/interface";
-import Select from "react-select";
+import Select, { ActionMeta } from "react-select";
 
 const Rent = styled.input`
     margin: 0 3px;
@@ -114,6 +114,7 @@ interface Props {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     writeState: ReviewWrite;
     handleFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    handleSelectForm: (value: any, action: ActionMeta<any>) => void;
 }
 
 // Select option interface
@@ -139,6 +140,7 @@ export const SelectComponent = ({
     handleFormChange,
     writeState,
     handleFix,
+    handleSelectForm,
 }: Props) => {
     const {
         rentType,
@@ -291,13 +293,23 @@ export const SelectComponent = ({
                 <Options>
                     <SubTitle>방음🗣️</SubTitle>
 
-                    <Select name="noise" options={Soundoptions} />
+                    <Select
+                        name="noise"
+                        options={Soundoptions}
+                        defaultValue={{ value: noise, label: noise }}
+                        onChange={handleSelectForm}
+                    />
                 </Options>
 
                 <Options>
                     <SubTitle>벌레여부🐛</SubTitle>
 
-                    <Select name="bug" options={Bugoptions} />
+                    <Select
+                        name="bug"
+                        defaultValue={{ value: bug, label: bug }}
+                        options={Bugoptions}
+                        onChange={handleSelectForm}
+                    />
                 </Options>
             </OptionsGrid>
         </form>

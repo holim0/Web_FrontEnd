@@ -8,6 +8,7 @@ import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { Container } from "styles/commonStyle";
 import { css } from "@emotion/react";
+import { ActionMeta } from "react-select";
 
 const Write = styled.div`
     max-width: 1000px;
@@ -147,6 +148,7 @@ interface Props {
     handlePrevSlide: () => void;
     imgInput: React.MutableRefObject<HTMLInputElement>;
     handleFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    handleSelectForm: (value: any, action: ActionMeta<any>) => void;
 }
 
 registerLocale("ko", ko);
@@ -165,6 +167,7 @@ const WriteForm = ({
     handlePrevSlide,
     imgInput,
     handleFix,
+    handleSelectForm,
 }: Props & WriteClick) => {
     const { images } = writeState;
     return (
@@ -232,6 +235,7 @@ const WriteForm = ({
                     handleFix={handleFix}
                     writeState={writeState}
                     handleFormChange={handleFormChange}
+                    handleSelectForm={handleSelectForm}
                 />
                 <BtnLink handleNext={handleNext} />
             </Write>
