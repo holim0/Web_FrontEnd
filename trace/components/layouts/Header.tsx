@@ -46,9 +46,9 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create("width"),
         width: "100%",
         [theme.breakpoints.up("md")]: {
-            width: "30ch",
+            width: "50ch",
             "&:focus": {
-                width: "50ch",
+                width: "70ch",
             },
         },
     },
@@ -77,9 +77,12 @@ const Searchicon = styled(SearchIcon)``;
 const MenuContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
-    width: 90%;
+
+    width: 50%;
     font-size: 20px;
     color: black;
+    position: absolute;
+    right: 0;
 `;
 
 const MenuBtn = styled(Link)`
