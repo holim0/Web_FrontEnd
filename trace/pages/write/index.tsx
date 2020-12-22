@@ -81,7 +81,7 @@ const index = () => {
     );
 
     // 별점 스코어 픽스
-    const onFix = useCallback(
+    const handleFix = useCallback(
         (e: React.MouseEvent<SVGElement, MouseEvent>) => {
             const { value } = e.currentTarget.dataset;
             setForm({ ...form, score: parseInt(value as string) });
@@ -116,7 +116,7 @@ const index = () => {
     return (
         <WriteForm
             writeState={writeState}
-            onFix={onFix}
+            handleFix={handleFix}
             imgInput={imgInput}
             livingStart={livingStart}
             livingEnd={livingEnd}

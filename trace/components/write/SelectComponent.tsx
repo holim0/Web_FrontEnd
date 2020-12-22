@@ -108,22 +108,12 @@ const Options = styled.div`
     width: 200px;
     text-align: center;
     margin: 0 auto;
-
-    /* Select {
-        padding: 6px;
-        width: 200px;
-        height: 50px;
-        text-align: center;
-        cursor: pointer;
-        border: 1px solid ${(props) => props.theme.darkWhite};
-        outline: none;
-    } */
 `;
 
 interface Props {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     writeState: ReviewWrite;
-    onFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    handleFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
 }
 
 // Select option interface
@@ -145,7 +135,11 @@ const Bugoptions: OptionType[] = [
     { value: "항상 같이 살아요", label: "항상 같이 살아요" },
 ];
 
-export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
+export const SelectComponent = ({
+    handleFormChange,
+    writeState,
+    handleFix,
+}: Props) => {
     const {
         rentType,
         deposit,
@@ -207,7 +201,7 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
             </Cost>
 
             <TotalRating>
-                <Rating score={score} onFix={onFix} />
+                <Rating score={score} handleFix={handleFix} />
                 <div>별을 클릭해 평가해 주세요!</div>
             </TotalRating>
 
@@ -297,13 +291,13 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
                 <Options>
                     <SubTitle>방음🗣️</SubTitle>
 
-                    <Select options={Soundoptions} />
+                    <Select name="noise" options={Soundoptions} />
                 </Options>
 
                 <Options>
                     <SubTitle>벌레여부🐛</SubTitle>
 
-                    <Select options={Bugoptions} />
+                    <Select name="bug" options={Bugoptions} />
                 </Options>
             </OptionsGrid>
         </form>
