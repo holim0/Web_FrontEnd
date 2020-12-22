@@ -115,6 +115,7 @@ const Options = styled.div`
 interface Props {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     writeState: ReviewWrite;
+    // 별점 핸들링
     handleFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
     handleSelectForm: (value: any, action: ActionMeta<any>) => void;
 }

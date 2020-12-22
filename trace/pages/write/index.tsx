@@ -16,16 +16,12 @@ const index = () => {
 
     // 작성 form data
     const [form, handleFormChange, setForm] = useFormInput();
-<<<<<<< HEAD
-    console.log(form);
-=======
 
     const handleSelectForm = useCallback((value, action) => {
         console.log(value, action);
         setForm({ ...form, [action.name]: value.value });
     }, []);
 
->>>>>>> trace/master
     // img 업로드
     const imgInput = useRef<HTMLInputElement>(null!);
     const [saveImg, setSaveImg] = useState<string[]>(writeState.images);

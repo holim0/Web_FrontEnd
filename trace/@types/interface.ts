@@ -32,3 +32,6 @@ export interface ReviewWrite {
     durationStart: Date | null | undefined;
     durationEnd: Date | null | undefined;
 }
+
+//유저 정보 타입.
+export interface UserType {}
