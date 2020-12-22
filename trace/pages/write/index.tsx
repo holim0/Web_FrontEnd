@@ -156,24 +156,6 @@ const index = () => {
     useScrollTop();
 
     return (
-<<<<<<< HEAD
-        <WriteForm
-            handleSelectForm={handleSelectForm}
-            writeState={writeState}
-            handleFix={handleFix}
-            imgInput={imgInput}
-            livingStart={livingStart}
-            livingEnd={livingEnd}
-            countIdx={countIdx}
-            handleNext={handleNext}
-            handleFormChange={handleFormChange}
-            handleFinishDate={handleFinishDate}
-            handleImg={handleImg}
-            handleNextSlide={handleNextSlide}
-            handlePrevSlide={handlePrevSlide}
-            handleStartDate={handleStartDate}
-        ></WriteForm>
-=======
         <>
             <Head>
                 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -196,9 +178,9 @@ const index = () => {
                 handleImg={handleImg}
                 handleNextSlide={handleNextSlide}
                 handlePrevSlide={handlePrevSlide}
-                handleStartDate={handleStartDate}></WriteForm>
+                handleStartDate={handleStartDate}
+            ></WriteForm>
         </>
->>>>>>> trace/master
     );
 };
 
