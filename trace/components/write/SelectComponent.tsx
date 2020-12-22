@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { SubTitle } from "./WriteForm";
 import Rating from "../common/Rating";
 import { ReviewWrite } from "../../@types/interface";
-import Select, { ValueType, ActionMeta } from "react-select";
+import Select, { ActionMeta } from "react-select";
 
 const Rent = styled.input`
     margin: 0 3px;
@@ -114,12 +114,9 @@ const Options = styled.div`
 /////////////////////////// 타입 인터페이스 /////////////////////////////////////////////
 interface Props {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
-    handleSelectForm: (
-        value: ValueType<OptionType, false>,
-        action: ActionMeta<OptionType>
-    ) => void;
     writeState: ReviewWrite;
-    onFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    handleFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    handleSelectForm: (value: any, action: ActionMeta<any>) => void;
 }
 
 // Select option interface
@@ -144,7 +141,7 @@ const Bugoptions: OptionType[] = [
 export const SelectComponent = ({
     handleFormChange,
     writeState,
-    onFix,
+    handleFix,
     handleSelectForm,
 }: Props) => {
     const {
@@ -208,7 +205,7 @@ export const SelectComponent = ({
             </Cost>
 
             <TotalRating>
-                <Rating score={score} onFix={onFix} />
+                <Rating score={score} handleFix={handleFix} />
                 <div>별을 클릭해 평가해 주세요!</div>
             </TotalRating>
 
@@ -299,7 +296,7 @@ export const SelectComponent = ({
                     <Select
                         options={Soundoptions}
                         onChange={handleSelectForm}
-                        value={noise}
+                        defaultValue={{ value: noise, label: noise }}
                     />
                 </Options>
                 <Options>
@@ -307,7 +304,7 @@ export const SelectComponent = ({
                     <Select
                         options={Bugoptions}
                         onChange={handleSelectForm}
-                        defaultValue={{value: bug,  }
+                        defaultValue={{ value: bug, label: bug }}
                     />
                 </Options>
             </OptionsGrid>

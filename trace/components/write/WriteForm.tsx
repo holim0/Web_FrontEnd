@@ -8,8 +8,12 @@ import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { Container } from "styles/commonStyle";
 import { css } from "@emotion/react";
+<<<<<<< HEAD
 import { ValueType, ActionMeta } from "react-select";
 import { OptionType } from "antd/lib/select";
+=======
+import { ActionMeta } from "react-select";
+>>>>>>> trace/master
 
 const Write = styled.div`
     max-width: 1000px;
@@ -147,15 +151,12 @@ interface Props {
     // form 핸들 이벤트 //
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     // select 핸들 이벤트 //
-    handleSelectForm: (
-        value: ValueType<OptionType, false>,
-        action: ActionMeta<OptionType>
-    ) => void;
     handleImg: () => void;
     handleNextSlide: () => void;
     handlePrevSlide: () => void;
     imgInput: React.MutableRefObject<HTMLInputElement>;
-    onFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    handleFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    handleSelectForm: (value: any, action: ActionMeta<any>) => void;
 }
 
 registerLocale("ko", ko);
@@ -169,12 +170,13 @@ const WriteForm = ({
     handleStartDate,
     handleFinishDate,
     handleFormChange,
-    handleSelectForm,
+    
     handleImg,
     handleNextSlide,
     handlePrevSlide,
     imgInput,
-    onFix,
+    handleFix,
+    handleSelectForm,
 }: Props & WriteClick) => {
     const { images } = writeState;
     return (
@@ -192,8 +194,7 @@ const WriteForm = ({
                                 {countIdx !== 1 && (
                                     <Btns
                                         type="button"
-                                        onClick={handlePrevSlide}
-                                    >
+                                        onClick={handlePrevSlide}>
                                         이전
                                     </Btns>
                                 )}
@@ -211,8 +212,7 @@ const WriteForm = ({
                                         <Btns
                                             next={true}
                                             type="button"
-                                            onClick={handleNextSlide}
-                                        >
+                                            onClick={handleNextSlide}>
                                             다음
                                         </Btns>
                                     )}
@@ -241,7 +241,7 @@ const WriteForm = ({
                     </Calendar>
                 </div>
                 <SelectComponent
-                    onFix={onFix}
+                    handleFix={handleFix}
                     writeState={writeState}
                     handleFormChange={handleFormChange}
                     handleSelectForm={handleSelectForm}

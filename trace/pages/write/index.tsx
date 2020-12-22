@@ -16,7 +16,16 @@ const index = () => {
 
     // 작성 form data
     const [form, handleFormChange, setForm] = useFormInput();
+<<<<<<< HEAD
     console.log(form);
+=======
+
+    const handleSelectForm = useCallback((value, action) => {
+        console.log(value, action);
+        setForm({ ...form, [action.name]: value.value });
+    }, []);
+
+>>>>>>> trace/master
     // img 업로드
     const imgInput = useRef<HTMLInputElement>(null!);
     const [saveImg, setSaveImg] = useState<string[]>(writeState.images);
@@ -82,7 +91,7 @@ const index = () => {
     );
 
     // 별점 스코어 픽스
-    const onFix = useCallback(
+    const handleFix = useCallback(
         (e: React.MouseEvent<SVGElement, MouseEvent>) => {
             const { value } = e.currentTarget.dataset;
             setForm({ ...form, score: parseInt(value as string) });
@@ -116,8 +125,9 @@ const index = () => {
 
     return (
         <WriteForm
+            handleSelectForm={handleSelectForm}
             writeState={writeState}
-            onFix={onFix}
+            handleFix={handleFix}
             imgInput={imgInput}
             livingStart={livingStart}
             livingEnd={livingEnd}
