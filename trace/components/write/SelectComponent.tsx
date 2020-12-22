@@ -187,6 +187,7 @@ export const SelectComponent = ({
                         name="deposit"
                         defaultValue={deposit}
                         required
+                        autoComplete="off"
                     />
                     <span>만원</span>
                 </CostBox>
@@ -202,6 +203,7 @@ export const SelectComponent = ({
                                 name="monthlyRent"
                                 defaultValue={monthlyRent}
                                 required
+                                autoComplete="off"
                             />
                             <span>만원</span>
                         </CostBox>
@@ -218,6 +220,7 @@ export const SelectComponent = ({
                         name="area"
                         defaultValue={area}
                         required
+                        autoComplete="off"
                     />
                     <span>㎡　</span>
                 </CostBox>
