@@ -1,8 +1,9 @@
 import { useFormInput, useToggle } from "@cooksmelon/event";
+import { Modal } from "antd";
 import WriteReviewForm from "components/write/writeReview/WriteReviewForm";
 import { useScrollTop } from "hook";
 import { useRouter } from "next/dist/client/router";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux";
 import { reviewWrite } from "redux/review";
@@ -57,15 +58,26 @@ const Review = () => {
     }, [toggle]);
 
     // 폼을 제출합니다.
+    const [openModal, setOpenModal] = useState(false);
+
     const handleSubmit = useCallback(
-        (e: React.FormEvent<HTMLButtonElement | HTMLFormElement>) => {
+        (
+            e:
+                | React.FormEvent<HTMLButtonElement | HTMLFormElement>
+                | React.MouseEvent<HTMLElement, MouseEvent>
+        ) => {
             e.preventDefault();
-            if (window.confirm("작성 하십니까?")) {
-                console.log(writeReview);
+            if (!openModal) {
+                return setOpenModal(() => true);
             }
+            console.log("작성 완료");
         },
-        []
+        [openModal]
     );
+
+    const handleCancel = useCallback(() => {
+        setOpenModal(() => false);
+    }, []);
 
     // 이전 단계로 이동합니다.
     const handlePrev = useCallback(() => {
@@ -76,17 +88,27 @@ const Review = () => {
     useScrollTop();
 
     return (
-        <WriteReviewForm
-            toggle={isSell}
-            writeReview={writeReview}
-            durationStart={durationStart}
-            durationEnd={durationEnd}
-            handleFinishDate={handleFinishDate}
-            handleStartDate={handleStartDate}
-            handleToggle={handleToggle}
-            handleFormChange={handleFormChange}
-            handleSubmit={handleSubmit}
-            handlePrev={handlePrev}></WriteReviewForm>
+        <>
+            <Modal
+                visible={openModal}
+                onOk={handleSubmit}
+                onCancel={handleCancel}
+                okText="예"
+                cancelText="아니요">
+                <p>저장 하시겠습니까?</p>
+            </Modal>
+            <WriteReviewForm
+                toggle={isSell}
+                writeReview={writeReview}
+                durationStart={durationStart}
+                durationEnd={durationEnd}
+                handleFinishDate={handleFinishDate}
+                handleStartDate={handleStartDate}
+                handleToggle={handleToggle}
+                handleFormChange={handleFormChange}
+                handleSubmit={handleSubmit}
+                handlePrev={handlePrev}></WriteReviewForm>
+        </>
     );
 };
 
