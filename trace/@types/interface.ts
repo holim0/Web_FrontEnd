@@ -15,6 +15,7 @@ export interface ReviewWrite {
     images: string[];
     rentType: string;
     deposit: number;
+    area: number;
     monthlyRent: number;
     score: number;
     livingStart: Date | null | undefined;

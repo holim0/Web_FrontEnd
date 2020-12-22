@@ -1,9 +1,28 @@
 import React from "react";
 import styled from "@emotion/styled";
-
 const AddressForm = styled.div`
     display: flex;
     padding: 12px;
+    align-items: center;
+    div {
+        display: flex;
+        input {
+            all: unset;
+            border: 1px solid ${(props) => props.theme.darkWhite};
+            &:nth-of-type(1) {
+                font-size: ${(props) => props.theme.ls};
+                width: 400px;
+                border: none;
+            }
+            &:nth-of-type(2) {
+                font-size: ${(props) => props.theme.ms};
+                width: 250px;
+                text-align: left;
+                padding: 3px;
+                margin-left: 6px;
+            }
+        }
+    }
 
     button {
         all: unset;
@@ -16,11 +35,29 @@ const AddressForm = styled.div`
     }
 `;
 
-const Address = () => {
+interface Props {
+    address: string;
+    onAddress: () => void;
+}
+
+const Address = ({ address, onAddress }: Props) => {
     return (
-        <AddressForm>
-            <button type="button">상세 주소작성</button>
-        </AddressForm>
+        <>
+            <AddressForm>
+                <button type="button" onClick={onAddress}>
+                    주소 검색
+                </button>
+                {address && (
+                    <div>
+                        <input type="text" value={address} readOnly />
+                        <input
+                            type="text"
+                            placeholder="상세 주소를 입력해 주세요."
+                        />
+                    </div>
+                )}
+            </AddressForm>
+        </>
     );
 };
 
