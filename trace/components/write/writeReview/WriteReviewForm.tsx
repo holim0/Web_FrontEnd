@@ -69,13 +69,13 @@ const ToggleBtn = styled.button<styled>`
 `;
 
 const bounce = keyframes`
-  from {
-    transform: scale(0);
-  }
+    from {
+        transform: scale(0);
+    }
 
-  to {
-    transform: scale(1);
-  }
+    to {
+        transform: scale(1);
+    }
 `;
 
 const ToRelease = styled.div`
@@ -101,6 +101,7 @@ const Calendar = styled.div`
     }
 `;
 
+// 스타일 인터페이스
 interface styled {
     toggle: boolean;
 }
@@ -141,23 +142,27 @@ const WriteReviewForm = ({
                     <TextArea
                         name="option"
                         defaultValue={option}
-                        placeholder="냉장고, 책상 등 방에 포함된 옵션을 작성해 주세요."></TextArea>
+                        placeholder="냉장고, 책상 등 방에 포함된 옵션을 작성해 주세요."
+                    ></TextArea>
                     <SubTitle>ℹ️주변정보</SubTitle>
                     <TextArea
                         placeholder="교통, 편의시설, 외부소음, 음식점, 술집, 학교와의 거리 등을 입력해 주세요."
                         defaultValue={nearBy}
-                        name="nearBy"></TextArea>
+                        name="nearBy"
+                    ></TextArea>
                     <SubTitle>🔉마음의 소리</SubTitle>
                     <TextArea
                         name="trueStory"
                         defaultValue={trueStory}
-                        placeholder="솔직한 후기를 가감없이 말해주세요."></TextArea>
+                        placeholder="솔직한 후기를 가감없이 말해주세요."
+                    ></TextArea>
 
                     <Release>
                         <ToggleBtn
                             type="button"
                             onClick={handleToggle}
-                            toggle={toggle}>
+                            toggle={toggle}
+                        >
                             방을 내놓을까요? {toggle ? "❌" : "✔️"}
                         </ToggleBtn>
                         {toggle && (

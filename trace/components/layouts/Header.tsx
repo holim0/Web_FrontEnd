@@ -45,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create("width"),
         width: "100%",
         [theme.breakpoints.up("md")]: {
-            width: "25ch",
+            width: "30ch",
             "&:focus": {
-                width: "35ch",
+                width: "50ch",
             },
         },
     },
@@ -85,6 +85,10 @@ const MenuBtn = styled(Link)`
     text-decoration: none;
 `;
 
+const LogoImg = styled(Image)`
+    cursor: pointer;
+`;
+
 const Header = () => {
     const classes = useStyles();
 
@@ -104,7 +108,14 @@ const Header = () => {
 
     return (
         <Container>
-            <Image src={MainLogo} alt="MainLogo" width={250} height={150} />
+            <Link href="/">
+                <LogoImg
+                    src={MainLogo}
+                    alt="MainLogo"
+                    width={250}
+                    height={150}
+                />
+            </Link>
             <div className={classes.search}>
                 <div className={classes.searchIcon}>
                     <SearchIcon />
@@ -122,9 +133,7 @@ const Header = () => {
                 <MenuBtn href="/">
                     <a>홈</a>
                 </MenuBtn>
-                <MenuBtn href="/room">
-                    <a>원룸</a>
-                </MenuBtn>
+
                 <MenuBtn href="/community">커뮤니티</MenuBtn>
                 <MenuBtn href="/write">글쓰기</MenuBtn>
                 <Button type="primary" onClick={showModal}>

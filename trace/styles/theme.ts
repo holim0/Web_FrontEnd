@@ -11,6 +11,7 @@ const theme = {
     ls: "18px",
     xls: "24px",
     blue: "#1da1f2",
+    backMainColor: "#fffafa",
 };
 
 export default theme;
