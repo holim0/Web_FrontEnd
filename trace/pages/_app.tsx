@@ -5,12 +5,14 @@ import "../styles/global.css";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../styles/theme";
 import Header from "components/layouts/Header";
+import Footer from "components/layouts/Footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <ThemeProvider theme={theme}>
             <Header />
             <Component {...pageProps} />
+            <Footer />
         </ThemeProvider>
     );
 }

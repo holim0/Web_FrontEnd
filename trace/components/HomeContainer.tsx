@@ -2,7 +2,6 @@ import React from "react";
 import Map from "assets/images/Map.png";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
-import Router from "next/router";
 import Link from "next/Link";
 
 const Container = styled.div`

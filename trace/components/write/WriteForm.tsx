@@ -1,13 +1,14 @@
 import DatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
-import { SelectForm } from "./SelectForm";
+import { SelectComponent } from "./SelectComponent";
 import BtnLink from "../common/write/Btn";
 import { ReviewWrite, WriteClick } from "../../@types/interface";
 import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { Container } from "styles/commonStyle";
 import { css } from "@emotion/react";
+import { ActionMeta } from "react-select";
 
 const Write = styled.div`
     max-width: 1000px;
@@ -146,7 +147,8 @@ interface Props {
     handleNextSlide: () => void;
     handlePrevSlide: () => void;
     imgInput: React.MutableRefObject<HTMLInputElement>;
-    onFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    handleFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    handleSelectForm: (value: any, action: ActionMeta<any>) => void;
 }
 
 registerLocale("ko", ko);
@@ -164,7 +166,8 @@ const WriteForm = ({
     handleNextSlide,
     handlePrevSlide,
     imgInput,
-    onFix,
+    handleFix,
+    handleSelectForm,
 }: Props & WriteClick) => {
     const { images } = writeState;
     return (
@@ -182,8 +185,7 @@ const WriteForm = ({
                                 {countIdx !== 1 && (
                                     <Btns
                                         type="button"
-                                        onClick={handlePrevSlide}
-                                    >
+                                        onClick={handlePrevSlide}>
                                         이전
                                     </Btns>
                                 )}
@@ -201,8 +203,7 @@ const WriteForm = ({
                                         <Btns
                                             next={true}
                                             type="button"
-                                            onClick={handleNextSlide}
-                                        >
+                                            onClick={handleNextSlide}>
                                             다음
                                         </Btns>
                                     )}
@@ -230,10 +231,11 @@ const WriteForm = ({
                         />
                     </Calendar>
                 </div>
-                <SelectForm
-                    onFix={onFix}
+                <SelectComponent
+                    handleFix={handleFix}
                     writeState={writeState}
                     handleFormChange={handleFormChange}
+                    handleSelectForm={handleSelectForm}
                 />
                 <BtnLink handleNext={handleNext} />
             </Write>
