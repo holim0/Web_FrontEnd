@@ -150,6 +150,7 @@ export const SelectComponent = ({
         bug,
         lighting,
         score,
+        area,
         waterPressure,
         remodeled,
         frozen,
@@ -177,7 +178,9 @@ export const SelectComponent = ({
 
             <Cost>
                 <CostBox>
-                    <label htmlFor="deposit">보증금</label>
+                    <label htmlFor="deposit">
+                        {rentType === "전세" ? "전세" : "보증금"}
+                    </label>
                     <input
                         type="number"
                         id="deposit"
@@ -188,18 +191,37 @@ export const SelectComponent = ({
                     <span>만원</span>
                 </CostBox>
                 <Preview>₩{(deposit * 10000).toLocaleString()}</Preview>
+
+                {rentType === "월세" && (
+                    <>
+                        <CostBox>
+                            <label htmlFor="rent">월세</label>
+                            <input
+                                type="number"
+                                id="rent"
+                                name="monthlyRent"
+                                defaultValue={monthlyRent}
+                                required
+                            />
+                            <span>만원</span>
+                        </CostBox>
+                        <Preview>
+                            ₩{(monthlyRent * 10000).toLocaleString()}
+                        </Preview>
+                    </>
+                )}
                 <CostBox>
-                    <label htmlFor="rent">{rentType}</label>
+                    <label htmlFor="area">평수</label>
                     <input
                         type="number"
-                        id="rent"
-                        name="monthlyRent"
-                        defaultValue={monthlyRent}
+                        id="area"
+                        name="area"
+                        defaultValue={area}
                         required
                     />
-                    <span>만원</span>
+                    <span>㎡　</span>
                 </CostBox>
-                <Preview>₩{(monthlyRent * 10000).toLocaleString()}</Preview>
+                <Preview>{area}㎡</Preview>
             </Cost>
 
             <TotalRating>

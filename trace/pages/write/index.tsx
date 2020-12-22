@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import WriteForm from "../../components/write/WriteForm";
 import { reviewWrite } from "redux/review";
 import { RootState } from "redux";
+import { message, Space } from "antd";
 
 const index = () => {
     const router = useRouter();
@@ -16,8 +17,8 @@ const index = () => {
     // 작성 form data
     const [form, handleFormChange, setForm] = useFormInput();
 
+    // 리액트 셀렉 값 저장
     const handleSelectForm = useCallback((value, action) => {
-        console.log(value, action);
         setForm({ ...form, [action.name]: value.value });
     }, []);
 
@@ -66,8 +67,24 @@ const index = () => {
         );
     }, [saveImg]);
 
+    // 이미지 삭제
+    const handleDelImg = useCallback(
+        (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            const { link } = e.currentTarget.dataset;
+            setSaveImg(saveImg.filter((img) => img !== link));
+        },
+        [saveImg]
+    );
+
     // 거주기간 날짜 선택
-    const { livingStart, livingEnd, score, deposit, monthlyRent } = writeState;
+    const {
+        livingStart,
+        livingEnd,
+        score,
+        deposit,
+        monthlyRent,
+        area,
+    } = writeState;
 
     // 시작 날짜
     const handleStartDate = useCallback(
@@ -105,35 +122,44 @@ const index = () => {
         );
     }, [form]);
 
+    // validation
+
     const handleNext = useCallback(() => {
         if (score === 0) {
-            return alert("별점을 눌러주세요");
+            return message.error("별점을 눌러주세요");
         }
         if (!deposit || !monthlyRent) {
-            return alert("금액을 적어주세요");
+            return message.error("금액을 적어주세요");
+        }
+        if (!area) {
+            return message.error("평수를 적어주세요");
         }
         router.push("/write/review");
-    }, [score, deposit, monthlyRent]);
+    }, [score, message, deposit, monthlyRent, area]);
 
     // 위로 이동
     useScrollTop();
 
     return (
-        <WriteForm
-            handleSelectForm={handleSelectForm}
-            writeState={writeState}
-            handleFix={handleFix}
-            imgInput={imgInput}
-            livingStart={livingStart}
-            livingEnd={livingEnd}
-            countIdx={countIdx}
-            handleNext={handleNext}
-            handleFormChange={handleFormChange}
-            handleFinishDate={handleFinishDate}
-            handleImg={handleImg}
-            handleNextSlide={handleNextSlide}
-            handlePrevSlide={handlePrevSlide}
-            handleStartDate={handleStartDate}></WriteForm>
+        <>
+            <Space></Space>
+            <WriteForm
+                handleSelectForm={handleSelectForm}
+                writeState={writeState}
+                handleFix={handleFix}
+                imgInput={imgInput}
+                livingStart={livingStart}
+                livingEnd={livingEnd}
+                countIdx={countIdx}
+                handleDelImg={handleDelImg}
+                handleNext={handleNext}
+                handleFormChange={handleFormChange}
+                handleFinishDate={handleFinishDate}
+                handleImg={handleImg}
+                handleNextSlide={handleNextSlide}
+                handlePrevSlide={handlePrevSlide}
+                handleStartDate={handleStartDate}></WriteForm>
+        </>
     );
 };
 

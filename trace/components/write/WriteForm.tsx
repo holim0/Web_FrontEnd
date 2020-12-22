@@ -78,6 +78,19 @@ const ShowImg = styled.div`
     }
 `;
 
+const Del = styled.button`
+    all: unset;
+    z-index: 55;
+    cursor: pointer;
+    padding: 3px 6px;
+    border-radius: 12px;
+    background-color: ${(props) => props.theme.black};
+    color: ${(props) => props.theme.white};
+    position: absolute;
+    top: 10px;
+    left: 3px;
+`;
+
 const Btns = styled.button<Style>`
     all: unset;
     z-index: 55;
@@ -149,6 +162,7 @@ interface Props {
     imgInput: React.MutableRefObject<HTMLInputElement>;
     handleFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
     handleSelectForm: (value: any, action: ActionMeta<any>) => void;
+    handleDelImg: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 registerLocale("ko", ko);
@@ -168,6 +182,7 @@ const WriteForm = ({
     imgInput,
     handleFix,
     handleSelectForm,
+    handleDelImg,
 }: Props & WriteClick) => {
     const { images } = writeState;
     return (
@@ -182,6 +197,11 @@ const WriteForm = ({
                     <ShowImg>
                         {images.length > 0 && (
                             <>
+                                <Del
+                                    data-link={images[countIdx - 1]}
+                                    onClick={handleDelImg}>
+                                    삭제
+                                </Del>
                                 {countIdx !== 1 && (
                                     <Btns
                                         type="button"
@@ -194,6 +214,7 @@ const WriteForm = ({
                                         src={images[countIdx - 1]}
                                         alt="올린이미지"
                                     />
+
                                     <Length>
                                         {countIdx}/{images.length}
                                     </Length>

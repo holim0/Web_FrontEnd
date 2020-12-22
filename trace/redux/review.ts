@@ -14,6 +14,7 @@ export const reviewState: ReviewState = {
         images: [],
         rentType: "월세",
         deposit: 0,
+        area: 0,
         monthlyRent: 0,
         score: 0,
         livingStart: null,
@@ -39,6 +40,7 @@ const review = createSlice({
     reducers: {
         reviewWrite: (state, { payload }) => {
             state.isSell = payload.isSell;
+            state.write.area = payload.area;
             state.write.roomNumber = payload.roomNumber;
             state.write.images = payload.images;
             state.write.rentType = payload.rentType;
