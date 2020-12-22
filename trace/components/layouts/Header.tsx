@@ -9,7 +9,6 @@ import Link from "next/link";
 import "antd/dist/antd.css";
 import { Modal, Button } from "antd";
 import Login from "components/layouts/Login";
-import LoginBack from "assets/images/LoginBack.png";
 
 const useStyles = makeStyles((theme) => ({
     search: {
