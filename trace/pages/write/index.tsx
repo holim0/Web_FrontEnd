@@ -7,6 +7,7 @@ import WriteForm from "../../components/write/WriteForm";
 import { reviewWrite } from "redux/review";
 import { RootState } from "redux";
 import { message, Space } from "antd";
+import Head from "next/head";
 
 const index = () => {
     const router = useRouter();
@@ -19,7 +20,7 @@ const index = () => {
 
     // 주소 검색
     const [address, setAddress] = useState("");
-    const onAddress = () => {
+    const onAddress = useCallback(() => {
         if (process.browser) {
             new daum.Postcode({
                 oncomplete: (data: any) => {
@@ -29,7 +30,7 @@ const index = () => {
                 },
             }).open();
         }
-    };
+    }, [address]);
 
     // 리액트 셀렉 값 저장
     const handleSelectForm = useCallback((value, action) => {
@@ -156,6 +157,9 @@ const index = () => {
 
     return (
         <>
+            <Head>
+                <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+            </Head>
             <Space></Space>
             <WriteForm
                 address={address}
