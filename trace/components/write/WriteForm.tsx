@@ -1,13 +1,15 @@
 import DatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
-import { SelectForm } from "./SelectForm";
+import { SelectComponent } from "./SelectComponent";
 import BtnLink from "../common/write/Btn";
 import { ReviewWrite, WriteClick } from "../../@types/interface";
 import styled from "@emotion/styled";
 import Address from "components/common/write/Address";
 import { Container } from "styles/commonStyle";
 import { css } from "@emotion/react";
+import { ValueType, ActionMeta } from "react-select";
+import { OptionType } from "antd/lib/select";
 
 const Write = styled.div`
     max-width: 1000px;
@@ -134,6 +136,7 @@ interface Style {
     next?: boolean;
 }
 
+/////////////////////////// 전체 타입 인터페이스 (이벤트) ///////////////////////////////////////////////
 interface Props {
     writeState: ReviewWrite;
     livingStart: Date;
@@ -141,7 +144,13 @@ interface Props {
     countIdx: number;
     handleStartDate: (data: Date) => void;
     handleFinishDate: (data: Date) => void;
+    // form 핸들 이벤트 //
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
+    // select 핸들 이벤트 //
+    handleSelectForm: (
+        value: ValueType<OptionType, false>,
+        action: ActionMeta<OptionType>
+    ) => void;
     handleImg: () => void;
     handleNextSlide: () => void;
     handlePrevSlide: () => void;
@@ -160,6 +169,7 @@ const WriteForm = ({
     handleStartDate,
     handleFinishDate,
     handleFormChange,
+    handleSelectForm,
     handleImg,
     handleNextSlide,
     handlePrevSlide,
@@ -230,10 +240,11 @@ const WriteForm = ({
                         />
                     </Calendar>
                 </div>
-                <SelectForm
+                <SelectComponent
                     onFix={onFix}
                     writeState={writeState}
                     handleFormChange={handleFormChange}
+                    handleSelectForm={handleSelectForm}
                 />
                 <BtnLink handleNext={handleNext} />
             </Write>

@@ -1,4 +1,6 @@
 import { Submit } from "./type";
+import { ValueType } from "react-select";
+import { OptionType } from "antd/lib/select";
 
 // 리뷰 글쓰기 클릭버튼
 export interface WriteClick {
@@ -21,8 +23,8 @@ export interface ReviewWrite {
     waterPressure: string;
     lighting: string;
     frozen: string;
-    bug: string;
-    noise: string;
+    bug: string | ValueType<OptionType, false>;
+    noise: string | ValueType<OptionType, false>;
     option: string;
     nearBy: string;
     trueStory: string;

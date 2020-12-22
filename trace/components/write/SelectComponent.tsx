@@ -1,8 +1,9 @@
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { SubTitle } from "./WriteForm";
 import Rating from "../common/Rating";
 import { ReviewWrite } from "../../@types/interface";
-import Select from "react-select";
+import Select, { ValueType, ActionMeta } from "react-select";
 
 const Rent = styled.input`
     margin: 0 3px;
@@ -108,20 +109,15 @@ const Options = styled.div`
     width: 200px;
     text-align: center;
     margin: 0 auto;
-
-    /* Select {
-        padding: 6px;
-        width: 200px;
-        height: 50px;
-        text-align: center;
-        cursor: pointer;
-        border: 1px solid ${(props) => props.theme.darkWhite};
-        outline: none;
-    } */
 `;
 
+/////////////////////////// 타입 인터페이스 /////////////////////////////////////////////
 interface Props {
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
+    handleSelectForm: (
+        value: ValueType<OptionType, false>,
+        action: ActionMeta<OptionType>
+    ) => void;
     writeState: ReviewWrite;
     onFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
 }
@@ -145,7 +141,12 @@ const Bugoptions: OptionType[] = [
     { value: "항상 같이 살아요", label: "항상 같이 살아요" },
 ];
 
-export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
+export const SelectComponent = ({
+    handleFormChange,
+    writeState,
+    onFix,
+    handleSelectForm,
+}: Props) => {
     const {
         rentType,
         deposit,
@@ -158,6 +159,7 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
         remodeled,
         frozen,
     } = writeState;
+
     return (
         <form onChange={handleFormChange}>
             <SubTitle>거주비용</SubTitle>
@@ -178,7 +180,6 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
                 defaultChecked={rentType === "전세"}
             />
             <label htmlFor="charter">전세</label>
-
             <Cost>
                 <CostBox>
                     <label htmlFor="deposit">보증금</label>
@@ -292,18 +293,22 @@ export const SelectForm = ({ handleFormChange, writeState, onFix }: Props) => {
                     <label htmlFor="bad">아쉬워요</label>
                 </div>
             </SelectSection>
-
             <OptionsGrid>
                 <Options>
                     <SubTitle>방음🗣️</SubTitle>
-
-                    <Select options={Soundoptions} />
+                    <Select
+                        options={Soundoptions}
+                        onChange={handleSelectForm}
+                        value={noise}
+                    />
                 </Options>
-
                 <Options>
                     <SubTitle>벌레여부🐛</SubTitle>
-
-                    <Select options={Bugoptions} />
+                    <Select
+                        options={Bugoptions}
+                        onChange={handleSelectForm}
+                        defaultValue={{value: bug,  }
+                    />
                 </Options>
             </OptionsGrid>
         </form>

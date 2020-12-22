@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import WriteForm from "../../components/write/WriteForm";
 import { reviewWrite } from "redux/review";
 import { RootState } from "redux";
+import { copyFileSync } from "fs";
 
 const index = () => {
     const router = useRouter();
@@ -15,7 +16,7 @@ const index = () => {
 
     // 작성 form data
     const [form, handleFormChange, setForm] = useFormInput();
-
+    console.log(form);
     // img 업로드
     const imgInput = useRef<HTMLInputElement>(null!);
     const [saveImg, setSaveImg] = useState<string[]>(writeState.images);
@@ -127,7 +128,8 @@ const index = () => {
             handleImg={handleImg}
             handleNextSlide={handleNextSlide}
             handlePrevSlide={handlePrevSlide}
-            handleStartDate={handleStartDate}></WriteForm>
+            handleStartDate={handleStartDate}
+        ></WriteForm>
     );
 };
 
