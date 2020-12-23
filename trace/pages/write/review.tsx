@@ -5,8 +5,8 @@ import { useScrollTop } from "hook";
 import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux";
-import { reviewWrite } from "redux/review";
+import { RootState } from "Redux";
+import { reviewWrite } from "Redux/review";
 
 const Review = () => {
     const router = useRouter();
@@ -94,7 +94,8 @@ const Review = () => {
                 onOk={handleSubmit}
                 onCancel={handleCancel}
                 okText="예"
-                cancelText="아니요">
+                cancelText="아니요"
+            >
                 <p>저장 하시겠습니까?</p>
             </Modal>
             <WriteReviewForm
@@ -107,7 +108,8 @@ const Review = () => {
                 handleToggle={handleToggle}
                 handleFormChange={handleFormChange}
                 handleSubmit={handleSubmit}
-                handlePrev={handlePrev}></WriteReviewForm>
+                handlePrev={handlePrev}
+            ></WriteReviewForm>
         </>
     );
 };

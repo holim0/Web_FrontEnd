@@ -6,8 +6,11 @@ import SignUpCheck from "assets/images/SignUpCheck.png";
 import { Container, LogoImg } from "./Login";
 import TextField from "@material-ui/core/TextField";
 import SignUp1 from "./SignUp1";
+import SingUp3 from "./SignUp3";
+import { useDispatch } from "react-redux";
+import { isMemberCheckReq } from "Redux/SignUp";
 
-const BtnContainer = styled.div`
+export const BtnContainer = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-around;
@@ -15,7 +18,7 @@ const BtnContainer = styled.div`
     bottom: 100px;
 `;
 
-const InputContainer = styled.div`
+export const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -28,12 +31,37 @@ const SignUp2 = () => {
 
     const [preVal, setPreVal] = useState(false);
 
+    const dispatch = useDispatch();
+
+    ///////////////////////////////////////////////////////////
+
+    // 이름 스태이트
+    const [name, setName] = useState(null);
+    // 폰 번호 스태이트
+    const [phoneNum, setPhoneNum] = useState(null);
+
+    /// 이름 핸들러
+
+    const handleName = (e: any) => {
+        setName(e.target.value);
+    };
+    // 폰 번호 핸들러
+    const handlePhone = (e: any) => {
+        setPhoneNum(e.target.value);
+    };
+
+    // 리덕스에 디스패치
+
+    const goDispatch = () => {
+        dispatch(isMemberCheckReq({ name, phoneNum }));
+    };
+
     if (preVal) {
         return <SignUp1></SignUp1>;
     }
 
     if (nextVal) {
-        // 추가 필요
+        return <SingUp3 />;
     }
     return (
         <Container>
@@ -47,12 +75,18 @@ const SignUp2 = () => {
                     id="standard-basic"
                     label="이름"
                     style={{ marginBottom: "10px" }}
+                    onChange={handleName}
+                    value={name}
                 />
                 <TextField
                     id="standard-basic"
                     label="휴대폰 번호"
                     style={{ marginBottom: "50px" }}
+                    onChange={handlePhone}
+                    value={phoneNum}
                 />
+
+                <Button onClick={goDispatch}>확인</Button>
             </InputContainer>
             <BtnContainer>
                 <Button

@@ -5,7 +5,7 @@ import axios from "axios";
 // 글쓰기 업로드 서버에 요청
 
 function writePost({ data }) {
-    return axios.post("url", data);
+    return axios.post("example_url", data);
 }
 
 // 글쓰기 업데이트 상황 지켜보는 것.
