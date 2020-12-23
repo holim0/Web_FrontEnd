@@ -36,9 +36,9 @@ const SignUp2 = () => {
     ///////////////////////////////////////////////////////////
 
     // 이름 스태이트
-    const [name, setName] = useState(null);
+    const [name, setName] = useState("");
     // 폰 번호 스태이트
-    const [phoneNum, setPhoneNum] = useState(null);
+    const [phoneNum, setPhoneNum] = useState("");
 
     /// 이름 핸들러
 

@@ -35,6 +35,10 @@ export const user = createSlice({
         setPassWord: (state, { payload }) => {
             state.password = payload;
         },
+        // 이메일 저장
+        setEmail: (state, { payload }) => {
+            state.email = payload;
+        },
     },
 });
 
@@ -43,6 +47,7 @@ export const {
     setNameAndPhone,
     setId,
     setPassWord,
+    setEmail,
 } = user.actions;
 
 export default user.reducer;

@@ -1,9 +1,9 @@
-// 유저 정보 리덕스
+// 회원 가입 상태 파일
 import { createSlice } from "@reduxjs/toolkit";
 import { SignUpType } from "../@types/interface";
 import { FaLeaf } from "react-icons/fa";
 
-// 유저 상태
+// 회원 가입 상태 (기존 회원 여부, 아이디 중복여부)
 export const SignUpState: SignUpType = {
     isloading: false,
     isMember: false,
