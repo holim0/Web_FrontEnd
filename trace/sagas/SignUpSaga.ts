@@ -23,7 +23,7 @@ import axios from "axios";
 
 // 기존 회원 여부 체크 요청(get)
 function memberCheckGet(userData: { name: string; phoneNum: string }) {
-    return axios.get("");
+    return axios.get("example_url");
 }
 // 아이디 중복 확인(get)
 function idDoubleGet(id: string) {
