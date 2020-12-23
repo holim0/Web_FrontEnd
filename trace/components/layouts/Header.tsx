@@ -8,6 +8,7 @@ import MainLogo from "assets/images/MainLogo.png";
 import Link from "next/link";
 import "antd/dist/antd.css";
 import { Modal, Button } from "antd";
+import Login from "components/layouts/Login";
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -45,9 +46,9 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create("width"),
         width: "100%",
         [theme.breakpoints.up("md")]: {
-            width: "30ch",
+            width: "50ch",
             "&:focus": {
-                width: "50ch",
+                width: "70ch",
             },
         },
     },
@@ -76,9 +77,12 @@ const Searchicon = styled(SearchIcon)``;
 const MenuContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
-    width: 90%;
+
+    width: 50%;
     font-size: 20px;
     color: black;
+    position: absolute;
+    right: 0;
 `;
 
 const MenuBtn = styled(Link)`
@@ -89,6 +93,8 @@ const LogoImg = styled(Image)`
     cursor: pointer;
 `;
 
+const LoginForm = styled(Modal)``;
+
 const Header = () => {
     const classes = useStyles();
 
@@ -96,10 +102,6 @@ const Header = () => {
 
     const showModal = () => {
         setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
     };
 
     const handleCancel = () => {
@@ -133,20 +135,21 @@ const Header = () => {
                 <MenuBtn href="/">
                     <a>홈</a>
                 </MenuBtn>
-
                 <MenuBtn href="/community">커뮤니티</MenuBtn>
                 <MenuBtn href="/write">글쓰기</MenuBtn>
                 <Button type="primary" onClick={showModal}>
                     로그인/회원가입
                 </Button>
-                <Modal
-                    title="로그인/회원가입 모달"
+                <LoginForm
                     visible={isModalVisible}
-                    onOk={handleOk}
                     onCancel={handleCancel}
+                    cancelButtonProps={{ style: { display: "none" } }}
+                    okButtonProps={{ style: { display: "none" } }}
+                    bodyStyle={{ padding: "0" }}
+                    footer={null}
                 >
-                    로그인/회원가입 모달
-                </Modal>
+                    <Login />
+                </LoginForm>
             </MenuContainer>
         </Container>
     );

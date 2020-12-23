@@ -148,6 +148,7 @@ interface Style {
     next?: boolean;
 }
 
+/////////////////////////// 전체 타입 인터페이스 (이벤트) ///////////////////////////////////////////////
 interface Props {
     writeState: ReviewWrite;
     livingStart: Date;
@@ -157,12 +158,14 @@ interface Props {
     onAddress: () => void;
     handleStartDate: (data: Date) => void;
     handleFinishDate: (data: Date) => void;
+    // form 핸들 이벤트 //
     handleFormChange: (e: React.FormEvent<HTMLFormElement>) => void;
     handleImg: () => void;
     handleNextSlide: () => void;
     handlePrevSlide: () => void;
     imgInput: React.MutableRefObject<HTMLInputElement>;
     handleFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    // select 핸들 이벤트 //
     handleSelectForm: (value: any, action: ActionMeta<any>) => void;
     handleDelImg: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
@@ -180,6 +183,7 @@ const WriteForm = ({
     handleStartDate,
     handleFinishDate,
     handleFormChange,
+
     handleImg,
     handleNextSlide,
     handlePrevSlide,
@@ -209,7 +213,8 @@ const WriteForm = ({
                                 {countIdx !== 1 && (
                                     <Btns
                                         type="button"
-                                        onClick={handlePrevSlide}>
+                                        onClick={handlePrevSlide}
+                                    >
                                         이전
                                     </Btns>
                                 )}
@@ -228,7 +233,8 @@ const WriteForm = ({
                                         <Btns
                                             next={true}
                                             type="button"
-                                            onClick={handleNextSlide}>
+                                            onClick={handleNextSlide}
+                                        >
                                             다음
                                         </Btns>
                                     )}

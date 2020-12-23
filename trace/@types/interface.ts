@@ -1,5 +1,6 @@
 import { OptionTypeBase, ValueType } from "react-select";
 import { Submit } from "./type";
+import { OptionType } from "antd/lib/select";
 
 // 리뷰 글쓰기 클릭버튼
 export interface WriteClick {
@@ -32,3 +33,6 @@ export interface ReviewWrite {
     durationStart: Date | null | undefined;
     durationEnd: Date | null | undefined;
 }
+
+//유저 정보 타입.
+export interface UserType {}
