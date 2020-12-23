@@ -18,7 +18,6 @@ import {
     setEmail,
 } from "Redux/user";
 import axios from "axios";
-import { createHash } from "crypto";
 
 // 회원가입 사가
 
@@ -32,9 +31,11 @@ function idDoubleGet(id: string) {
 }
 
 // 기존 회원가입 여부 판단 사가
-function* setNameAndPhoneSaga({ payload }: any) {
+function* nameAndPhoneSaga({ payload }: any) {
+    console.log(payload);
     try {
         const res = yield call(memberCheckGet, payload);
+        console.log(res);
         // 응답이 오면 그 응답에 맞게 필터링.
         if (res) {
             // 멤버가 아니면 유저 상태에 값 업데이트
@@ -68,7 +69,7 @@ function* idDoubleCheckSaga({ payload }: any) {
 
 // 기존 회원인지 아닌지 계속 watch
 function* watchsetNameAndPhoneSaga() {
-    yield takeLatest(isMemberCheckReq, setNameAndPhoneSaga);
+    yield takeLatest(isMemberCheckReq, nameAndPhoneSaga);
 }
 // 아이디 중복 여부 계속 watch
 function* watchIdDoubleCheckSaga() {

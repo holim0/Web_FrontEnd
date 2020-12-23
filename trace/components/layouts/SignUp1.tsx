@@ -1,5 +1,5 @@
 import React, { useState, SetStateAction } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import MainLogo from "assets/images/MainLogo.png";
 import Button from "@material-ui/core/Button";
@@ -9,6 +9,8 @@ import Select, { ValueType, OptionTypeBase } from "react-select";
 import Login from "./Login";
 import SignUp2 from "./SignUp2";
 import { preferenceWrite } from "Redux/user";
+import { RootState } from "redux";
+import { goPage3, goPage1 } from "redux/ModalPage";
 
 interface PreferType {
     value: string | never;
@@ -44,13 +46,6 @@ const PreferOptions: PreferType[] = [
 ];
 
 const SignUp1 = () => {
-    // 이전, 다음 컨트롤하는 state
-    const [nextVal, setNextVal] = useState(false);
-
-    const [preVal, setPreVal] = useState(false);
-
-    //////////////////////////////////////////////////////////////////////////////////////
-
     // select value 저장
 
     const [curValue, setCurValue] = useState([]);
@@ -65,18 +60,17 @@ const SignUp1 = () => {
     //////////////////////////////////////////////////////////////////////////////////////////
     const dispatch = useDispatch();
 
-    // 취향 선택 후 다음 버튼을 누르면 디스패치.
+    // 취향 선택 후 다음 버튼을 누르면 디스패치 그리고 다음으로 이동.
     const dispatchSelect = () => {
+        dispatch(goPage3());
         dispatch(preferenceWrite(curValue));
-        setNextVal(true);
     };
 
-    if (preVal) {
-        return <Login />;
-    }
-    if (nextVal) {
-        return <SignUp2 />;
-    }
+    /// 이전 화면으로 돌아가기
+
+    const goBack = () => {
+        dispatch(goPage1());
+    };
 
     return (
         <Container>
@@ -92,10 +86,7 @@ const SignUp1 = () => {
                 onChange={handleValue}
             ></SelectContainer>
             <BtnContainer>
-                <Button
-                    style={{ fontSize: "24px" }}
-                    onClick={() => setPreVal(true)}
-                >
+                <Button style={{ fontSize: "24px" }} onClick={goBack}>
                     이전
                 </Button>
                 <Button style={{ fontSize: "24px" }} onClick={dispatchSelect}>

@@ -9,6 +9,7 @@ import SignUp1 from "./SignUp1";
 import SingUp3 from "./SignUp3";
 import { useDispatch } from "react-redux";
 import { isMemberCheckReq } from "Redux/SignUp";
+import { goPage2, goPage4 } from "redux/ModalPage";
 
 export const BtnContainer = styled.div`
     display: flex;
@@ -27,10 +28,6 @@ export const InputContainer = styled.div`
 `;
 
 const SignUp2 = () => {
-    const [nextVal, setNextVal] = useState(false);
-
-    const [preVal, setPreVal] = useState(false);
-
     const dispatch = useDispatch();
 
     ///////////////////////////////////////////////////////////
@@ -51,18 +48,19 @@ const SignUp2 = () => {
     };
 
     // 리덕스에 디스패치
-
     const goDispatch = () => {
         dispatch(isMemberCheckReq({ name, phoneNum }));
     };
 
-    if (preVal) {
-        return <SignUp1></SignUp1>;
-    }
+    //다음 페이지
+    const goNext = () => {
+        dispatch(goPage4());
+    };
+    //이전 페이지
+    const goBack = () => {
+        dispatch(goPage2());
+    };
 
-    if (nextVal) {
-        return <SingUp3 />;
-    }
     return (
         <Container>
             <LogoImg src={MainLogo}></LogoImg>
@@ -89,16 +87,10 @@ const SignUp2 = () => {
                 <Button onClick={goDispatch}>확인</Button>
             </InputContainer>
             <BtnContainer>
-                <Button
-                    style={{ fontSize: "24px" }}
-                    onClick={() => setPreVal(true)}
-                >
+                <Button style={{ fontSize: "24px" }} onClick={goBack}>
                     이전
                 </Button>
-                <Button
-                    style={{ fontSize: "24px" }}
-                    onClick={() => setNextVal(true)}
-                >
+                <Button style={{ fontSize: "24px" }} onClick={goNext}>
                     다음
                 </Button>
             </BtnContainer>

@@ -3,6 +3,7 @@ import { HYDRATE } from "next-redux-wrapper";
 import review from "./review";
 import SignUp from "./SignUp";
 import user from "./user";
+import ModalPage from "./ModalPage";
 
 const rootReducer = (state: any, action: any) => {
     switch (action.type) {
@@ -13,6 +14,7 @@ const rootReducer = (state: any, action: any) => {
                 review,
                 SignUp,
                 user,
+                ModalPage,
             });
             return combineReducer(state, action);
         }

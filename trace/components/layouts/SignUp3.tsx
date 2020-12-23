@@ -5,22 +5,22 @@ import Button from "@material-ui/core/Button";
 import email from "assets/images/email.png";
 import { Container, LogoImg } from "./Login";
 import { InputContainer, BtnContainer } from "./SignUp2";
-import SignUp2 from "./SignUp2";
-import SignUp4 from "./SignUp4";
 import TextField from "@material-ui/core/TextField";
+import { useDispatch } from "react-redux";
+import { goPage3, goPage5 } from "Redux/ModalPage";
 
 const SignUp3 = () => {
-    const [nextVal, setNextVal] = useState(false);
+    const dispatch = useDispatch();
 
-    const [preVal, setPreVal] = useState(false);
+    //다음 페이지
+    const goNext = () => {
+        dispatch(goPage5());
+    };
+    //이전 페이지
+    const goBack = () => {
+        dispatch(goPage3());
+    };
 
-    if (preVal) {
-        return <SignUp2></SignUp2>;
-    }
-
-    if (nextVal) {
-        return <SignUp4 />;
-    }
     return (
         <Container>
             <LogoImg src={MainLogo}></LogoImg>
@@ -39,16 +39,10 @@ const SignUp3 = () => {
                 <Button>인증번호 전송</Button>
             </InputContainer>
             <BtnContainer>
-                <Button
-                    style={{ fontSize: "24px" }}
-                    onClick={() => setPreVal(true)}
-                >
+                <Button style={{ fontSize: "24px" }} onClick={goBack}>
                     이전
                 </Button>
-                <Button
-                    style={{ fontSize: "24px" }}
-                    onClick={() => setNextVal(true)}
-                >
+                <Button style={{ fontSize: "24px" }} onClick={goNext}>
                     다음
                 </Button>
             </BtnContainer>

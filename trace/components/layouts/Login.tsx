@@ -4,7 +4,14 @@ import LoginBack from "assets/images/LoginBack.png";
 import MainLogo from "assets/images/MainLogo.png";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import SingUp1 from "./SignUp1";
+import SignUp1 from "./SignUp1";
+import SignUp2 from "./SignUp2";
+import SignUp3 from "./SignUp3";
+import SignUp4 from "./SignUp4";
+
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "redux";
+import { goPage2 } from "Redux/ModalPage";
 
 export const Container = styled.div`
     background-image: url(${LoginBack});
@@ -33,43 +40,59 @@ const InputContainer = styled.div`
 const LoginButton = styled(Button)`
     height: 80px;
 `;
+////////////////////////////////////// 스타일과의 구분선 /////////////////////////////////////////////////////
 
 const Login = () => {
     // 회원가입 버튼 눌렀을 때 페이지 이동
-    const [SingUpBtn, setSignUp] = useState(false);
-
-    // 회원 가입 버튼 눌렀을 때 값 변경
+    const page1 = useSelector((state: RootState) => state.ModalPage.page1);
+    const page2 = useSelector((state: RootState) => state.ModalPage.page2);
+    const page3 = useSelector((state: RootState) => state.ModalPage.page3);
+    const page4 = useSelector((state: RootState) => state.ModalPage.page4);
+    const page5 = useSelector((state: RootState) => state.ModalPage.page5);
+    const dispatch = useDispatch();
+    // 회원 가입 버튼 눌렀을 때 회원가입 페이지로 이동.
     const handleSingUp = () => {
-        setSignUp(true);
+        dispatch(goPage2());
     };
 
-    if (SingUpBtn) {
-        return <SingUp1 />;
-    }
-
     return (
-        <Container>
-            <LogoImg src={MainLogo}></LogoImg>
-            <InputContainer>
-                <TextField
-                    id="standard-basic"
-                    label="아이디"
-                    style={{ marginBottom: "10px" }}
-                />
-                <TextField
-                    id="standard-basic"
-                    label="비밀번호"
-                    type="password"
-                    style={{ marginBottom: "50px" }}
-                />
-                <LoginButton variant="contained" color="primary" size="large">
-                    로그인
-                </LoginButton>
-                <Button style={{ marginTop: "15px" }} onClick={handleSingUp}>
-                    회원가입
-                </Button>
-            </InputContainer>
-        </Container>
+        <>
+            {page1 && (
+                <Container>
+                    <LogoImg src={MainLogo}></LogoImg>
+                    <InputContainer>
+                        <TextField
+                            id="standard-basic"
+                            label="아이디"
+                            style={{ marginBottom: "10px" }}
+                        />
+                        <TextField
+                            id="standard-basic"
+                            label="비밀번호"
+                            type="password"
+                            style={{ marginBottom: "50px" }}
+                        />
+                        <LoginButton
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                        >
+                            로그인
+                        </LoginButton>
+                        <Button
+                            style={{ marginTop: "15px" }}
+                            onClick={handleSingUp}
+                        >
+                            회원가입
+                        </Button>
+                    </InputContainer>
+                </Container>
+            )}
+            {page2 && <SignUp1 />}
+            {page3 && <SignUp2 />}
+            {page4 && <SignUp3 />}
+            {page5 && <SignUp4 />}
+        </>
     );
 };
 
