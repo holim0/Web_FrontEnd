@@ -35,4 +35,19 @@ export interface ReviewWrite {
 }
 
 //유저 정보 타입.
-export interface UserType {}
+export interface UserType {
+    userId: string;
+    password: string;
+    email: string;
+    name: string;
+    phoneNum: string;
+    preferences: string[];
+}
+
+//회원가입 타입
+export interface SignUpType {
+    isloading: boolean;
+    isMember: boolean;
+    isDouble: boolean;
+    error: any;
+}

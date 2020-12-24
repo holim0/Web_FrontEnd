@@ -9,6 +9,9 @@ import Link from "next/link";
 import "antd/dist/antd.css";
 import { Modal, Button } from "antd";
 import Login from "components/layouts/Login";
+import { useDispatch, useSelector } from "react-redux";
+import { openModal, closeModal } from "Redux/ModalPage";
+import { RootState } from "redux";
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -46,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create("width"),
         width: "100%",
         [theme.breakpoints.up("md")]: {
-            width: "50ch",
+            width: "20ch",
             "&:focus": {
-                width: "70ch",
+                width: "50ch",
             },
         },
     },
@@ -95,17 +98,21 @@ const LogoImg = styled(Image)`
 
 const LoginForm = styled(Modal)``;
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 const Header = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const isModalVisible = useSelector(
+        (state: RootState) => state.ModalPage.isOpen
+    );
 
     const showModal = () => {
-        setIsModalVisible(true);
+        dispatch(openModal());
     };
 
     const handleCancel = () => {
-        setIsModalVisible(false);
+        dispatch(closeModal());
     };
 
     return (

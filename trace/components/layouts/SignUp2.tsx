@@ -6,8 +6,12 @@ import SignUpCheck from "assets/images/SignUpCheck.png";
 import { Container, LogoImg } from "./Login";
 import TextField from "@material-ui/core/TextField";
 import SignUp1 from "./SignUp1";
+import SingUp3 from "./SignUp3";
+import { useDispatch } from "react-redux";
+import { isMemberCheckReq } from "Redux/SignUp";
+import { goPage2, goPage4 } from "redux/ModalPage";
 
-const BtnContainer = styled.div`
+export const BtnContainer = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-around;
@@ -15,7 +19,7 @@ const BtnContainer = styled.div`
     bottom: 100px;
 `;
 
-const InputContainer = styled.div`
+export const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -24,17 +28,39 @@ const InputContainer = styled.div`
 `;
 
 const SignUp2 = () => {
-    const [nextVal, setNextVal] = useState(false);
+    const dispatch = useDispatch();
 
-    const [preVal, setPreVal] = useState(false);
+    ///////////////////////////////////////////////////////////
 
-    if (preVal) {
-        return <SignUp1></SignUp1>;
-    }
+    // 이름 스태이트
+    const [name, setName] = useState("");
+    // 폰 번호 스태이트
+    const [phoneNum, setPhoneNum] = useState("");
 
-    if (nextVal) {
-        // 추가 필요
-    }
+    /// 이름 핸들러
+
+    const handleName = (e: any) => {
+        setName(e.target.value);
+    };
+    // 폰 번호 핸들러
+    const handlePhone = (e: any) => {
+        setPhoneNum(e.target.value);
+    };
+
+    // 리덕스에 디스패치
+    const goDispatch = () => {
+        dispatch(isMemberCheckReq({ name, phoneNum }));
+    };
+
+    //다음 페이지
+    const goNext = () => {
+        dispatch(goPage4());
+    };
+    //이전 페이지
+    const goBack = () => {
+        dispatch(goPage2());
+    };
+
     return (
         <Container>
             <LogoImg src={MainLogo}></LogoImg>
@@ -47,24 +73,24 @@ const SignUp2 = () => {
                     id="standard-basic"
                     label="이름"
                     style={{ marginBottom: "10px" }}
+                    onChange={handleName}
+                    value={name}
                 />
                 <TextField
                     id="standard-basic"
                     label="휴대폰 번호"
                     style={{ marginBottom: "50px" }}
+                    onChange={handlePhone}
+                    value={phoneNum}
                 />
+
+                <Button onClick={goDispatch}>확인</Button>
             </InputContainer>
             <BtnContainer>
-                <Button
-                    style={{ fontSize: "24px" }}
-                    onClick={() => setPreVal(true)}
-                >
+                <Button style={{ fontSize: "24px" }} onClick={goBack}>
                     이전
                 </Button>
-                <Button
-                    style={{ fontSize: "24px" }}
-                    onClick={() => setNextVal(true)}
-                >
+                <Button style={{ fontSize: "24px" }} onClick={goNext}>
                     다음
                 </Button>
             </BtnContainer>
