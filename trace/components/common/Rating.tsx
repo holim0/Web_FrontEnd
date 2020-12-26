@@ -14,9 +14,10 @@ const Stars = styled.div`
 interface Props {
     handleFix?: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
     score: number;
+    size?: number;
 }
 
-const Rating = ({ score, handleFix }: Props) => {
+const Rating = ({ score, handleFix, size = 24 }: Props) => {
     const stars = useRef(null);
 
     // 만약 스코어가 없을시 마우스 접근 반응.
@@ -52,31 +53,31 @@ const Rating = ({ score, handleFix }: Props) => {
                 data-value="1"
                 onMouseOver={onMouseOver}
                 onClick={handleFix}
-                size={24}
+                size={size}
             />
             <BsStarFill
                 data-value="2"
                 onMouseOver={onMouseOver}
                 onClick={handleFix}
-                size={24}
+                size={size}
             />
             <BsStarFill
                 data-value="3"
                 onMouseOver={onMouseOver}
                 onClick={handleFix}
-                size={24}
+                size={size}
             />
             <BsStarFill
                 data-value="4"
                 onMouseOver={onMouseOver}
                 onClick={handleFix}
-                size={24}
+                size={size}
             />
             <BsStarFill
                 data-value="5"
                 onMouseOver={onMouseOver}
                 onClick={handleFix}
-                size={24}
+                size={size}
             />
         </Stars>
     );
