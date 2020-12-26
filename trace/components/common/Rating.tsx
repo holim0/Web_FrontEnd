@@ -12,7 +12,7 @@ const Stars = styled.div`
 `;
 
 interface Props {
-    handleFix: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
+    handleFix?: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
     score: number;
 }
 
