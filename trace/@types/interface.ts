@@ -50,4 +50,5 @@ export interface SignUpType {
     isMember: boolean;
     isDouble: boolean;
     error: any;
+    verifyNum: string;
 }
