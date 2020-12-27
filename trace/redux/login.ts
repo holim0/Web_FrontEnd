@@ -6,7 +6,7 @@ import { LoginType } from "../@types/interface";
 export const LoginState: LoginType = {
     userId: "",
     password: "",
-    isSuccess: false,
+    isLoginSuccess: false,
     isloading: false,
     error: null,
 };
@@ -23,7 +23,7 @@ export const Login = createSlice({
 
         loginSuccess: (state) => {
             state.isloading = false;
-            state.isSuccess = true;
+            state.isLoginSuccess = true;
         },
 
         loginFail: (state, { payload }) => {

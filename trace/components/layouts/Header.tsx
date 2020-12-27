@@ -107,6 +107,12 @@ const Header = () => {
         (state: RootState) => state.ModalPage.isOpen
     );
 
+    // 로그인 여부 판단.
+
+    const isLogin = useSelector(
+        (state: RootState) => state.login.isLoginSuccess
+    );
+
     const showModal = () => {
         dispatch(openModal());
     };
@@ -144,9 +150,15 @@ const Header = () => {
                 </MenuBtn>
                 <MenuBtn href="/community">커뮤니티</MenuBtn>
                 <MenuBtn href="/write">글쓰기</MenuBtn>
-                <Button type="primary" onClick={showModal}>
-                    로그인/회원가입
-                </Button>
+
+                {!isLogin ? (
+                    <Button type="primary">Mypage</Button>
+                ) : (
+                    <Button type="primary" onClick={showModal}>
+                        로그인/회원가입
+                    </Button>
+                )}
+
                 <LoginForm
                     visible={isModalVisible}
                     onCancel={handleCancel}

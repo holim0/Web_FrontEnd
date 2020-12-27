@@ -59,5 +59,5 @@ export interface LoginType {
     password: string;
     isloading: boolean;
     error: any;
-    isSuccess: boolean;
+    isLoginSuccess: boolean;
 }
