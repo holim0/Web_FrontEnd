@@ -154,7 +154,7 @@ const BuildingDetail = ({ loading }: Props) => {
                             <div>
                                 <img src={faker.image.abstract(180, 180)} />
                             </div>
-                            <Link href="">
+                            <Link href="/building/review/123">
                                 <RoomReview>
                                     <div>
                                         1000/45/3 <span>월세</span>

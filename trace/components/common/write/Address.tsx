@@ -36,8 +36,8 @@ const AddressForm = styled.div`
 `;
 
 interface Props {
-    address: string;
-    onAddress: () => void;
+    address?: string;
+    onAddress?: () => void;
 }
 
 const Address = ({ address, onAddress }: Props) => {

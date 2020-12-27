@@ -1,4 +1,4 @@
-import BuildingComtainer from "components/Building/BuildingContainer";
+import BuildingContainer from "components/Building/BuildingContainer";
 import { useEffect, useState } from "react";
 
 const index = () => {
@@ -9,7 +9,7 @@ const index = () => {
             setLoading(() => false);
         }, 1000);
     }, []);
-    return <BuildingComtainer loading={loading}></BuildingComtainer>;
+    return <BuildingContainer loading={loading}></BuildingContainer>;
 };
 
 export default index;
