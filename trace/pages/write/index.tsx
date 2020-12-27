@@ -178,8 +178,7 @@ const index = () => {
                 handleImg={handleImg}
                 handleNextSlide={handleNextSlide}
                 handlePrevSlide={handlePrevSlide}
-                handleStartDate={handleStartDate}
-            ></WriteForm>
+                handleStartDate={handleStartDate}></WriteForm>
         </>
     );
 };

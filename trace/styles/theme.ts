@@ -12,6 +12,7 @@ const theme = {
     xls: "24px",
     blue: "#1da1f2",
     backMainColor: "#fffafa",
+    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
 };
 
 export default theme;
