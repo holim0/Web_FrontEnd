@@ -29,7 +29,7 @@ const SignUp3 = () => {
 
     // 이메일 텍스트 필드 핸들러
 
-    const handleEmail = (e: any) => {
+    const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
 

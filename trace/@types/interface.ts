@@ -52,3 +52,12 @@ export interface SignUpType {
     error: any;
     verifyNum: string;
 }
+
+// 로그인 타입
+export interface LoginType {
+    userId: string;
+    password: string;
+    isloading: boolean;
+    error: any;
+    isSuccess: boolean;
+}

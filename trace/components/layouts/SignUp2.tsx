@@ -39,11 +39,11 @@ const SignUp2 = () => {
 
     /// 이름 핸들러
 
-    const handleName = (e: any) => {
+    const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
     };
     // 폰 번호 핸들러
-    const handlePhone = (e: any) => {
+    const handlePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPhoneNum(e.target.value);
     };
 

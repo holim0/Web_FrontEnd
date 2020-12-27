@@ -23,6 +23,7 @@ import {
 } from "Redux/user";
 import axios from "axios";
 
+// 도메인
 const Domain: String = "http://jjaggutrace.com";
 
 // 기존 회원 여부 체크 요청(get)

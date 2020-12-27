@@ -29,18 +29,18 @@ const SignUp4 = () => {
     const [isSame, setIsSame] = useState(false);
 
     // 아이디 핸들러
-    const handleId = (e: any) => {
+    const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
         setId(e.target.value);
     };
 
     // 비밀번호 핸들러
 
-    const handlePassword = (e: any) => {
+    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
 
     // 비밀번호 확인 핸들러
-    const handleConfirmPassword = (e: any) => {
+    const handleConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(e.target.value);
     };
 
