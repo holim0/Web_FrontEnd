@@ -151,7 +151,7 @@ const Header = () => {
                 <MenuBtn href="/community">커뮤니티</MenuBtn>
                 <MenuBtn href="/write">글쓰기</MenuBtn>
 
-                {!isLogin ? (
+                {isLogin ? (
                     <Button type="primary">Mypage</Button>
                 ) : (
                     <Button type="primary" onClick={showModal}>

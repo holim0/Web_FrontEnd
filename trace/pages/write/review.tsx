@@ -71,7 +71,7 @@ const Review = () => {
                 return setOpenModal(() => true);
             }
             console.log("작성 완료");
-            dispatch(reviewWriteSubmit());
+            dispatch(reviewWriteSubmit(writeReview));
         },
         [openModal]
     );

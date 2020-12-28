@@ -183,7 +183,6 @@ const WriteForm = ({
     handleStartDate,
     handleFinishDate,
     handleFormChange,
-
     handleImg,
     handleNextSlide,
     handlePrevSlide,
@@ -213,8 +212,7 @@ const WriteForm = ({
                                 {countIdx !== 1 && (
                                     <Btns
                                         type="button"
-                                        onClick={handlePrevSlide}
-                                    >
+                                        onClick={handlePrevSlide}>
                                         이전
                                     </Btns>
                                 )}
@@ -233,8 +231,7 @@ const WriteForm = ({
                                         <Btns
                                             next={true}
                                             type="button"
-                                            onClick={handleNextSlide}
-                                        >
+                                            onClick={handleNextSlide}>
                                             다음
                                         </Btns>
                                     )}

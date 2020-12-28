@@ -40,6 +40,7 @@ const index = () => {
     // img 업로드
     const imgInput = useRef<HTMLInputElement>(null!);
     const [saveImg, setSaveImg] = useState<string[]>(writeState.images);
+
     const handleImg = useCallback(() => {
         const input = imgInput.current;
         input.click();
@@ -74,22 +75,26 @@ const index = () => {
         setCountIdx((prev) => (prev -= 1));
     }, [saveImg, countIdx]);
 
-    // img 리덕스에 전송
-    useEffect(() => {
-        setCountIdx((prev) => 1);
-        dispatch(
-            reviewWrite({ ...writeState, ...form, isSell, images: saveImg })
-        );
-    }, [saveImg]);
-
     // 이미지 삭제
     const handleDelImg = useCallback(
         (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             const { link } = e.currentTarget.dataset;
-            setSaveImg(saveImg.filter((img) => img !== link));
+            setSaveImg(() => saveImg.filter((img) => img !== link));
         },
         [saveImg]
     );
+
+    // img File 리덕스에 전송
+    useEffect(() => {
+        dispatch(
+            reviewWrite({
+                ...writeState,
+                ...form,
+                isSell,
+                images: saveImg,
+            })
+        );
+    }, [saveImg]);
 
     // 거주기간 날짜 선택
     const {
@@ -99,6 +104,7 @@ const index = () => {
         deposit,
         monthlyRent,
         area,
+        rentType,
     } = writeState;
 
     // 시작 날짜
@@ -143,7 +149,10 @@ const index = () => {
         if (score === 0) {
             return message.error("별점을 눌러주세요");
         }
-        if (!deposit || !monthlyRent) {
+        if (rentType !== "KEY_MONEY" && !monthlyRent) {
+            return message.error("금액을 적어주세요");
+        }
+        if (!deposit) {
             return message.error("금액을 적어주세요");
         }
         if (!area) {

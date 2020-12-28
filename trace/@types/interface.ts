@@ -12,6 +12,7 @@ export interface WriteClick {
 // 리뷰 글쓰기 데이터
 export interface ReviewWrite {
     roomNumber: string;
+    buildingId: number;
     images: string[];
     rentType: string;
     deposit: number;

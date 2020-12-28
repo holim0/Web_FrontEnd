@@ -5,14 +5,19 @@ import { ReviewWrite } from "../@types/interface";
 export interface ReviewState {
     isSell: boolean;
     write: ReviewWrite;
+    fileListImg: File[];
+    isErr: boolean;
 }
 
 export const reviewState: ReviewState = {
     isSell: false,
+    isErr: false,
+    fileListImg: [],
     write: {
         roomNumber: "",
+        buildingId: 0,
         images: [],
-        rentType: "월세",
+        rentType: "monthlyRent",
         deposit: 0,
         area: 0,
         monthlyRent: 0,
@@ -20,11 +25,11 @@ export const reviewState: ReviewState = {
         livingStart: null,
         livingEnd: null,
         remodeled: true,
-        waterPressure: "좋아요",
-        lighting: "좋아요",
-        frozen: "없어요",
-        bug: "가끔나와요",
-        noise: "독서실",
+        waterPressure: "GOOD",
+        lighting: "GOOD",
+        frozen: "GOOD",
+        bug: "SOMETIMES",
+        noise: "QUIET",
         option: "",
         nearBy: "",
         trueStory: "",
@@ -39,7 +44,9 @@ const review = createSlice({
     initialState: reviewState,
     reducers: {
         reviewWrite: (state, { payload }) => {
+            payload.fileListImg && state.fileListImg.push(payload.fileListImg);
             state.isSell = payload.isSell;
+            state.write.buildingId = payload.buildingId;
             state.write.area = payload.area;
             state.write.roomNumber = payload.roomNumber;
             state.write.images = payload.images;
@@ -62,12 +69,19 @@ const review = createSlice({
             state.write.durationStart = payload.durationStart;
             state.write.durationEnd = payload.durationEnd;
         },
-        reviewWriteSubmit: (state, { payload }) => {
-            state = payload;
+        reviewWriteSubmit: (state, { payload }) => {},
+        reviewWriteSuccess: (state) => {},
+        reviewWriteFailure: (state, { payload }) => {
+            state.isErr = payload;
         },
     },
 });
 
-export const { reviewWriteSubmit, reviewWrite } = review.actions;
+export const {
+    reviewWriteSubmit,
+    reviewWrite,
+    reviewWriteSuccess,
+    reviewWriteFailure,
+} = review.actions;
 
 export default review.reducer;

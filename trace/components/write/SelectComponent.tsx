@@ -127,16 +127,16 @@ interface OptionType {
 }
 
 const Soundoptions: OptionType[] = [
-    { value: "독서실", label: "독서실" },
-    { value: "옆사람과 동거중", label: "옆사람과 동거중" },
-    { value: "종종 들림", label: "종종 들림" },
+    { value: "QUIET", label: "독서실" },
+    { value: "NOISY", label: "옆사람과 동거중" },
+    { value: "OFTEN", label: "종종 들림" },
 ];
 
 const Bugoptions: OptionType[] = [
-    { value: "가끔 나와요", label: "가끔 나와요" },
-    { value: "전혀 안나와요", label: "전혀 안나와요" },
-    { value: "꽤 안나와요", label: "꽤 안나와요" },
-    { value: "항상 같이 살아요", label: "항상 같이 살아요" },
+    { value: "SOMETIMES", label: "가끔 나와요" },
+    { value: "NOTATALL", label: "전혀 안나와요" },
+    { value: "QUIETALOT", label: "꽤 안나와요" },
+    { value: "ALWAYS", label: "항상 같이 살아요" },
 ];
 
 export const SelectComponent = ({
@@ -166,8 +166,8 @@ export const SelectComponent = ({
                 type="radio"
                 name="rentType"
                 id="month"
-                value="월세"
-                defaultChecked={rentType === "월세"}
+                value="MONTHLY"
+                defaultChecked={rentType === "MONTHLY"}
                 required
             />
             <label htmlFor="month">월세</label>
@@ -175,14 +175,14 @@ export const SelectComponent = ({
                 type="radio"
                 name="rentType"
                 id="lease"
-                value="전세"
-                defaultChecked={rentType === "전세"}
+                value="KEY_MONEY"
+                defaultChecked={rentType === "KEY_MONEY"}
             />
             <label htmlFor="charter">전세</label>
             <Cost>
                 <CostBox>
                     <label htmlFor="deposit">
-                        {rentType === "전세" ? "전세" : "보증금"}
+                        {rentType === "KEY_MONEY" ? "전세" : "보증금"}
                     </label>
                     <input
                         type="number"
@@ -196,7 +196,7 @@ export const SelectComponent = ({
                 </CostBox>
                 <Preview>₩{(deposit * 10000).toLocaleString()}</Preview>
 
-                {rentType === "월세" && (
+                {rentType === "MONTHLY" && (
                     <>
                         <CostBox>
                             <label htmlFor="rent">월세</label>
@@ -262,16 +262,16 @@ export const SelectComponent = ({
                         type="radio"
                         name="waterPressure"
                         id="high"
-                        value="좋아요"
-                        defaultChecked={waterPressure === "좋아요"}
+                        value="GOOD"
+                        defaultChecked={waterPressure === "GOOD"}
                     />
                     <label htmlFor="high">좋아요</label>
                     <input
                         type="radio"
                         name="waterPressure"
                         id="low"
-                        value="아쉬워요"
-                        defaultChecked={waterPressure === "아쉬워요"}
+                        value="BAD"
+                        defaultChecked={waterPressure === "BAD"}
                     />
                     <label htmlFor="low">아쉬워요</label>
                 </div>
@@ -282,16 +282,16 @@ export const SelectComponent = ({
                         type="radio"
                         name="frozen"
                         id="nofrozen"
-                        value="없어요"
-                        defaultChecked={frozen === "없어요"}
+                        value="GOOD"
+                        defaultChecked={frozen === "GOOD"}
                     />
                     <label htmlFor="nofrozen">없어요</label>
                     <input
                         type="radio"
                         name="frozen"
                         id="frozen"
-                        value="있어요"
-                        defaultChecked={frozen === "있어요"}
+                        value="BAD"
+                        defaultChecked={frozen === "BAD"}
                     />
                     <label htmlFor="frozen">있어요</label>
                 </div>
@@ -302,16 +302,16 @@ export const SelectComponent = ({
                         type="radio"
                         name="lighting"
                         id="good"
-                        value="좋아요"
-                        defaultChecked={lighting === "좋아요"}
+                        value="GOOD"
+                        defaultChecked={lighting === "GOOD"}
                     />
                     <label htmlFor="good">좋아요</label>
                     <input
                         type="radio"
                         name="lighting"
                         id="bad"
-                        value="아쉬워요"
-                        defaultChecked={lighting === "아쉬워요"}
+                        value="BAD"
+                        defaultChecked={lighting === "BAD"}
                     />
                     <label htmlFor="bad">아쉬워요</label>
                 </div>
@@ -322,7 +322,13 @@ export const SelectComponent = ({
                     <Select
                         options={Soundoptions}
                         onChange={handleSelectForm}
-                        defaultValue={{ value: noise, label: noise }}
+                        name="noise"
+                        defaultValue={{
+                            value: noise,
+                            label: Soundoptions.filter(
+                                (arr) => arr.value === noise
+                            )[0]?.label,
+                        }}
                     />
                 </Options>
                 <Options>
@@ -330,7 +336,13 @@ export const SelectComponent = ({
                     <Select
                         options={Bugoptions}
                         onChange={handleSelectForm}
-                        defaultValue={{ value: bug, label: bug }}
+                        name="bug"
+                        defaultValue={{
+                            value: bug,
+                            label: Bugoptions.filter(
+                                (arr) => arr.value === bug
+                            )[0]?.label,
+                        }}
                     />
                 </Options>
             </OptionsGrid>
