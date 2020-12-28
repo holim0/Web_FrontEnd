@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import styled from "@emotion/styled";
 import SearchIcon from "@material-ui/icons/Search";
@@ -108,8 +108,7 @@ const Header = () => {
     );
 
     // 로그인 여부 판단.
-
-    const isLogin = useSelector(
+    const isLoginSuccess = useSelector(
         (state: RootState) => state.login.isLoginSuccess
     );
 
@@ -120,6 +119,7 @@ const Header = () => {
     const handleCancel = () => {
         dispatch(closeModal());
     };
+    useEffect(() => {});
 
     return (
         <Container>
@@ -151,7 +151,7 @@ const Header = () => {
                 <MenuBtn href="/community">커뮤니티</MenuBtn>
                 <MenuBtn href="/write">글쓰기</MenuBtn>
 
-                {!isLogin ? (
+                {isLoginSuccess ? (
                     <Button type="primary">Mypage</Button>
                 ) : (
                     <Button type="primary" onClick={showModal}>
@@ -165,7 +165,8 @@ const Header = () => {
                     cancelButtonProps={{ style: { display: "none" } }}
                     okButtonProps={{ style: { display: "none" } }}
                     bodyStyle={{ padding: "0" }}
-                    footer={null}>
+                    footer={null}
+                >
                     <Login />
                 </LoginForm>
             </MenuContainer>

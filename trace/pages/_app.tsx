@@ -8,7 +8,7 @@ import Header from "components/layouts/Header";
 import Footer from "components/layouts/Footer";
 import Axios from "axios";
 
-Axios.defaults.baseURL = "http://jjaggutrace.com";
+Axios.defaults.baseURL = "http://jaggutrace.com";
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (

@@ -10,7 +10,7 @@ import SignUp3 from "./SignUp3";
 import SignUp4 from "./SignUp4";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "Redux";
-import { goPage2 } from "Redux/ModalPage";
+import { goPage2, closeModal } from "Redux/ModalPage";
 import { loginReq } from "Redux/login";
 export const Container = styled.div`
     background-image: url(${LoginBack});
@@ -50,7 +50,8 @@ const Login = () => {
     const page5 = useSelector((state: RootState) => state.ModalPage.page5);
     const dispatch = useDispatch();
     // 회원 가입 버튼 눌렀을 때 회원가입 페이지로 이동.
-    const handleSingUp = () => {
+    const handleSingUp = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
         dispatch(goPage2());
     };
 
@@ -68,8 +69,10 @@ const Login = () => {
     };
     // 로그인 요청
 
-    const goLogin = () => {
+    const goLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
         dispatch(loginReq({ userId, password }));
+        dispatch(closeModal());
     };
 
     return (
@@ -97,12 +100,14 @@ const Login = () => {
                             variant="contained"
                             color="primary"
                             size="large"
-                            onClick={goLogin}>
+                            onClick={goLogin}
+                        >
                             로그인
                         </LoginButton>
                         <Button
                             style={{ marginTop: "15px" }}
-                            onClick={handleSingUp}>
+                            onClick={handleSingUp}
+                        >
                             회원가입
                         </Button>
                     </InputContainer>
