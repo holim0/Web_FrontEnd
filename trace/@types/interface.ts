@@ -50,4 +50,14 @@ export interface SignUpType {
     isMember: boolean;
     isDouble: boolean;
     error: any;
+    verifyNum: string;
+}
+
+// 로그인 타입
+export interface LoginType {
+    userId: string;
+    password: string;
+    isloading: boolean;
+    error: any;
+    isLoginSuccess: boolean;
 }

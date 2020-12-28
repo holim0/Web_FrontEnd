@@ -12,7 +12,7 @@ import SignUp4 from "./SignUp4";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "redux";
 import { goPage2 } from "Redux/ModalPage";
-
+import { loginReq } from "Redux/login";
 export const Container = styled.div`
     background-image: url(${LoginBack});
     background-size: cover;
@@ -55,6 +55,24 @@ const Login = () => {
         dispatch(goPage2());
     };
 
+    const [userId, setId] = useState("");
+    const [password, setPassword] = useState("");
+    // 아이디 핸들러
+
+    const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setId(e.target.value);
+    };
+    // 비밀번호 핸들러
+
+    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    };
+    // 로그인 요청
+
+    const goLogin = () => {
+        dispatch(loginReq({ userId, password }));
+    };
+
     return (
         <>
             {page1 && (
@@ -65,17 +83,22 @@ const Login = () => {
                             id="standard-basic"
                             label="아이디"
                             style={{ marginBottom: "10px" }}
+                            value={userId}
+                            onChange={handleId}
                         />
                         <TextField
                             id="standard-basic"
                             label="비밀번호"
                             type="password"
                             style={{ marginBottom: "50px" }}
+                            value={password}
+                            onChange={handlePassword}
                         />
                         <LoginButton
                             variant="contained"
                             color="primary"
                             size="large"
+                            onClick={goLogin}
                         >
                             로그인
                         </LoginButton>

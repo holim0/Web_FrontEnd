@@ -8,6 +8,7 @@ export const SignUpState: SignUpType = {
     isMember: false,
     isDouble: true,
     error: null,
+    verifyNum: "", /// 이메일 인증 번호
 };
 
 //유저 상태 리듀서
@@ -42,12 +43,12 @@ export const SignUp = createSlice({
             state.isloading = true;
         },
 
-        // 중복되면
+        // 아이디 중복되면
         idDoubleYes: (state) => {
             state.isloading = false;
             state.isDouble = true;
         },
-        // 중복 안되면
+        // 아이디 중복 안되면
         idDoubleNo: (state) => {
             state.isloading = false;
             state.isDouble = false;
@@ -57,6 +58,21 @@ export const SignUp = createSlice({
         idDoubleCheckFail: (state, { payload }) => {
             state.isloading = false;
             state.isDouble = true;
+            state.error = payload;
+        },
+
+        // 이메일 인증 요청
+        emailVerifyReq: (state, { payload }) => {
+            state.isloading = true;
+        },
+        // 이메일 인증 요청 성공시 검증 번호 저장.
+        emailVerifySuccess: (state, { payload }) => {
+            state.isloading = false;
+            state.verifyNum = payload;
+        },
+        // 이메일 인증 요청 실패
+        emailVerifyFail: (state, { payload }) => {
+            state.isloading = false;
             state.error = payload;
         },
     },
@@ -71,6 +87,9 @@ export const {
     idDoubleYes,
     idDoubleNo,
     idDoubleCheckFail,
+    emailVerifyReq,
+    emailVerifySuccess,
+    emailVerifyFail,
 } = SignUp.actions;
 
 export default SignUp.reducer;
