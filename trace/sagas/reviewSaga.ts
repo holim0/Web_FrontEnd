@@ -2,6 +2,8 @@ import { all, fork, takeLatest } from "redux-saga/effects";
 import { reviewWriteSubmit } from "Redux/review";
 import axios from "axios";
 
+// 주소, 지번 분리 필요.
+
 // 글쓰기 업로드 서버에 요청
 
 function writePost({ data }) {

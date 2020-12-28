@@ -9,7 +9,7 @@ import login from "./login";
 const rootReducer = (state: any, action: any) => {
     switch (action.type) {
         case HYDRATE:
-            return action.payload;
+            return { ...state, ...action.payload };
         default: {
             const combineReducer = combineReducers({
                 review,

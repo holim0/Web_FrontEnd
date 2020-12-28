@@ -48,6 +48,7 @@ export const SignUp = createSlice({
             state.isloading = false;
             state.isDouble = true;
         },
+
         // 아이디 중복 안되면
         idDoubleNo: (state) => {
             state.isloading = false;
