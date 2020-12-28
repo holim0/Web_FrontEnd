@@ -4,7 +4,7 @@ import SignUpSaga from "./SignUpSaga";
 import LoginSaga from "./LoginSaga";
 import Axios from "axios";
 
-Axios.defaults.baseURL = "http://jjaggutrace.com/";
+Axios.defaults.baseURL = "http://jaggutrace.com/";
 Axios.defaults.withCredentials = true;
 
 export default function* rootSaga() {

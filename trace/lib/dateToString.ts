@@ -1,10 +1,10 @@
-// 받은 데이터를 무조건 yyyy-mm-dd 형식으로 리턴
+// 받은 데이터를 무조건 yyyy-mm-dd 형식으로 리턴하기 위해 만든 함수 파일입니다~~
+
 export const dateToString = (date?: Date): string => {
     const filter = date
         ? date.toLocaleDateString().replace(/\. /g, "-")
         : new Date().toLocaleDateString().replace(/\. /g, "-");
 
-    // yyyy-MM-dd 형식을 위해
     const fixDate = filter.split("-");
     for (let i = 0; i < fixDate.length; i++) {
         fixDate[i].length < 2 && `0${fixDate[i]}`;

@@ -1,7 +1,9 @@
+// 이미지 baseURL들을 File형식으로 바꿔 FORMDATA에 넣기 위해 작업하는 함수들입니다~~
+
 import { ReviewWrite } from "../@types/interface";
 import { dateValid } from "./dateToString";
 
-// 폼데이터에 이미지 넣기
+// 이미지 baseURL들을 File형식으로 바꿔 FORMDATA에 넣기 위해 작업하는 함수들입니다~~
 const changeToFile = async (fd: FormData, img: string[], fileName: string) => {
     for (let i = 0; i < img.length; i++) {
         const res: Response = await fetch(img[i]);
@@ -11,11 +13,14 @@ const changeToFile = async (fd: FormData, img: string[], fileName: string) => {
     }
 };
 
-// 폼데이터에 페이로드 다 넣기
-export const dataUrlToFile = async (payload: ReviewWrite, fileName: string) => {
+// reviewSaga에서 payload를 받아 폼데이터에 집어넣습니다!
+export const dataUrlToFormData = async (
+    payload: ReviewWrite,
+    fileName: string
+) => {
     const { images } = payload;
     const fd = new FormData();
-    await changeToFile(fd, images, "image");
+    await changeToFile(fd, images, fileName);
     fd.append(
         "data",
         JSON.stringify({

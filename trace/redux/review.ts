@@ -17,7 +17,7 @@ export const reviewState: ReviewState = {
         roomNumber: "",
         buildingId: 0,
         images: [],
-        rentType: "monthlyRent",
+        rentType: "MONTHLY",
         deposit: 0,
         area: 0,
         monthlyRent: 0,
