@@ -1,5 +1,5 @@
 import { all, fork, takeLatest } from "redux-saga/effects";
-import { reviewWriteSubmit } from "redux/review";
+import { reviewWriteSubmit } from "Redux/review";
 import axios from "axios";
 
 // 글쓰기 업로드 서버에 요청

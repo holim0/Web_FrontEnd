@@ -79,8 +79,7 @@ const SignUp4 = () => {
                             marginTop: "15px",
                             marginLeft: "20px",
                         }}
-                        onClick={goIdCheck}
-                    >
+                        onClick={goIdCheck}>
                         중복확인
                     </Button>
                 </IdContainer>

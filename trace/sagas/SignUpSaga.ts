@@ -23,23 +23,20 @@ import {
 } from "Redux/user";
 import axios from "axios";
 
-// 도메인
-const Domain: String = "http://jjaggutrace.com";
-
 // 기존 회원 여부 체크 요청(get)
 function memberCheckGet(userData: { name: string; phoneNum: string }) {
     return axios.get(
-        `${Domain}/api/v1/auth/registered?name=${userData.name}&phoneNum=${userData.phoneNum}`
+        `/api/v1/auth/registered?name=${userData.name}&phoneNum=${userData.phoneNum}`
     );
 }
 // 아이디 중복 확인(get)
 function idDoubleGet(id: string) {
-    return axios.get(`${Domain}/api/v1/auth/registered?userId=${id}`);
+    return axios.get(`/api/v1/auth/registered?userId=${id}`);
 }
 
 // 이메일 인증(get)
 function emailVerify(email: string) {
-    return axios.get(`${Domain}/api/v1/mail/verification?mail=${email}`);
+    return axios.get(`/api/v1/mail/verification?mail=${email}`);
 }
 
 // 기존 회원가입 여부 판단 사가

@@ -5,11 +5,9 @@ import Button from "@material-ui/core/Button";
 import SignUpCheck from "assets/images/SignUpCheck.png";
 import { Container, LogoImg } from "./Login";
 import TextField from "@material-ui/core/TextField";
-import SignUp1 from "./SignUp1";
-import SingUp3 from "./SignUp3";
 import { useDispatch } from "react-redux";
 import { isMemberCheckReq } from "Redux/SignUp";
-import { goPage2, goPage4 } from "redux/ModalPage";
+import { goPage2, goPage4 } from "Redux/ModalPage";
 
 export const BtnContainer = styled.div`
     display: flex;

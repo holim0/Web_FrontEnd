@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import MainLogo from "assets/images/MainLogo.png";
 import Button from "@material-ui/core/Button";
-import email from "assets/images/email.png";
 import { Container, LogoImg } from "./Login";
 import { InputContainer, BtnContainer } from "./SignUp2";
 import TextField from "@material-ui/core/TextField";
@@ -59,8 +58,7 @@ const SignUp3 = () => {
                     />
                     <Button
                         variant="outlined"
-                        style={{ marginLeft: "25px", marginTop: "10px" }}
-                    >
+                        style={{ marginLeft: "25px", marginTop: "10px" }}>
                         확인
                     </Button>
                 </VeriContainer>

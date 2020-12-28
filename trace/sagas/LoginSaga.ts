@@ -1,17 +1,14 @@
 // 로그인/회원가입에 대한 사가.
 import { all, fork, takeLatest, put, call } from "redux-saga/effects";
 import { loginFail, loginReq, loginSuccess } from "Redux/login";
-
 import axios from "axios";
 
 // 로그인 사가
 
-const Domain: String = "http://jjaggutrace.com";
-
 // 로그인 요청(post)
 
 function LoginPost(userData: { userId: string; password: string }) {
-    return axios.post(`${Domain}/api/v1/members/login`, userData);
+    return axios.post(`/api/v1/members/login`, userData);
 }
 
 // 로그인 사가

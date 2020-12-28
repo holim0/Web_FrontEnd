@@ -6,6 +6,9 @@ import { ThemeProvider } from "@emotion/react";
 import theme from "../styles/theme";
 import Header from "components/layouts/Header";
 import Footer from "components/layouts/Footer";
+import Axios from "axios";
+
+Axios.defaults.baseURL = "http://jjaggutrace.com";
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (

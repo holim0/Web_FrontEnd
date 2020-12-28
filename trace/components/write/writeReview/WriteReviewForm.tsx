@@ -2,7 +2,6 @@ import { ReviewWrite, WriteClick } from "../../../@types/interface";
 import React from "react";
 import BtnLink from "../../common/write/Btn";
 import styled from "@emotion/styled";
-import Address from "components/common/write/Address";
 import { SubTitle } from "../WriteForm";
 import { Container } from "styles/commonStyle";
 import { css, keyframes } from "@emotion/react";
