@@ -2,7 +2,7 @@ import React from "react";
 import Map from "assets/images/Map.png";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
-import Link from "next/Link";
+import Link from "next/link";
 
 const Container = styled.div`
     width: 100%;

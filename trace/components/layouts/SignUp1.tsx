@@ -1,16 +1,13 @@
 import React, { useState, SetStateAction } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "@emotion/styled";
 import MainLogo from "assets/images/MainLogo.png";
 import Button from "@material-ui/core/Button";
 import Prefer from "assets/images/Prefer.png";
 import { Container, LogoImg } from "./Login";
-import Select, { ValueType, OptionTypeBase } from "react-select";
-import Login from "./Login";
-import SignUp2 from "./SignUp2";
+import Select from "react-select";
 import { preferenceWrite } from "Redux/user";
-import { RootState } from "redux";
-import { goPage3, goPage1 } from "redux/ModalPage";
+import { goPage3, goPage1 } from "Redux/ModalPage";
 
 interface PreferType {
     value: string | never;
@@ -83,8 +80,7 @@ const SignUp1 = () => {
                 value={PreferOptions.filter((obj) =>
                     curValue.includes(obj.value)
                 )}
-                onChange={handleValue}
-            ></SelectContainer>
+                onChange={handleValue}></SelectContainer>
             <BtnContainer>
                 <Button style={{ fontSize: "24px" }} onClick={goBack}>
                     이전

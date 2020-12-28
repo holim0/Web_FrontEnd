@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import styled from "@emotion/styled";
 import SearchIcon from "@material-ui/icons/Search";
@@ -11,7 +11,7 @@ import { Modal, Button } from "antd";
 import Login from "components/layouts/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal, closeModal } from "Redux/ModalPage";
-import { RootState } from "redux";
+import { RootState } from "Redux";
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -165,8 +165,7 @@ const Header = () => {
                     cancelButtonProps={{ style: { display: "none" } }}
                     okButtonProps={{ style: { display: "none" } }}
                     bodyStyle={{ padding: "0" }}
-                    footer={null}
-                >
+                    footer={null}>
                     <Login />
                 </LoginForm>
             </MenuContainer>

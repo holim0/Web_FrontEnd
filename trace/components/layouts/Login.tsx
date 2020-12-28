@@ -8,9 +8,8 @@ import SignUp1 from "./SignUp1";
 import SignUp2 from "./SignUp2";
 import SignUp3 from "./SignUp3";
 import SignUp4 from "./SignUp4";
-
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "redux";
+import { RootState } from "Redux";
 import { goPage2 } from "Redux/ModalPage";
 import { loginReq } from "Redux/login";
 export const Container = styled.div`
@@ -98,14 +97,12 @@ const Login = () => {
                             variant="contained"
                             color="primary"
                             size="large"
-                            onClick={goLogin}
-                        >
+                            onClick={goLogin}>
                             로그인
                         </LoginButton>
                         <Button
                             style={{ marginTop: "15px" }}
-                            onClick={handleSingUp}
-                        >
+                            onClick={handleSingUp}>
                             회원가입
                         </Button>
                     </InputContainer>

@@ -4,8 +4,8 @@ import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import WriteForm from "../../components/write/WriteForm";
-import { reviewWrite } from "redux/review";
-import { RootState } from "redux";
+import { reviewWrite } from "Redux/review";
+import { RootState } from "Redux";
 import { message, Space } from "antd";
 import Head from "next/head";
 
