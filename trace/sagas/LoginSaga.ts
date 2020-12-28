@@ -10,7 +10,7 @@ import axios from "axios";
 
 // 로그인 요청(post)
 function LoginPost(userData: { userId: string; password: string }) {
-    return axios.post(`http://jaggutrace.com/api/v1/members/login`, userData);
+    return axios.post(`/api/v1/members/login`, userData);
 }
 
 // 로그인 사가
@@ -19,15 +19,12 @@ function* LoginSagaReq({ payload }: any) {
     try {
         const res = yield call(LoginPost, payload);
         console.log(res);
-
         // 토큰 객체
         const Token = {
             accessToken: res.data.data.accessToken,
             refreshToken: res.data.data.refreshToken,
         };
-
         console.log(Token);
-
         if (res.data.success === true) {
             yield put(loginSuccess());
             yield put(setAccessAndRefreshToken(Token));

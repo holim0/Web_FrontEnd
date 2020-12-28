@@ -165,8 +165,7 @@ const Header = () => {
                     cancelButtonProps={{ style: { display: "none" } }}
                     okButtonProps={{ style: { display: "none" } }}
                     bodyStyle={{ padding: "0" }}
-                    footer={null}
-                >
+                    footer={null}>
                     <Login />
                 </LoginForm>
             </MenuContainer>

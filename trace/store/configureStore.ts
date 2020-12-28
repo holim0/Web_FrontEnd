@@ -1,5 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import { Store } from "node_modules/redux";
 import { createLogger } from "redux-logger";
@@ -14,7 +13,10 @@ const middlewares = [sagaMiddleware, logger];
 const store = () =>
     configureStore({
         reducer: rootReducer,
-        middleware: () => getDefaultMiddleware().concat(middlewares),
+        middleware: () =>
+            getDefaultMiddleware({ serializableCheck: false }).concat(
+                middlewares
+            ),
         devTools: process.env.NODE_ENV !== "production",
     });
 (store() as Store).sagaTask = sagaMiddleware.run(rootSaga); // 미들웨어 실행 그리고 sagaTask에 할당.
