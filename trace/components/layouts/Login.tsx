@@ -75,6 +75,8 @@ const Login = () => {
         event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
     ) => {
         event.preventDefault();
+        setId("");
+        setPassword("");
         dispatch(loginReq({ userId, password }));
         dispatch(closeModal());
     };

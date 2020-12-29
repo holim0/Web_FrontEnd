@@ -1,5 +1,6 @@
-import wrapper from "../store/configureStore";
-import { AppProps } from "next/dist/next-server/lib/router/router";
+import { wrapper } from "store/configureStore";
+// import { AppProps } from "next/dist/next-server/lib/router/router";
+import { AppProps } from "next/app";
 import "../styles/global.css";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../styles/theme";
@@ -7,12 +8,10 @@ import Header from "components/layouts/Header";
 import Footer from "components/layouts/Footer";
 import Axios from "axios";
 
+// api 베이스 도메인 url
 Axios.defaults.baseURL = "http://jaggutrace.com/";
 // Axios.defaults.withCredentials = true;
-<<<<<<< HEAD
 
-=======
->>>>>>> trace/master
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <ThemeProvider theme={theme}>
