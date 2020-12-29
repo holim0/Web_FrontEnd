@@ -14,8 +14,8 @@ export const reviewState: ReviewState = {
     isErr: false,
     fileListImg: [],
     write: {
-        roomNumber: "",
-        buildingId: 0,
+        roomNumber: "경기도",
+        buildingId: 1,
         images: [],
         rentType: "MONTHLY",
         deposit: 0,
