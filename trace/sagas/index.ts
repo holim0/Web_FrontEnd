@@ -5,7 +5,7 @@ import LoginSaga from "./LoginSaga";
 import Axios from "axios";
 
 Axios.defaults.baseURL = "http://jaggutrace.com/";
-Axios.defaults.withCredentials = true;
+// Axios.defaults.withCredentials = true;
 
 export default function* rootSaga() {
     yield all([fork(reviewSaga), fork(SignUpSaga), fork(LoginSaga)]);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, MouseEvent } from "react";
 import styled from "@emotion/styled";
 import LoginBack from "assets/images/LoginBack.png";
 import MainLogo from "assets/images/MainLogo.png";
@@ -50,8 +50,10 @@ const Login = () => {
     const page5 = useSelector((state: RootState) => state.ModalPage.page5);
     const dispatch = useDispatch();
     // 회원 가입 버튼 눌렀을 때 회원가입 페이지로 이동.
-    const handleSingUp = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
+    const handleSingUp = (
+        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+    ) => {
+        event.preventDefault();
         dispatch(goPage2());
     };
 
@@ -69,8 +71,10 @@ const Login = () => {
     };
     // 로그인 요청
 
-    const goLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
+    const goLogin = (
+        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+    ) => {
+        event.preventDefault();
         dispatch(loginReq({ userId, password }));
         dispatch(closeModal());
     };

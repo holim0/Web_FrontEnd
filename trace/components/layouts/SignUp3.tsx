@@ -5,9 +5,10 @@ import Button from "@material-ui/core/Button";
 import { Container, LogoImg } from "./Login";
 import { InputContainer, BtnContainer } from "./SignUp2";
 import TextField from "@material-ui/core/TextField";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { goPage3, goPage5 } from "Redux/ModalPage";
 import { emailVerifyReq } from "Redux/SignUp";
+import { RootState } from "redux";
 
 const VeriContainer = styled.div``;
 
@@ -17,7 +18,13 @@ const SignUp3 = () => {
 
     const [email, setEmail] = useState("");
 
-    //다음 페이지
+    const [InputVeriNumber, setInputVeriNumber] = useState("");
+
+    // 실제 인증 번호
+
+    const realVerifyNumber = useSelector(
+        (state: RootState) => state.SignUp.verifyNum
+    );
     const goNext = () => {
         dispatch(goPage5());
     };
@@ -34,8 +41,33 @@ const SignUp3 = () => {
 
     // 인증번호 전송하면 디스패치
 
-    const goVerifyEmail = () => {
+    const goVerifyEmail = (
+        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+    ) => {
+        event.preventDefault();
         dispatch(emailVerifyReq(email));
+    };
+
+    // 인증번호 항목 핸들러
+
+    const handleVerifyNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputVeriNumber(e.target.value);
+    };
+
+    // 사용자가 입력한 인증번호와 실제 인증번호 확인
+
+    const checkVerifyNumber = (
+        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+    ) => {
+        event.preventDefault();
+        console.log(InputVeriNumber, realVerifyNumber);
+        if (InputVeriNumber === realVerifyNumber) {
+            // 인증완료 되면 다음 페이지 이동.
+            alert("인증완료!");
+            dispatch(goPage5());
+        } else {
+            alert("인증실패ㅜㅜ");
+        }
     };
 
     return (
@@ -55,10 +87,14 @@ const SignUp3 = () => {
                         id="standard-basic"
                         label="인증번호"
                         style={{ marginBottom: "50px" }}
+                        onChange={handleVerifyNumber}
+                        value={InputVeriNumber}
                     />
                     <Button
                         variant="outlined"
-                        style={{ marginLeft: "25px", marginTop: "10px" }}>
+                        style={{ marginLeft: "25px", marginTop: "10px" }}
+                        onClick={checkVerifyNumber}
+                    >
                         확인
                     </Button>
                 </VeriContainer>

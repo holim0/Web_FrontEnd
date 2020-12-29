@@ -1,11 +1,11 @@
-import React, { useState, SetStateAction } from "react";
+import React, { useState, SetStateAction, MouseEvent } from "react";
 import { useDispatch } from "react-redux";
 import styled from "@emotion/styled";
 import MainLogo from "assets/images/MainLogo.png";
 import Button from "@material-ui/core/Button";
 import Prefer from "assets/images/Prefer.png";
 import { Container, LogoImg } from "./Login";
-import Select from "react-select";
+import Select, { ValueType, OptionTypeBase, ActionMeta } from "react-select";
 import { preferenceWrite } from "Redux/user";
 import { goPage3, goPage1 } from "Redux/ModalPage";
 
@@ -48,24 +48,31 @@ const SignUp1 = () => {
     const [curValue, setCurValue] = useState([]);
 
     // 취향 선택 핸들러
-    const handleValue = (e: {
-        map: (arg0: (x: any) => any) => React.SetStateAction<never[]>;
-    }) => {
-        setCurValue(Array.isArray(e) ? e.map((x) => x.value) : []);
+    const handleValue = (
+        value: ValueType<OptionTypeBase, boolean>,
+        actionMeta: ActionMeta<OptionTypeBase>
+    ) => {
+        setCurValue(Array.isArray(value) ? value.map((x) => x.value) : []);
     };
 
     //////////////////////////////////////////////////////////////////////////////////////////
     const dispatch = useDispatch();
 
     // 취향 선택 후 다음 버튼을 누르면 디스패치 그리고 다음으로 이동.
-    const dispatchSelect = () => {
+    const dispatchSelect = (
+        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+    ) => {
+        event.preventDefault();
         dispatch(goPage3());
         dispatch(preferenceWrite(curValue));
     };
 
     /// 이전 화면으로 돌아가기
 
-    const goBack = () => {
+    const goBack = (
+        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+    ) => {
+        event.preventDefault();
         dispatch(goPage1());
     };
 
@@ -80,7 +87,8 @@ const SignUp1 = () => {
                 value={PreferOptions.filter((obj) =>
                     curValue.includes(obj.value)
                 )}
-                onChange={handleValue}></SelectContainer>
+                onChange={handleValue}
+            ></SelectContainer>
             <BtnContainer>
                 <Button style={{ fontSize: "24px" }} onClick={goBack}>
                     이전
