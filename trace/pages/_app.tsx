@@ -8,8 +8,7 @@ import Footer from "components/layouts/Footer";
 import Axios from "axios";
 
 Axios.defaults.baseURL = "http://jaggutrace.com/";
-Axios.defaults.withCredentials = true;
-
+// Axios.defaults.withCredentials = true;
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <ThemeProvider theme={theme}>
