@@ -53,25 +53,48 @@ const Pagi = styled(Pagination)`
 
 interface Props {
     loading: boolean;
+    handleLocation: (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void;
 }
 
-const BuildingContainer = ({ loading }: Props) => {
+const BuildingContainer = ({ loading, handleLocation }: Props) => {
     return (
         <Container2>
             <BtnContainer>
-                <Button variant="contained" color="primary">
+                <Button
+                    variant="contained"
+                    onClick={handleLocation}
+                    data-value="JJOKMOON"
+                    color="primary">
                     쪽문
                 </Button>
-                <Button variant="contained" color="primary">
+                <Button
+                    variant="contained"
+                    onClick={handleLocation}
+                    data-value="JUNGMOON"
+                    color="primary">
                     정문/로터리
                 </Button>
-                <Button variant="contained" color="primary">
+                <Button
+                    variant="contained"
+                    onClick={handleLocation}
+                    data-value="CHULMOON"
+                    color="primary">
                     철문
                 </Button>
-                <Button variant="contained" color="primary">
+                <Button
+                    variant="contained"
+                    onClick={handleLocation}
+                    data-value="DAEMYUNG"
+                    color="primary">
                     대명/대학로
                 </Button>
-                <Button variant="contained" color="primary">
+                <Button
+                    variant="contained"
+                    onClick={handleLocation}
+                    data-value="HANSUNGSHIN"
+                    color="primary">
                     한성대/성신
                 </Button>
             </BtnContainer>
