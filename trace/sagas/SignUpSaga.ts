@@ -21,6 +21,7 @@ import {
     setEmail,
     user,
 } from "Redux/user";
+
 import axios from "axios";
 
 // 기존 회원 여부 체크 요청(get)
@@ -37,6 +38,12 @@ function idDoubleGet(id: string) {
 // 이메일 인증(get)
 function emailVerify(email: string) {
     return axios.get(`/api/v1/mail/verification?mail=${email}`);
+}
+
+// 회원가입
+
+function SignUpPost(userInfo) {
+    return axios.post("/api/v1/members/join", userInfo);
 }
 
 // 기존 회원가입 여부 판단 사가
