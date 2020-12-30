@@ -1,4 +1,4 @@
-import wrapper from "../store/configureStore";
+import { wrapper } from "../store/configureStore";
 
 import HomeContainer from "components/HomeContainer";
 
