@@ -70,8 +70,7 @@ const Review = () => {
             if (!openModal) {
                 return setOpenModal(() => true);
             }
-            console.log("작성 완료");
-            dispatch(reviewWriteSubmit(writeReview));
+            dispatch(reviewWriteSubmit({ writeReview, isSell }));
         },
         [openModal]
     );

@@ -44,7 +44,6 @@ const review = createSlice({
     initialState: reviewState,
     reducers: {
         reviewWrite: (state, { payload }) => {
-            payload.fileListImg && state.fileListImg.push(payload.fileListImg);
             state.isSell = payload.isSell;
             state.write.buildingId = payload.buildingId;
             state.write.area = payload.area;
@@ -52,7 +51,8 @@ const review = createSlice({
             state.write.images = payload.images;
             state.write.rentType = payload.rentType;
             state.write.deposit = payload.deposit;
-            state.write.monthlyRent = payload.monthlyRent;
+            state.write.monthlyRent =
+                state.write.rentType === "MONTHLY" ? payload.monthlyRent : "";
             state.write.score = payload.score;
             state.write.livingStart = payload.livingStart;
             state.write.livingEnd = payload.livingEnd;
@@ -66,8 +66,12 @@ const review = createSlice({
             state.write.nearBy = payload.nearBy;
             state.write.trueStory = payload.trueStory;
             state.write.contact = payload.contact;
-            state.write.durationStart = payload.durationStart;
-            state.write.durationEnd = payload.durationEnd;
+            state.write.durationStart = state.isSell
+                ? payload.durationStart || null
+                : undefined;
+            state.write.durationEnd = state.isSell
+                ? payload.durationEnd || null
+                : undefined;
         },
         reviewWriteSubmit: (state, { payload }) => {},
         reviewWriteSuccess: (state) => {},
