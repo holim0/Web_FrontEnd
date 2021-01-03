@@ -12,6 +12,24 @@ import Login from "components/layouts/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal, closeModal } from "Redux/ModalPage";
 import { RootState } from "Redux";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { closeAlert } from "Redux/alertHandle";
+
+// 알림창 제어 컴포넌트
+function Alert(props: any) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+// 알림창 스타일
+const AlertStyles = makeStyles((theme) => ({
+    root: {
+        width: "100%",
+        "& > * + *": {
+            marginTop: theme.spacing(2),
+        },
+    },
+}));
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -102,6 +120,18 @@ const LoginForm = styled(Modal)``;
 const Header = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const AlertClass = AlertStyles();
+
+    //알림창 제어 상태들//
+    const AlertVal = useSelector((state: RootState) => state.alertHandle);
+
+    //알림창 닫기
+    const closeAlertHandler = (event: any, reason: string) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        dispatch(closeAlert());
+    };
 
     const isModalVisible = useSelector(
         (state: RootState) => state.ModalPage.isOpen
@@ -125,6 +155,51 @@ const Header = () => {
 
     return (
         <Container>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                }}
+                open={AlertVal.alertOpen}
+                autoHideDuration={2000}
+                onClose={closeAlertHandler}
+            >
+                <div className={AlertClass}>
+                    {AlertVal.isLoginDone && (
+                        <Alert severity="success">로그인 성공</Alert>
+                    )}
+                    {AlertVal.isLoginFail && (
+                        <Alert severity="error">로그인 실패</Alert>
+                    )}
+                    {AlertVal.notMember && (
+                        <Alert severity="info">회원가입 가능합니다</Alert>
+                    )}
+                    {AlertVal.isMember && (
+                        <Alert severity="warning">
+                            이미 존재하는 회원입니다
+                        </Alert>
+                    )}
+                    {AlertVal.emailSend && (
+                        <Alert severity="info">이메일 전송완료</Alert>
+                    )}
+                    {AlertVal.emailVerifyDone && (
+                        <Alert severity="Success">인증 성공</Alert>
+                    )}
+                    {AlertVal.emailVerifyFail && (
+                        <Alert severity="error">인증 실패</Alert>
+                    )}
+                    {AlertVal.idDouble && (
+                        <Alert severity="warning">
+                            이미 존재하는 아이디입니다
+                        </Alert>
+                    )}
+                    {AlertVal.idNotDouble && (
+                        <Alert severity="Success">
+                            사용할 수 있는 아이디입니다
+                        </Alert>
+                    )}
+                </div>
+            </Snackbar>
             <Link href="/">
                 <LogoImg
                     src={MainLogo}

@@ -64,3 +64,20 @@ export interface LoginType {
     error: any;
     isLoginSuccess: boolean;
 }
+
+//알림창 타입
+
+export interface AlertType {
+    isLoginDone: boolean;
+    isLoginFail: boolean;
+    isSignUpDone: boolean;
+    isSignUpFail: boolean;
+    isMember: boolean;
+    notMember: boolean;
+    emailSend: boolean;
+    emailVerifyDone: boolean;
+    emailVerifyFail: boolean;
+    idDouble: boolean;
+    idNotDouble: boolean;
+    alertOpen: boolean;
+}
