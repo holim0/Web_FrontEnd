@@ -1,5 +1,5 @@
 //회원가입에 대한 사가.
-import { all, fork, takeLatest, put, call } from "redux-saga/effects";
+import { all, fork, takeLatest, put, call, take } from "redux-saga/effects";
 import {
     isMemberCheckReq,
     isMemberYes,
@@ -12,12 +12,13 @@ import {
     emailVerifyReq,
     emailVerifySuccess,
     emailVerifyFail,
+    signUpReq,
 } from "Redux/SignUp";
 import {
     preferenceWrite,
     setNameAndPhone,
-    setId,
-    setPassWord,
+    setIdState,
+    setPassWordState,
     setEmail,
     user,
 } from "Redux/user";
@@ -29,9 +30,7 @@ import {
     idDoubleAlert,
     idNotDoubleAlert,
     emailSendAlert,
-    emailVerifySuccessAlert,
-    emailVerifyFailAlert,
-} from "redux/alertHandle";
+} from "Redux/alertHandle";
 import axios from "axios";
 
 // 기존 회원 여부 체크 요청(get)
@@ -53,7 +52,19 @@ function emailVerify(email: string) {
 // 회원가입
 
 function SignUpPost(userInfo: any) {
+    // 일단 any 로 했습니다... 수정 예정
     return axios.post("/api/v1/members/join", userInfo);
+}
+
+//회원가입 사가
+
+function* signUpRequestSaga({ payload }: any) {
+    try {
+        const res = yield call(SignUpPost, payload);
+        console.log(res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 // 기존 회원가입 여부 판단 사가
@@ -92,7 +103,7 @@ function* idDoubleCheckSaga({ payload }: any) {
         if (res.data.success) {
             // 중복이 안되면
             yield put(idDoubleNo());
-            yield put(setId(payload));
+            yield put(setIdState(payload));
             yield put(idNotDoubleAlert());
             console.log("중복이 안됩니다.");
         } else {
@@ -116,6 +127,7 @@ function* emailCheckSaga({ payload }: any) {
         } = yield call(emailVerify, payload);
         console.log(verificationKey);
         yield put(emailVerifySuccess(verificationKey));
+        yield put(setEmail(payload));
         yield put(openAlert());
         yield put(emailSendAlert());
     } catch (error) {
@@ -138,6 +150,11 @@ function* watchEmailCheckSaga() {
     yield takeLatest(emailVerifyReq, emailCheckSaga);
 }
 
+// 회원가입 요청 watch
+function* watchsignUpRequestSaga() {
+    yield takeLatest(signUpReq, signUpRequestSaga);
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default function* SignUpSaga(): Generator {
@@ -145,5 +162,6 @@ export default function* SignUpSaga(): Generator {
         fork(watchsetNameAndPhoneSaga),
         fork(watchIdDoubleCheckSaga),
         fork(watchEmailCheckSaga),
+        fork(watchsignUpRequestSaga),
     ]);
 }

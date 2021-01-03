@@ -76,6 +76,8 @@ export const SignUp = createSlice({
             state.isloading = false;
             state.error = payload;
         },
+
+        signUpReq: (state, { payload }) => {},
     },
 });
 
@@ -91,6 +93,7 @@ export const {
     emailVerifyReq,
     emailVerifySuccess,
     emailVerifyFail,
+    signUpReq,
 } = SignUp.actions;
 
 export default SignUp.reducer;
