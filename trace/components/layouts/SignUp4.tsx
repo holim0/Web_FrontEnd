@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import MainLogo from "assets/images/MainLogo.png";
 import Button from "@material-ui/core/Button";
@@ -8,6 +8,9 @@ import { Container, LogoImg } from "./Login";
 import { InputContainer } from "./SignUp2";
 import TextField from "@material-ui/core/TextField";
 import { idDoubleCheckReq } from "Redux/SignUp";
+import { setPassWordState } from "Redux/user";
+import { signUpReq } from "Redux/SignUp";
+import { RootState } from "redux";
 
 const IdContainer = styled.div`
     display: flex;
@@ -24,8 +27,10 @@ const SignUp4 = () => {
 
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    // 비밀번호와 비밀번호 확인 같은지 확인
+    // 유저 정보 가져오기
+    const userData = useSelector((state: RootState) => state.user);
 
+    // 비밀번호와 비밀번호 확인 같은지 확인
     const [isSame, setIsSame] = useState(false);
 
     // 아이디 핸들러
@@ -48,6 +53,14 @@ const SignUp4 = () => {
 
     const goIdCheck = () => {
         dispatch(idDoubleCheckReq(id));
+    };
+
+    //회원가입 요청
+    const SignUpRequest = () => {
+        dispatch(setPassWordState(password));
+        const { accessToken, refreshToken, ...realUserData } = userData;
+        console.log(realUserData);
+        dispatch(signUpReq(realUserData));
     };
 
     useEffect(() => {
@@ -79,7 +92,8 @@ const SignUp4 = () => {
                             marginTop: "15px",
                             marginLeft: "20px",
                         }}
-                        onClick={goIdCheck}>
+                        onClick={goIdCheck}
+                    >
                         중복확인
                     </Button>
                 </IdContainer>
@@ -102,7 +116,9 @@ const SignUp4 = () => {
                     helperText={isSame ? null : "다시 확인해주세요"}
                 />
 
-                <Button variant="outlined">회원가입</Button>
+                <Button variant="outlined" onClick={SignUpRequest}>
+                    회원가입
+                </Button>
             </InputContainer>
         </Container>
     );

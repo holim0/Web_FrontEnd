@@ -9,6 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { goPage3, goPage5 } from "Redux/ModalPage";
 import { emailVerifyReq } from "Redux/SignUp";
 import { RootState } from "redux";
+import {
+    resetAlert,
+    openAlert,
+    emailVerifySuccessAlert,
+    emailVerifyFailAlert,
+} from "Redux/alertHandle";
 
 const VeriContainer = styled.div``;
 
@@ -61,12 +67,16 @@ const SignUp3 = () => {
     ) => {
         event.preventDefault();
         console.log(InputVeriNumber, realVerifyNumber);
+        dispatch(resetAlert());
+        dispatch(openAlert());
         if (InputVeriNumber === realVerifyNumber) {
             // 인증완료 되면 다음 페이지 이동.
-            alert("인증완료!");
+            console.log("인증완료!");
+            dispatch(emailVerifySuccessAlert());
             dispatch(goPage5());
         } else {
-            alert("인증실패ㅜㅜ");
+            dispatch(emailVerifyFailAlert());
+            console.log("인증실패ㅜㅜ");
         }
     };
 

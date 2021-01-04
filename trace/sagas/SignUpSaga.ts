@@ -1,5 +1,5 @@
 //회원가입에 대한 사가.
-import { all, fork, takeLatest, put, call } from "redux-saga/effects";
+import { all, fork, takeLatest, put, call, take } from "redux-saga/effects";
 import {
     isMemberCheckReq,
     isMemberYes,
@@ -12,16 +12,25 @@ import {
     emailVerifyReq,
     emailVerifySuccess,
     emailVerifyFail,
+    signUpReq,
 } from "Redux/SignUp";
 import {
     preferenceWrite,
     setNameAndPhone,
-    setId,
-    setPassWord,
+    setIdState,
+    setPassWordState,
     setEmail,
     user,
 } from "Redux/user";
-
+import {
+    resetAlert,
+    isMemberAlert,
+    notMemberAlert,
+    openAlert,
+    idDoubleAlert,
+    idNotDoubleAlert,
+    emailSendAlert,
+} from "Redux/alertHandle";
 import axios from "axios";
 
 // 기존 회원 여부 체크 요청(get)
@@ -42,42 +51,64 @@ function emailVerify(email: string) {
 
 // 회원가입
 
-function SignUpPost(userInfo) {
+function SignUpPost(userInfo: any) {
+    // 일단 any 로 했습니다... 수정 예정
     return axios.post("/api/v1/members/join", userInfo);
+}
+
+//회원가입 사가
+
+function* signUpRequestSaga({ payload }: any) {
+    try {
+        const res = yield call(SignUpPost, payload);
+        console.log(res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 // 기존 회원가입 여부 판단 사가
 function* nameAndPhoneSaga({ payload }: any) {
     console.log(payload);
+    yield put(resetAlert());
+
     try {
         const res = yield call(memberCheckGet, payload);
         console.log(res.data.success);
+        yield put(openAlert());
         //응답이 오면 그 응답에 맞게 필터링.
         if (res.data.success) {
             // 멤버가 아니면 유저 상태에 값 업데이트
             yield put(isMemberNo());
             yield put(setNameAndPhone(payload));
-            alert("회원가입 가능합니다.");
+            yield put(notMemberAlert());
+            console.log("회원가입 가능합니다.");
         } else {
             yield put(isMemberYes());
+            yield put(isMemberAlert());
         }
     } catch (error) {
-        console.log(error);
+        alert(error);
         yield put(isMemberCheckFail(error));
     }
 }
 
 // 아이디 중복 여부 판단 사가
 function* idDoubleCheckSaga({ payload }: any) {
+    yield put(resetAlert());
+
     try {
         const res = yield call(idDoubleGet, payload);
+        yield put(openAlert());
         if (res.data.success) {
             // 중복이 안되면
             yield put(idDoubleNo());
-            yield put(setId(payload));
-            alert("중복이 안됩니다.");
+            yield put(setIdState(payload));
+            yield put(idNotDoubleAlert());
+            console.log("중복이 안됩니다.");
         } else {
             yield put(idDoubleYes());
+            yield put(idDoubleAlert());
         }
     } catch (error) {
         console.log(error);
@@ -86,10 +117,9 @@ function* idDoubleCheckSaga({ payload }: any) {
 }
 
 // 이메일 인증 사가
-
 function* emailCheckSaga({ payload }: any) {
+    yield put(resetAlert());
     try {
-        alert("이메일이 전송되었습니다.");
         const {
             data: {
                 data: { verificationKey },
@@ -97,6 +127,9 @@ function* emailCheckSaga({ payload }: any) {
         } = yield call(emailVerify, payload);
         console.log(verificationKey);
         yield put(emailVerifySuccess(verificationKey));
+        yield put(setEmail(payload));
+        yield put(openAlert());
+        yield put(emailSendAlert());
     } catch (error) {
         console.log(error);
         yield emailVerifyFail(error);
@@ -117,6 +150,11 @@ function* watchEmailCheckSaga() {
     yield takeLatest(emailVerifyReq, emailCheckSaga);
 }
 
+// 회원가입 요청 watch
+function* watchsignUpRequestSaga() {
+    yield takeLatest(signUpReq, signUpRequestSaga);
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default function* SignUpSaga(): Generator {
@@ -124,5 +162,6 @@ export default function* SignUpSaga(): Generator {
         fork(watchsetNameAndPhoneSaga),
         fork(watchIdDoubleCheckSaga),
         fork(watchEmailCheckSaga),
+        fork(watchsignUpRequestSaga),
     ]);
 }

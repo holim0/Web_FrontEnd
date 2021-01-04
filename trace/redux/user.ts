@@ -30,11 +30,11 @@ export const user = createSlice({
             state.phoneNum = payload.phoneNum;
         },
         // 아이디 저장
-        setId: (state, { payload }) => {
+        setIdState: (state, { payload }) => {
             state.userId = payload;
         },
         // 비밀번호 저장
-        setPassWord: (state, { payload }) => {
+        setPassWordState: (state, { payload }) => {
             state.password = payload;
         },
         // 이메일 저장
@@ -53,8 +53,8 @@ export const user = createSlice({
 export const {
     preferenceWrite,
     setNameAndPhone,
-    setId,
-    setPassWord,
+    setIdState,
+    setPassWordState,
     setEmail,
     setAccessAndRefreshToken,
 } = user.actions;

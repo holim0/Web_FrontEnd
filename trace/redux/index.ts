@@ -5,6 +5,7 @@ import SignUp from "./SignUp";
 import user from "./user";
 import ModalPage from "./ModalPage";
 import login from "./login";
+import alertHandle from "./alertHandle";
 
 const rootReducer = (state: any, action: any) => {
     switch (action.type) {
@@ -17,6 +18,7 @@ const rootReducer = (state: any, action: any) => {
                 user,
                 ModalPage,
                 login,
+                alertHandle,
             });
             return combineReducer(state, action);
         }
