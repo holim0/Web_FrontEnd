@@ -3,6 +3,12 @@ import { all, fork, takeLatest, put, call } from "redux-saga/effects";
 import { loginFail, loginReq, loginSuccess } from "Redux/login";
 import { closeModal } from "Redux/ModalPage"; // 왜 안댐..
 import { setAccessAndRefreshToken } from "Redux/user";
+import {
+    resetAlert,
+    loginSuccessAlert,
+    loginFailAlert,
+    openAlert,
+} from "Redux/alertHandle";
 
 import axios from "axios";
 
@@ -16,6 +22,8 @@ function LoginPost(userData: { userId: string; password: string }) {
 // 로그인 사가
 function* LoginSagaReq({ payload }: any) {
     console.log(payload);
+    yield put(resetAlert());
+    yield put(openAlert());
     try {
         const res = yield call(LoginPost, payload);
         console.log(res);
@@ -28,12 +36,14 @@ function* LoginSagaReq({ payload }: any) {
         if (res.data.success === true) {
             yield put(loginSuccess());
             yield put(setAccessAndRefreshToken(Token));
-            alert("로그인 성공!");
+            yield put(loginSuccessAlert());
+            console.log("로그인 성공!");
         } else {
         }
     } catch (error) {
         console.log(error);
         yield put(loginFail(error));
+        yield put(loginFailAlert());
     }
 }
 

@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "Redux";
 import { goPage2, closeModal } from "Redux/ModalPage";
 import { loginReq } from "Redux/login";
+
 export const Container = styled.div`
     background-image: url(${LoginBack});
     background-size: cover;
@@ -49,6 +50,9 @@ const Login = () => {
     const page4 = useSelector((state: RootState) => state.ModalPage.page4);
     const page5 = useSelector((state: RootState) => state.ModalPage.page5);
     const dispatch = useDispatch();
+
+    /////////////////
+
     // 회원 가입 버튼 눌렀을 때 회원가입 페이지로 이동.
     const handleSingUp = (
         event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
