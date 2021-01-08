@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import styled from "@emotion/styled";
 import SearchIcon from "@material-ui/icons/Search";
@@ -126,12 +126,12 @@ const Header = () => {
     const AlertVal = useSelector((state: RootState) => state.alertHandle);
 
     //알림창 닫기
-    const closeAlertHandler = (event: any, reason: string) => {
+    const closeAlertHandler = useCallback((event: any, reason: string) => {
         if (reason === "clickaway") {
             return;
         }
         dispatch(closeAlert());
-    };
+    }, []);
 
     const isModalVisible = useSelector(
         (state: RootState) => state.ModalPage.isOpen
@@ -142,13 +142,14 @@ const Header = () => {
         (state: RootState) => state.login.isLoginSuccess
     );
 
-    const showModal = () => {
+    const showModal = useCallback(() => {
         dispatch(openModal());
-    };
+    }, []);
 
-    const handleCancel = () => {
+    const handleCancel = useCallback(() => {
         dispatch(closeModal());
-    };
+    }, []);
+
     useEffect(() => {
         console.log(isLoginSuccess);
     }, [isLoginSuccess]);

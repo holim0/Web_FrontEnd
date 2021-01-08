@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "@emotion/styled";
 import MainLogo from "assets/images/MainLogo.png";
 import Button from "@material-ui/core/Button";
@@ -37,27 +37,33 @@ const SignUp2 = () => {
 
     /// 이름 핸들러
 
-    const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
-    };
+    const handleName = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setName(e.target.value);
+        },
+        [name]
+    );
     // 폰 번호 핸들러
-    const handlePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPhoneNum(e.target.value);
-    };
+    const handlePhone = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setPhoneNum(e.target.value);
+        },
+        [phoneNum]
+    );
 
     // 리덕스에 디스패치
-    const goDispatch = () => {
+    const goDispatch = useCallback(() => {
         dispatch(isMemberCheckReq({ name, phoneNum }));
-    };
+    }, []);
 
     //다음 페이지
-    const goNext = () => {
+    const goNext = useCallback(() => {
         dispatch(goPage4());
-    };
+    }, []);
     //이전 페이지
-    const goBack = () => {
+    const goBack = useCallback(() => {
         dispatch(goPage2());
-    };
+    }, []);
 
     return (
         <Container>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import MainLogo from "assets/images/MainLogo.png";
@@ -34,35 +34,44 @@ const SignUp4 = () => {
     const [isSame, setIsSame] = useState(false);
 
     // 아이디 핸들러
-    const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setId(e.target.value);
-    };
+    const handleId = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setId(e.target.value);
+        },
+        [id]
+    );
 
     // 비밀번호 핸들러
 
-    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-    };
+    const handlePassword = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setPassword(e.target.value);
+        },
+        [password]
+    );
 
     // 비밀번호 확인 핸들러
-    const handleConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setConfirmPassword(e.target.value);
-    };
+    const handleConfirmPassword = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setConfirmPassword(e.target.value);
+        },
+        [confirmPassword]
+    );
 
     // 아이디 중복 체크 요청
 
-    const goIdCheck = () => {
+    const goIdCheck = useCallback(() => {
         dispatch(idDoubleCheckReq(id));
-    };
+    }, []);
 
     //회원가입 요청
-    const SignUpRequest = () => {
+    const SignUpRequest = useCallback(() => {
         // dispatch(setPassWordState(password));
-        const { accessToken, refreshToken, ...realUserData } = userData;
+        const { refreshToken, ...realUserData } = userData;
         realUserData.password = password;
         console.log(realUserData);
         dispatch(signUpReq(realUserData));
-    };
+    }, []);
 
     useEffect(() => {
         if (password === confirmPassword) {

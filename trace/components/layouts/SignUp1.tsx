@@ -1,4 +1,9 @@
-import React, { useState, SetStateAction, MouseEvent } from "react";
+import React, {
+    useState,
+    SetStateAction,
+    MouseEvent,
+    useCallback,
+} from "react";
 import { useDispatch } from "react-redux";
 import styled from "@emotion/styled";
 import MainLogo from "assets/images/MainLogo.png";
@@ -48,33 +53,38 @@ const SignUp1 = () => {
     const [curValue, setCurValue] = useState([]);
 
     // 취향 선택 핸들러
-    const handleValue = (
-        value: ValueType<OptionTypeBase, boolean>,
-        actionMeta: ActionMeta<OptionTypeBase>
-    ) => {
-        setCurValue(Array.isArray(value) ? value.map((x) => x.value) : []);
-    };
+    const handleValue = useCallback(
+        (
+            value: ValueType<OptionTypeBase, boolean>,
+            actionMeta: ActionMeta<OptionTypeBase>
+        ) => {
+            setCurValue(Array.isArray(value) ? value.map((x) => x.value) : []);
+        },
+        [curValue]
+    );
 
     //////////////////////////////////////////////////////////////////////////////////////////
     const dispatch = useDispatch();
 
     // 취향 선택 후 다음 버튼을 누르면 디스패치 그리고 다음으로 이동.
-    const dispatchSelect = (
-        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-        event.preventDefault();
-        dispatch(goPage3());
-        dispatch(preferenceWrite(curValue));
-    };
+    const dispatchSelect = useCallback(
+        (event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+            event.preventDefault();
+            dispatch(goPage3());
+            dispatch(preferenceWrite(curValue));
+        },
+        []
+    );
 
     /// 이전 화면으로 돌아가기
 
-    const goBack = (
-        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-        event.preventDefault();
-        dispatch(goPage1());
-    };
+    const goBack = useCallback(
+        (event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+            event.preventDefault();
+            dispatch(goPage1());
+        },
+        []
+    );
 
     return (
         <Container>

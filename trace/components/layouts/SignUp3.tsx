@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "@emotion/styled";
 import MainLogo from "assets/images/MainLogo.png";
 import Button from "@material-ui/core/Button";
@@ -33,58 +33,64 @@ const SignUp3 = () => {
     const realVerifyNumber = useSelector(
         (state: RootState) => state.SignUp.verifyNum
     );
-    const goNext = () => {
+    const goNext = useCallback(() => {
         dispatch(goPage5());
-    };
+    }, []);
     //이전 페이지
-    const goBack = () => {
+    const goBack = useCallback(() => {
         dispatch(goPage3());
-    };
+    }, []);
 
     // 이메일 텍스트 필드 핸들러
 
-    const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-    };
+    const handleEmail = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setEmail(e.target.value);
+        },
+        [email]
+    );
+    // 인증번호 항목 핸들러
+    const handleVerifyNumber = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setInputVeriNumber(e.target.value);
+        },
+        [InputVeriNumber]
+    );
 
     // 인증번호 전송하면 디스패치
 
-    const goVerifyEmail = (
-        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-        event.preventDefault();
-        dispatch(emailVerifyReq(email));
-    };
-
-    // 인증번호 항목 핸들러
-
-    const handleVerifyNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputVeriNumber(e.target.value);
-    };
+    const goVerifyEmail = useCallback(
+        (event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+            event.preventDefault();
+            dispatch(emailVerifyReq(email));
+        },
+        []
+    );
 
     // 사용자가 입력한 인증번호와 실제 인증번호 확인
 
-    const checkVerifyNumber = (
-        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-        event.preventDefault();
-        console.log(InputVeriNumber, realVerifyNumber);
-        dispatch(resetAlert());
-        dispatch(openAlert());
-        if (InputVeriNumber !== "") {
-            if (InputVeriNumber === realVerifyNumber) {
-                // 인증완료 되면 다음 페이지 이동.
-                console.log("인증완료!");
-                dispatch(emailVerifySuccessAlert());
-                dispatch(goPage5());
+    const checkVerifyNumber = useCallback(
+        (event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+            event.preventDefault();
+            console.log(InputVeriNumber, realVerifyNumber);
+            dispatch(resetAlert());
+            dispatch(openAlert());
+            if (InputVeriNumber !== "") {
+                if (InputVeriNumber === realVerifyNumber) {
+                    // 인증완료 되면 다음 페이지 이동.
+                    console.log("인증완료!");
+                    dispatch(emailVerifySuccessAlert());
+                    dispatch(goPage5());
+                } else {
+                    dispatch(emailVerifyFailAlert());
+                    console.log("인증실패ㅜㅜ");
+                }
             } else {
-                dispatch(emailVerifyFailAlert());
-                console.log("인증실패ㅜㅜ");
+                alert("인증번호를 입력해주세요");
             }
-        } else {
-            alert("인증번호를 입력해주세요");
-        }
-    };
+        },
+        []
+    );
 
     return (
         <Container>
