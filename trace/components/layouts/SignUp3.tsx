@@ -15,11 +15,8 @@ import {
     emailVerifySuccessAlert,
     emailVerifyFailAlert,
 } from "Redux/alertHandle";
-<<<<<<< HEAD
 
 import emailImg from "assets/images/email.png";
-=======
->>>>>>> trace/master
 
 const VeriContainer = styled.div``;
 

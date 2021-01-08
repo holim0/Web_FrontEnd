@@ -49,7 +49,6 @@ export interface UserType {
     phoneNum: string;
     preferences: string[];
     accessToken: string;
-    refreshToken: string;
 }
 
 //회원가입 타입

@@ -2,7 +2,7 @@
 import { all, fork, takeLatest, put, call } from "redux-saga/effects";
 import { loginFail, loginReq, loginSuccess } from "Redux/login";
 import { closeModal } from "Redux/ModalPage"; // 왜 안댐..
-import { setAccessAndRefreshToken } from "Redux/user";
+import { setAccessToken } from "Redux/user";
 import {
     resetAlert,
     loginSuccessAlert,
@@ -28,17 +28,21 @@ function* LoginSagaReq({ payload }: any) {
         const res = yield call(LoginPost, payload);
         console.log(res);
         // 토큰 객체
-        const Token = {
-            accessToken: res.data.data.accessToken,
-            refreshToken: res.data.data.refreshToken,
-        };
-        console.log(Token);
+        const accessToken = res.data.data.accessToken;
+
+        //헤더에 엑세스 토큰 부여.
+        axios.defaults.headers.common[
+            "Authorization"
+        ] = `Bearer ${accessToken}`;
+
+        // 로그인 성공시
         if (res.data.success === true) {
             yield put(loginSuccess());
-            yield put(setAccessAndRefreshToken(Token));
+            yield put(setAccessToken(accessToken));
             yield put(loginSuccessAlert());
             console.log("로그인 성공!");
         } else {
+            alert("로그인 실패");
         }
     } catch (error) {
         console.log(error);
