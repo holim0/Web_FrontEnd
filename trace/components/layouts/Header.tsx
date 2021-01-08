@@ -198,6 +198,12 @@ const Header = () => {
                             사용할 수 있는 아이디입니다
                         </Alert>
                     )}
+                    {AlertVal.isSignUpDone && (
+                        <Alert severity="Success">회원가입 성공</Alert>
+                    )}
+                    {AlertVal.isSignUpFail && (
+                        <Alert severity="error">회원가입 실패</Alert>
+                    )}
                 </div>
             </Snackbar>
             <Link href="/">

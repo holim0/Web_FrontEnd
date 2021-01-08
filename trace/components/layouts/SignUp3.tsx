@@ -16,6 +16,8 @@ import {
     emailVerifyFailAlert,
 } from "Redux/alertHandle";
 
+import emailImg from "assets/images/email.png";
+
 const VeriContainer = styled.div``;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,21 +71,25 @@ const SignUp3 = () => {
         console.log(InputVeriNumber, realVerifyNumber);
         dispatch(resetAlert());
         dispatch(openAlert());
-        if (InputVeriNumber === realVerifyNumber) {
-            // 인증완료 되면 다음 페이지 이동.
-            console.log("인증완료!");
-            dispatch(emailVerifySuccessAlert());
-            dispatch(goPage5());
+        if (InputVeriNumber !== "") {
+            if (InputVeriNumber === realVerifyNumber) {
+                // 인증완료 되면 다음 페이지 이동.
+                console.log("인증완료!");
+                dispatch(emailVerifySuccessAlert());
+                dispatch(goPage5());
+            } else {
+                dispatch(emailVerifyFailAlert());
+                console.log("인증실패ㅜㅜ");
+            }
         } else {
-            dispatch(emailVerifyFailAlert());
-            console.log("인증실패ㅜㅜ");
+            alert("인증번호를 입력해주세요");
         }
     };
 
     return (
         <Container>
             <LogoImg src={MainLogo}></LogoImg>
-            <img src={email} style={{ width: "170px", margin: "0 auto" }} />
+            <img src={emailImg} style={{ width: "170px", margin: "0 auto" }} />
             <InputContainer>
                 <TextField
                     id="standard-basic"

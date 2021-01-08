@@ -57,8 +57,9 @@ const SignUp4 = () => {
 
     //회원가입 요청
     const SignUpRequest = () => {
-        dispatch(setPassWordState(password));
+        // dispatch(setPassWordState(password));
         const { accessToken, refreshToken, ...realUserData } = userData;
+        realUserData.password = password;
         console.log(realUserData);
         dispatch(signUpReq(realUserData));
     };
