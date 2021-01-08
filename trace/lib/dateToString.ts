@@ -1,5 +1,4 @@
 // 받은 데이터를 무조건 yyyy-mm-dd 형식으로 리턴하기 위해 만든 함수 파일입니다~~
-
 export const dateToString = (date: Date): string => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -12,13 +11,17 @@ export const dateToString = (date: Date): string => {
     return stringDate;
 };
 
-// 데이터 타입체크, null이면 오늘날짜로 교체
-export const dateValid = (date: Date | null | undefined): string | null => {
+// 데이터 타입체크, null이면 오늘날짜로 교체합니다.
+export const dateValid = (
+    date: Date | null | undefined
+): string | null | undefined => {
+    if (date === undefined) {
+        return;
+    }
     if (date === null) {
         const newDate = dateToString(new Date());
         return newDate;
     }
-
     const newDate = dateToString(date as Date);
     return newDate;
 };

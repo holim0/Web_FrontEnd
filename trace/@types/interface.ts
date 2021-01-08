@@ -35,6 +35,11 @@ export interface ReviewWrite {
     durationEnd: Date | null | undefined;
 }
 
+export interface ReviewSubmit {
+    isSell: boolean;
+    writeReview: ReviewWrite;
+}
+
 //유저 정보 타입.
 export interface UserType {
     userId: string;
