@@ -29,7 +29,7 @@ export const LogoImg = styled.img`
     margin: 20px auto;
 `;
 
-const InputContainer = styled.div`
+const InputContainer = styled.form`
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -75,10 +75,7 @@ const Login = () => {
     };
     // 로그인 요청
 
-    const goLogin = (
-        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-        event.preventDefault();
+    const goLogin = () => {
         setId("");
         setPassword("");
         dispatch(loginReq({ userId, password }));
@@ -90,7 +87,7 @@ const Login = () => {
             {page1 && (
                 <Container>
                     <LogoImg src={MainLogo}></LogoImg>
-                    <InputContainer>
+                    <InputContainer onSubmit={goLogin}>
                         <TextField
                             id="standard-basic"
                             label="아이디"
@@ -111,6 +108,7 @@ const Login = () => {
                             color="primary"
                             size="large"
                             onClick={goLogin}
+                            type="submit"
                         >
                             로그인
                         </LoginButton>
