@@ -6,7 +6,7 @@ import {
 } from "Redux/review";
 import axios from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ReviewWrite } from "../@types/interface";
+import { ReviewSubmit } from "../@types/interface";
 import { dataUrlToFormData } from "lib/dataUrlToFormData";
 
 // 주소, 지번 분리 필요.
@@ -21,9 +21,9 @@ function writePost(data: any) {
     });
 }
 
-function* writeSubmit({ payload }: PayloadAction<ReviewWrite>) {
+function* writeSubmit({ payload }: PayloadAction<ReviewSubmit>) {
     try {
-        const formData = yield call(dataUrlToFormData, payload, "image");
+        const formData = yield call(dataUrlToFormData, payload, "images");
         yield call(writePost, formData);
         yield put(reviewWriteSuccess());
     } catch (err) {
