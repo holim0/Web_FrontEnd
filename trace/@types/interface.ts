@@ -74,6 +74,8 @@ export interface LoginType {
 export interface AlertType {
     isLoginDone: boolean;
     isLoginFail: boolean;
+    LogoutSuccess: boolean;
+    LogoutFail: boolean;
     isSignUpDone: boolean;
     isSignUpFail: boolean;
     isMember: boolean;

@@ -22,9 +22,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     const token = useSelector((state: RootState) => state.user.accessToken);
 
     useEffect(() => {
-        Axios.defaults.headers.Authorization = "";
+        // Axios.defaults.headers.Authorization = "";
         if (token) {
-            Axios.defaults.headers.Authorization = token;
+            // Axios.defaults.headers.Authorization = token;
+            Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         }
     }, [token]);
 

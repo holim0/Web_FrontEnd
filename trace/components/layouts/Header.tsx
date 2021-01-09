@@ -15,6 +15,7 @@ import { RootState } from "Redux";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { closeAlert } from "Redux/alertHandle";
+import { logoutReq } from "Redux/login";
 
 // 알림창 제어 컴포넌트
 function Alert(props: any) {
@@ -98,7 +99,6 @@ const Searchicon = styled(SearchIcon)``;
 const MenuContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
-
     width: 50%;
     font-size: 20px;
     color: black;
@@ -133,6 +133,7 @@ const Header = () => {
         dispatch(closeAlert());
     }, []);
 
+    // 모달창이 열려있는지 판다.
     const isModalVisible = useSelector(
         (state: RootState) => state.ModalPage.isOpen
     );
@@ -142,12 +143,19 @@ const Header = () => {
         (state: RootState) => state.login.isLoginSuccess
     );
 
+    // 로그인 모달 열기
     const showModal = useCallback(() => {
         dispatch(openModal());
     }, []);
 
+    // 로그인 모달창 닫기
     const handleCancel = useCallback(() => {
         dispatch(closeModal());
+    }, []);
+
+    // 로그아웃 핸들러
+    const logOutHandler = useCallback(() => {
+        dispatch(logoutReq());
     }, []);
 
     useEffect(() => {
@@ -205,6 +213,12 @@ const Header = () => {
                     {AlertVal.isSignUpFail && (
                         <Alert severity="error">회원가입 실패</Alert>
                     )}
+                    {AlertVal.LogoutSuccess && (
+                        <Alert severity="info">로그아웃됨!</Alert>
+                    )}
+                    {AlertVal.LogoutFail && (
+                        <Alert severity="error">회원가입 실패</Alert>
+                    )}
                 </div>
             </Snackbar>
             <Link href="/">
@@ -236,7 +250,12 @@ const Header = () => {
                 <MenuBtn href="/write">글쓰기</MenuBtn>
 
                 {isLoginSuccess ? (
-                    <Button type="primary">Mypage</Button>
+                    <>
+                        <Button type="primary">Mypage</Button>
+                        <Button type="primary" onClick={logOutHandler}>
+                            로그아웃
+                        </Button>
+                    </>
                 ) : (
                     <Button type="primary" onClick={showModal}>
                         로그인/회원가입

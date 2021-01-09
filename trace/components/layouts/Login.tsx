@@ -67,13 +67,11 @@ const Login = () => {
 
     // 아이디 핸들러
     const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(userId);
         setId(e.target.value);
     };
 
     // 비밀번호 핸들러
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(password);
         setPassword(e.target.value);
     };
 

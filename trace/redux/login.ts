@@ -30,9 +30,29 @@ export const Login = createSlice({
             state.isloading = false;
             state.error = payload;
         },
+        logoutReq: (state) => {
+            state.isloading = true;
+        },
+        logoutSuccess: (state) => {
+            state.userId = "";
+            state.password = "";
+            state.isLoginSuccess = false;
+            state.isloading = false;
+        },
+        logoutFail: (state, { payload }) => {
+            state.isloading = false;
+            state.error = payload;
+        },
     },
 });
 
-export const { loginReq, loginSuccess, loginFail } = Login.actions;
+export const {
+    loginReq,
+    loginSuccess,
+    loginFail,
+    logoutReq,
+    logoutSuccess,
+    logoutFail,
+} = Login.actions;
 
 export default Login.reducer;

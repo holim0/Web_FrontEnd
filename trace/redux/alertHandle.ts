@@ -16,6 +16,8 @@ export const AlertState: AlertType = {
     idDouble: false,
     idNotDouble: false,
     alertOpen: false,
+    LogoutSuccess: false,
+    LogoutFail: false,
 };
 
 export const alertHandle = createSlice({
@@ -64,6 +66,14 @@ export const alertHandle = createSlice({
         idNotDoubleAlert: (state) => {
             state.idNotDouble = true;
         },
+        logOutSucessAlert: (state) => {
+            state.LogoutSuccess = true;
+        },
+
+        logOutFailAlert: (state) => {
+            state.LogoutFail = true;
+        },
+
         closeAlert: (state) => {
             state.alertOpen = false;
         },
@@ -88,6 +98,8 @@ export const {
     idNotDoubleAlert,
     closeAlert,
     openAlert,
+    logOutSucessAlert,
+    logOutFailAlert,
 } = alertHandle.actions;
 
 export default alertHandle.reducer;

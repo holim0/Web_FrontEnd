@@ -1,6 +1,13 @@
 // 로그인/회원가입에 대한 사가.
 import { all, fork, takeLatest, put, call } from "redux-saga/effects";
-import { loginFail, loginReq, loginSuccess } from "Redux/login";
+import {
+    loginFail,
+    loginReq,
+    loginSuccess,
+    logoutReq,
+    logoutSuccess,
+    logoutFail,
+} from "Redux/login";
 import { closeModal } from "Redux/ModalPage"; // 왜 안댐..
 import { setAccessToken } from "Redux/user";
 import {
@@ -8,6 +15,8 @@ import {
     loginSuccessAlert,
     loginFailAlert,
     openAlert,
+    logOutSucessAlert,
+    logOutFailAlert,
 } from "Redux/alertHandle";
 
 import axios from "axios";
@@ -17,6 +26,11 @@ import axios from "axios";
 // 로그인 요청(post)
 function LoginPost(userData: { userId: string; password: string }) {
     return axios.post(`/api/v1/members/login`, userData);
+}
+
+// 로그아웃 요청(get)
+function LogOutGet() {
+    return axios.get("/api/v1/members/logout");
 }
 
 // 로그인 사가
@@ -30,10 +44,10 @@ function* LoginSagaReq({ payload }: any) {
         // 토큰 객체
         const accessToken = res.data.data.accessToken;
 
-        //헤더에 엑세스 토큰 부여.
-        axios.defaults.headers.common[
-            "Authorization"
-        ] = `Bearer ${accessToken}`;
+        // //헤더에 엑세스 토큰 부여.
+        // axios.defaults.headers.common[
+        //     "Authorization"
+        // ] = `Bearer ${accessToken}`;
 
         // 로그인 성공시
         if (res.data.success === true) {
@@ -51,14 +65,41 @@ function* LoginSagaReq({ payload }: any) {
     }
 }
 
-// watch
+//로그아웃 사가
+
+function* logOutSaga({ payload }: any) {
+    yield put(resetAlert());
+    yield put(openAlert());
+    try {
+        const res = yield call(LogOutGet);
+
+        if (res.data.success) {
+            yield put(logoutSuccess());
+            yield put(logOutSucessAlert());
+        } else {
+            yield put(loginFailAlert());
+        }
+    } catch (error) {
+        console.log(error);
+        yield put(logoutFail(error));
+        yield put(loginFailAlert());
+    }
+}
+
+// watch login
 
 function* watchLoginSagaReq() {
     yield takeLatest(loginReq, LoginSagaReq);
 }
 
+// wath logout
+
+function* watchLogOutSagaReq() {
+    yield takeLatest(logoutReq, logOutSaga);
+}
+
 //////////////////////////////////////////////////////////////////////////////////////
 
 export default function* LoginSaga(): Generator {
-    yield all([fork(watchLoginSagaReq)]);
+    yield all([fork(watchLoginSagaReq), fork(watchLogOutSagaReq)]);
 }
