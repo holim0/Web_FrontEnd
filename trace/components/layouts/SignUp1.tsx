@@ -73,7 +73,7 @@ const SignUp1 = () => {
             dispatch(goPage3());
             dispatch(preferenceWrite(curValue));
         },
-        []
+        [curValue]
     );
 
     /// 이전 화면으로 돌아가기

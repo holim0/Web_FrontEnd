@@ -13,10 +13,10 @@ import { useEffect } from "react";
 // api 베이스 도메인 url
 Axios.defaults.baseURL = "http://jaggutrace.com/";
 
-// 토큰을 주고 받기 위해.
-Axios.defaults.withCredentials = true;
-Axios.defaults.headers.post["Access-Control-Allow-Origin"] =
-    "http://jaggutrace.com";
+//토큰을 주고 받기 위해.
+// Axios.defaults.withCredentials = true;
+// Axios.defaults.headers.post["Access-Control-Allow-Origin"] =
+//     "http://jaggutrace.com";
 
 function MyApp({ Component, pageProps }: AppProps) {
     const token = useSelector((state: RootState) => state.user.accessToken);

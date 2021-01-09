@@ -34,35 +34,26 @@ const SignUp4 = () => {
     const [isSame, setIsSame] = useState(false);
 
     // 아이디 핸들러
-    const handleId = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setId(e.target.value);
-        },
-        [id]
-    );
+    const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setId(e.target.value);
+    };
 
     // 비밀번호 핸들러
 
-    const handlePassword = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setPassword(e.target.value);
-        },
-        [password]
-    );
+    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    };
 
     // 비밀번호 확인 핸들러
-    const handleConfirmPassword = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setConfirmPassword(e.target.value);
-        },
-        [confirmPassword]
-    );
+    const handleConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setConfirmPassword(e.target.value);
+    };
 
     // 아이디 중복 체크 요청
 
     const goIdCheck = useCallback(() => {
         dispatch(idDoubleCheckReq(id));
-    }, []);
+    }, [id]);
 
     //회원가입 요청
     const SignUpRequest = useCallback(() => {
@@ -71,7 +62,7 @@ const SignUp4 = () => {
         realUserData.password = password;
         console.log(realUserData);
         dispatch(signUpReq(realUserData));
-    }, []);
+    }, [userData]);
 
     useEffect(() => {
         if (password === confirmPassword) {

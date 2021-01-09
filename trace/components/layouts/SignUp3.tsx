@@ -43,19 +43,14 @@ const SignUp3 = () => {
 
     // 이메일 텍스트 필드 핸들러
 
-    const handleEmail = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setEmail(e.target.value);
-        },
-        [email]
-    );
+    const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+    };
+
     // 인증번호 항목 핸들러
-    const handleVerifyNumber = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setInputVeriNumber(e.target.value);
-        },
-        [InputVeriNumber]
-    );
+    const handleVerifyNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputVeriNumber(e.target.value);
+    };
 
     // 인증번호 전송하면 디스패치
 
@@ -64,7 +59,7 @@ const SignUp3 = () => {
             event.preventDefault();
             dispatch(emailVerifyReq(email));
         },
-        []
+        [email]
     );
 
     // 사용자가 입력한 인증번호와 실제 인증번호 확인
@@ -89,7 +84,7 @@ const SignUp3 = () => {
                 alert("인증번호를 입력해주세요");
             }
         },
-        []
+        [InputVeriNumber, realVerifyNumber]
     );
 
     return (

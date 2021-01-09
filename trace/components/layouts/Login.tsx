@@ -66,28 +66,24 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     // 아이디 핸들러
-    const handleId = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setId(e.target.value);
-        },
-        [userId]
-    );
+    const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(userId);
+        setId(e.target.value);
+    };
 
     // 비밀번호 핸들러
-    const handlePassword = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setPassword(e.target.value);
-        },
-        [password]
-    );
+    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(password);
+        setPassword(e.target.value);
+    };
 
     // 로그인 요청
     const goLogin = useCallback(() => {
-        setId("");
-        setPassword("");
         dispatch(loginReq({ userId, password }));
         dispatch(closeModal());
-    }, []);
+        setId("");
+        setPassword("");
+    }, [userId, password]);
 
     return (
         <>

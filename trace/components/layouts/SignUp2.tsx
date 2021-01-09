@@ -37,24 +37,18 @@ const SignUp2 = () => {
 
     /// 이름 핸들러
 
-    const handleName = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setName(e.target.value);
-        },
-        [name]
-    );
+    const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
+    };
     // 폰 번호 핸들러
-    const handlePhone = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setPhoneNum(e.target.value);
-        },
-        [phoneNum]
-    );
+    const handlePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPhoneNum(e.target.value);
+    };
 
     // 리덕스에 디스패치
     const goDispatch = useCallback(() => {
         dispatch(isMemberCheckReq({ name, phoneNum }));
-    }, []);
+    }, [name, phoneNum]);
 
     //다음 페이지
     const goNext = useCallback(() => {
