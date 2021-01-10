@@ -9,6 +9,8 @@ import { RootState } from "Redux";
 import { message, Space } from "antd";
 import Head from "next/head";
 
+declare var daum: any;
+
 const index = () => {
     const router = useRouter();
     const dispatch = useDispatch();
@@ -187,7 +189,8 @@ const index = () => {
                 handleImg={handleImg}
                 handleNextSlide={handleNextSlide}
                 handlePrevSlide={handlePrevSlide}
-                handleStartDate={handleStartDate}></WriteForm>
+                handleStartDate={handleStartDate}
+            ></WriteForm>
         </>
     );
 };

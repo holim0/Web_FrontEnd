@@ -66,35 +66,40 @@ const BuildingContainer = ({ loading, handleLocation }: Props) => {
                     variant="contained"
                     onClick={handleLocation}
                     data-value="JJOKMOON"
-                    color="primary">
+                    color="primary"
+                >
                     쪽문
                 </Button>
                 <Button
                     variant="contained"
                     onClick={handleLocation}
                     data-value="JUNGMOON"
-                    color="primary">
+                    color="primary"
+                >
                     정문/로터리
                 </Button>
                 <Button
                     variant="contained"
                     onClick={handleLocation}
                     data-value="CHULMOON"
-                    color="primary">
+                    color="primary"
+                >
                     철문
                 </Button>
                 <Button
                     variant="contained"
                     onClick={handleLocation}
                     data-value="DAEMYUNG"
-                    color="primary">
+                    color="primary"
+                >
                     대명/대학로
                 </Button>
                 <Button
                     variant="contained"
                     onClick={handleLocation}
                     data-value="HANSUNGSHIN"
-                    color="primary">
+                    color="primary"
+                >
                     한성대/성신
                 </Button>
             </BtnContainer>
