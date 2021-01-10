@@ -2,7 +2,7 @@ import BuildingContainer from "components/Building/BuildingContainer";
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import useSWR from "swr";
-import { useFind } from "@cooksmelon/event";
+import { useFind } from "hook";
 
 const fetcher = (url: string) => {
     return Axios.get(url).then((res) => res.data);
@@ -34,7 +34,8 @@ const index = () => {
     return (
         <BuildingContainer
             loading={loading}
-            handleLocation={handleLocation}></BuildingContainer>
+            handleLocation={handleLocation}
+        ></BuildingContainer>
     );
 };
 
