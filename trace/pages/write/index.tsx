@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import WriteForm from "../../components/write/WriteForm";
 import { reviewWrite } from "Redux/review";
-import { RootState } from "Redux";
+import { RootState } from "redux";
 import { message, Space } from "antd";
 import Head from "next/head";
 

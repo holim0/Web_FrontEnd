@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "NODE_PATH=trace next dev",
-        "build": " NODE_PATH=trace next build && next export",
+        "build": "next build && next export",
         "start": "next start"
     },
     "dependencies": {
