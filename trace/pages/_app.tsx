@@ -6,7 +6,7 @@ import theme from "../styles/theme";
 import Header from "components/layouts/Header";
 import Footer from "components/layouts/Footer";
 import Axios from "axios";
-import { RootState } from "redux";
+import { RootState } from "Redux";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAuthbyTokenReq } from "Redux/getAuth";

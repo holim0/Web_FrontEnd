@@ -11,7 +11,7 @@ import { Modal, Button } from "antd";
 import Login from "components/layouts/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal, closeModal } from "Redux/ModalPage";
-import { RootState } from "redux";
+import { RootState } from "Redux";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { closeAlert } from "Redux/alertHandle";
