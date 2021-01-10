@@ -7,9 +7,8 @@ import Id from "assets/images/Id.png";
 import { Container, LogoImg } from "./Login";
 import { InputContainer } from "./SignUp2";
 import TextField from "@material-ui/core/TextField";
-import { idDoubleCheckReq } from "Redux/SignUp";
+import { idDoubleCheckReq, signUpReq } from "Redux/SignUp";
 import { setPassWordState } from "Redux/user";
-import { signUpReq } from "Redux/SignUp";
 import { RootState } from "Redux";
 
 const IdContainer = styled.div`

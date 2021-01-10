@@ -8,7 +8,6 @@ import {
     logoutSuccess,
     logoutFail,
 } from "Redux/login";
-import { closeModal } from "Redux/ModalPage"; // 왜 안댐..
 import { setAccessToken } from "Redux/user";
 import {
     resetAlert,

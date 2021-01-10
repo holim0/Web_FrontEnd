@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { getAuthbyTokenReq } from "Redux/getAuth";
 
 // api 베이스 도메인 url
-Axios.defaults.baseURL = "http://jaggutrace.com/";
+Axios.defaults.baseURL = "http://api.jaggutrace.com/";
 
 //토큰을 주고 받기 위해.
 // Axios.defaults.withCredentials = true;
