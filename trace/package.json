@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "cross-env NODE_PATH=trace next dev",
-        "build": "next build && next export",
+        "build": "cross-env NODE_PATH=trace next build && next export",
         "start": "next start"
     },
     "dependencies": {
