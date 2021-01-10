@@ -1,5 +1,4 @@
-import { useFormInput } from "@cooksmelon/event";
-import { useScrollTop } from "hook";
+import { useScrollTop, useFormInput } from "hook";
 import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -187,7 +186,8 @@ const index = () => {
                 handleImg={handleImg}
                 handleNextSlide={handleNextSlide}
                 handlePrevSlide={handlePrevSlide}
-                handleStartDate={handleStartDate}></WriteForm>
+                handleStartDate={handleStartDate}
+            ></WriteForm>
         </>
     );
 };

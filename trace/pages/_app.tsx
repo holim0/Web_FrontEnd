@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         Axios.defaults.headers.Authorization = "";
         if (token) {
-            Axios.defaults.headers.Authorization = token;
+            Axios.defaults.headers.Authorization = `Bearer ${token}`;
         }
     }, [token]);
 

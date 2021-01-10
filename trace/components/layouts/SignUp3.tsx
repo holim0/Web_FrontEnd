@@ -15,6 +15,7 @@ import {
     emailVerifySuccessAlert,
     emailVerifyFailAlert,
 } from "Redux/alertHandle";
+import emailImg from "../../assets/images/email.png";
 
 const VeriContainer = styled.div``;
 
@@ -83,7 +84,7 @@ const SignUp3 = () => {
     return (
         <Container>
             <LogoImg src={MainLogo}></LogoImg>
-            <img src={email} style={{ width: "170px", margin: "0 auto" }} />
+            <img src={emailImg} style={{ width: "170px", margin: "0 auto" }} />
             <InputContainer>
                 <TextField
                     id="standard-basic"
