@@ -3,8 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "cross-env NODE_PATH=trace next dev",
-        "build": "cross-env NODE_PATH=trace next build && next export",
+        "dev": "NODE_PATH=trace next dev",
+        "build": " NODE_PATH=trace next build && next export",
         "start": "next start"
     },
     "dependencies": {
