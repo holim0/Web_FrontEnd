@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Container } from "styles/commonStyle";
 import faker from "faker";
 import Rating from "components/common/Rating";
-import Link from "next/Link";
+import Link from "next/link";
 import { Button } from "antd";
 import BuildingDetailSkeleton from "./BuildingDetailSkeleton";
 

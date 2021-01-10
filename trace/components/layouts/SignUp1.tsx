@@ -50,7 +50,7 @@ const PreferOptions: PreferType[] = [
 const SignUp1 = () => {
     // select value 저장
 
-    const [curValue, setCurValue] = useState([]);
+    const [curValue, setCurValue] = useState([] as any);
 
     // 취향 선택 핸들러
     const handleValue = useCallback(

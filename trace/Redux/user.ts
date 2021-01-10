@@ -40,7 +40,7 @@ export const user = createSlice({
         setEmail: (state, { payload }) => {
             state.email = payload;
         },
-        // 엑세스 , 리프레시 토큰 셋팅.
+        // 엑세스 토큰 셋팅.
         setAccessToken: (state, { payload }) => {
             console.log(payload);
             state.accessToken = payload;

@@ -10,7 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import { idDoubleCheckReq } from "Redux/SignUp";
 import { setPassWordState } from "Redux/user";
 import { signUpReq } from "Redux/SignUp";
-import { RootState } from "redux";
+import { RootState } from "Redux";
 
 const IdContainer = styled.div`
     display: flex;
