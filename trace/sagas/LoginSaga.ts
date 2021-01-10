@@ -36,6 +36,11 @@ function LogOutGet() {
     return axios.get("/api/v1/members/logout");
 }
 
+// 로그아웃 요청(get)
+function LogOutGet() {
+    return axios.get("/api/v1/members/logout");
+}
+
 // 로그인 사가
 function* LoginSagaReq({ payload }: any) {
     console.log(payload);
