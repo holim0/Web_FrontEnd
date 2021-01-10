@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import styled from "@emotion/styled";
 import SearchIcon from "@material-ui/icons/Search";
@@ -15,6 +15,7 @@ import { RootState } from "Redux";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { closeAlert } from "Redux/alertHandle";
+import { logoutReq } from "Redux/login";
 
 // 알림창 제어 컴포넌트
 function Alert(props: any) {
@@ -98,7 +99,6 @@ const Searchicon = styled(SearchIcon)``;
 const MenuContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
-
     width: 50%;
     font-size: 20px;
     color: black;
@@ -126,13 +126,14 @@ const Header = () => {
     const AlertVal = useSelector((state: RootState) => state.alertHandle);
 
     //알림창 닫기
-    const closeAlertHandler = (event: any, reason: string) => {
+    const closeAlertHandler = useCallback((event: any, reason: string) => {
         if (reason === "clickaway") {
             return;
         }
         dispatch(closeAlert());
-    };
+    }, []);
 
+    // 모달창이 열려있는지 판다.
     const isModalVisible = useSelector(
         (state: RootState) => state.ModalPage.isOpen
     );
@@ -142,13 +143,21 @@ const Header = () => {
         (state: RootState) => state.login.isLoginSuccess
     );
 
-    const showModal = () => {
+    // 로그인 모달 열기
+    const showModal = useCallback(() => {
         dispatch(openModal());
-    };
+    }, []);
 
-    const handleCancel = () => {
+    // 로그인 모달창 닫기
+    const handleCancel = useCallback(() => {
         dispatch(closeModal());
-    };
+    }, []);
+
+    // 로그아웃 핸들러
+    const logOutHandler = useCallback(() => {
+        dispatch(logoutReq());
+    }, []);
+
     useEffect(() => {
         console.log(isLoginSuccess);
     }, [isLoginSuccess]);
@@ -198,6 +207,18 @@ const Header = () => {
                             사용할 수 있는 아이디입니다
                         </Alert>
                     )}
+                    {AlertVal.isSignUpDone && (
+                        <Alert severity="Success">회원가입 성공</Alert>
+                    )}
+                    {AlertVal.isSignUpFail && (
+                        <Alert severity="error">회원가입 실패</Alert>
+                    )}
+                    {AlertVal.LogoutSuccess && (
+                        <Alert severity="info">로그아웃됨!</Alert>
+                    )}
+                    {AlertVal.LogoutFail && (
+                        <Alert severity="error">회원가입 실패</Alert>
+                    )}
                 </div>
             </Snackbar>
             <Link href="/">
@@ -229,7 +250,12 @@ const Header = () => {
                 <MenuBtn href="/write">글쓰기</MenuBtn>
 
                 {isLoginSuccess ? (
-                    <Button type="primary">Mypage</Button>
+                    <>
+                        <Button type="primary">Mypage</Button>
+                        <Button type="primary" onClick={logOutHandler}>
+                            로그아웃
+                        </Button>
+                    </>
                 ) : (
                     <Button type="primary" onClick={showModal}>
                         로그인/회원가입

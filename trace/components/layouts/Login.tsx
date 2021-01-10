@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from "react";
+import React, { useState, MouseEvent, useCallback } from "react";
 import styled from "@emotion/styled";
 import LoginBack from "assets/images/LoginBack.png";
 import MainLogo from "assets/images/MainLogo.png";
@@ -29,7 +29,7 @@ export const LogoImg = styled.img`
     margin: 20px auto;
 `;
 
-const InputContainer = styled.div`
+const InputContainer = styled.form`
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -54,43 +54,41 @@ const Login = () => {
     /////////////////
 
     // 회원 가입 버튼 눌렀을 때 회원가입 페이지로 이동.
-    const handleSingUp = (
-        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-        event.preventDefault();
-        dispatch(goPage2());
-    };
+    const handleSingUp = useCallback(
+        (event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+            event.preventDefault();
+            dispatch(goPage2());
+        },
+        []
+    );
 
     const [userId, setId] = useState("");
     const [password, setPassword] = useState("");
-    // 아이디 핸들러
 
+    // 아이디 핸들러
     const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
         setId(e.target.value);
     };
-    // 비밀번호 핸들러
 
+    // 비밀번호 핸들러
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
-    // 로그인 요청
 
-    const goLogin = (
-        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-        event.preventDefault();
-        setId("");
-        setPassword("");
+    // 로그인 요청
+    const goLogin = useCallback(() => {
         dispatch(loginReq({ userId, password }));
         dispatch(closeModal());
-    };
+        setId("");
+        setPassword("");
+    }, [userId, password]);
 
     return (
         <>
             {page1 && (
                 <Container>
                     <LogoImg src={MainLogo}></LogoImg>
-                    <InputContainer>
+                    <InputContainer onSubmit={goLogin}>
                         <TextField
                             id="standard-basic"
                             label="아이디"
@@ -111,6 +109,7 @@ const Login = () => {
                             color="primary"
                             size="large"
                             onClick={goLogin}
+                            type="submit"
                         >
                             로그인
                         </LoginButton>

@@ -49,7 +49,6 @@ export interface UserType {
     phoneNum: string;
     preferences: string[];
     accessToken: string;
-    refreshToken: string;
 }
 
 //회원가입 타입
@@ -75,6 +74,8 @@ export interface LoginType {
 export interface AlertType {
     isLoginDone: boolean;
     isLoginFail: boolean;
+    LogoutSuccess: boolean;
+    LogoutFail: boolean;
     isSignUpDone: boolean;
     isSignUpFail: boolean;
     isMember: boolean;

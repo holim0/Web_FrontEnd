@@ -12,7 +12,6 @@ export const userState: UserType = {
     phoneNum: "",
     preferences: [],
     accessToken: "",
-    refreshToken: "",
 };
 
 //유저 상태 리듀서
@@ -42,10 +41,9 @@ export const user = createSlice({
             state.email = payload;
         },
         // 엑세스 , 리프레시 토큰 셋팅.
-        setAccessAndRefreshToken: (state, { payload }) => {
+        setAccessToken: (state, { payload }) => {
             console.log(payload);
-            state.accessToken = payload.accessToken;
-            state.refreshToken = payload.refreshToken;
+            state.accessToken = payload;
         },
     },
 });
@@ -56,7 +54,7 @@ export const {
     setIdState,
     setPassWordState,
     setEmail,
-    setAccessAndRefreshToken,
+    setAccessToken,
 } = user.actions;
 
 export default user.reducer;
