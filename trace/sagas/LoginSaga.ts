@@ -25,7 +25,10 @@ import axios from "axios";
 
 // 로그인 요청(post)
 function LoginPost(userData: { userId: string; password: string }) {
-    return axios.post(`/api/v1/members/login`, userData);
+    return axios.post(`/api/v1/members/login`, userData, {
+        withCredentials: true,
+        // headers: { "Access-Control-Allow-Origin": "http://jaggutrace.com" },
+    });
 }
 
 // 로그아웃 요청(get)

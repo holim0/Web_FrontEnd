@@ -8,15 +8,13 @@ import TextField from "@material-ui/core/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { goPage3, goPage5 } from "Redux/ModalPage";
 import { emailVerifyReq } from "Redux/SignUp";
-import { RootState } from "redux";
+import { RootState } from "Redux";
 import {
     resetAlert,
     openAlert,
     emailVerifySuccessAlert,
     emailVerifyFailAlert,
 } from "Redux/alertHandle";
-import emailImg from "../../assets/images/email.png";
-
 import emailImg from "assets/images/email.png";
 
 const VeriContainer = styled.div``;

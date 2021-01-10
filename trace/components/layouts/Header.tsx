@@ -173,7 +173,7 @@ const Header = () => {
                 autoHideDuration={2000}
                 onClose={closeAlertHandler}
             >
-                <div className={AlertClass}>
+                <div>
                     {AlertVal.isLoginDone && (
                         <Alert severity="success">로그인 성공</Alert>
                     )}
