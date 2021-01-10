@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import MainLogo from "assets/images/MainLogo.png";
@@ -51,17 +51,18 @@ const SignUp4 = () => {
 
     // 아이디 중복 체크 요청
 
-    const goIdCheck = () => {
+    const goIdCheck = useCallback(() => {
         dispatch(idDoubleCheckReq(id));
-    };
+    }, [id]);
 
     //회원가입 요청
-    const SignUpRequest = () => {
-        dispatch(setPassWordState(password));
-        const { accessToken, refreshToken, ...realUserData } = userData;
+    const SignUpRequest = useCallback(() => {
+        // dispatch(setPassWordState(password));
+        const { refreshToken, ...realUserData } = userData;
+        realUserData.password = password;
         console.log(realUserData);
         dispatch(signUpReq(realUserData));
-    };
+    }, [userData]);
 
     useEffect(() => {
         if (password === confirmPassword) {

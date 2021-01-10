@@ -30,7 +30,11 @@ import {
     idDoubleAlert,
     idNotDoubleAlert,
     emailSendAlert,
+    isSignUpSuccessAlert,
+    isSignUpFailAlert,
 } from "Redux/alertHandle";
+import { closeModal } from "Redux/ModalPage";
+
 import axios from "axios";
 
 // 기존 회원 여부 체크 요청(get)
@@ -59,11 +63,20 @@ function SignUpPost(userInfo: any) {
 //회원가입 사가
 
 function* signUpRequestSaga({ payload }: any) {
+    yield put(resetAlert());
+    yield put(openAlert());
     try {
         const res = yield call(SignUpPost, payload);
-        console.log(res);
+        // 회원가입 성공시
+        if (res.data.success) {
+            yield put(isSignUpSuccessAlert());
+            yield put(closeModal());
+        } else {
+            yield put(isSignUpFailAlert());
+        }
     } catch (error) {
         console.log(error);
+        yield put(isSignUpFailAlert());
     }
 }
 

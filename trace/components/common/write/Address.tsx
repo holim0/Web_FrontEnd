@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 const AddressForm = styled.div`
     display: flex;
@@ -41,6 +41,11 @@ interface Props {
 }
 
 const Address = ({ address, onAddress }: Props) => {
+    const [roomNumber, setRoomNumber] = useState("");
+
+    const handleRoomNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRoomNumber(event.target.value);
+    };
     return (
         <>
             <AddressForm>
@@ -53,6 +58,8 @@ const Address = ({ address, onAddress }: Props) => {
                         <input
                             type="text"
                             placeholder="상세 주소를 입력해 주세요."
+                            onChange={handleRoomNumber}
+                            value={roomNumber}
                         />
                     </div>
                 )}
