@@ -20,9 +20,10 @@ function getAuthbyToken() {
 function* AuthSagaReq() {
     try {
         const res = yield call(getAuthbyToken);
-
+        console.log(res);
         if (res.data.success) {
             const Token = res.data.data.accessToken;
+            console.log(Token);
             yield put(setAccessToken(Token));
             yield put(loginSuccess());
             axios.defaults.headers.common["Authorization"] = `Bearer ${Token}`;
