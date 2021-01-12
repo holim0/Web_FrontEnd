@@ -13,7 +13,7 @@ import {
 function getAuthbyToken() {
     return axios.get("/api/v1/auth/token", {
         withCredentials: true,
-        // headers: { "Access-Control-Allow-Origin": "http://jaggutrace.com" },
+        headers: { "Access-Control-Allow-Origin": "http://jaggutrace.com" },
     });
 }
 
