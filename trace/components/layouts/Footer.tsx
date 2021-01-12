@@ -81,7 +81,7 @@ const Footer = () => {
                     <li>어바웃</li>
                 </Info>
                 <Desc>
-                    <div>주소: 서울특별시 강남구 봉은사로</div>
+                    <div>주소: 서울특별시 종로구 성균관로</div>
                     <div>Email : cskim132@gmail.com</div>
                     <div>&copy; Trace, Inc.</div>
                 </Desc>
