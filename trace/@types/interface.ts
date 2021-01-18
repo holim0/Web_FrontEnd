@@ -87,3 +87,13 @@ export interface AlertType {
     idNotDouble: boolean;
     alertOpen: boolean;
 }
+
+// 건물 타입
+export interface BuildingType {
+    id: number | null;
+    location: string | null;
+    address: string | null;
+    lotNumber: string | null;
+    oneRoomPrice: number | null;
+    completionDate: string | null;
+}
