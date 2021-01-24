@@ -3,6 +3,7 @@ import reviewSaga from "./reviewSaga";
 import SignUpSaga from "./SignUpSaga";
 import LoginSaga from "./LoginSaga";
 import authSaga from "./authSaga";
+import buildingSaga from "./buildingSaga";
 
 export default function* rootSaga() {
     yield all([
@@ -10,5 +11,6 @@ export default function* rootSaga() {
         fork(SignUpSaga),
         fork(LoginSaga),
         fork(authSaga),
+        fork(buildingSaga),
     ]);
 }

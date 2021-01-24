@@ -4,10 +4,20 @@ import {
     buildingInfoReq,
     buildingInfoSuccess,
     buildingInfoFail,
+    buildingInfoReqByLocation,
+    buildingInfoByLocationSuccess,
+    buildingInfoByLocationFail,
 } from "Redux/building";
+import { ActionCreatorWithPayload, PayloadAction } from "@reduxjs/toolkit";
+
 // 메인 화면에 보여줄 건물 정보 요청
 function mainBuildingInfoApi() {
     return axios.get("/api/v1/buildings");
+}
+
+// 지역별 건물 정보 요청
+function buildingInfoByLocationApi(location: string) {
+    return axios.get(`/api/v1/buildings?location=${location}`);
 }
 
 function* mainBuildingInfo() {
@@ -26,10 +36,30 @@ function* mainBuildingInfo() {
     }
 }
 
+function* buildingInfoByLocation({ payload }: PayloadAction<string>) {
+    try {
+        const res = yield call(buildingInfoByLocationApi, payload);
+        const value = res.data.data.content;
+
+        if (res.data.success) {
+            yield put(buildingInfoByLocationSuccess(value));
+        } else {
+            yield put(buildingInfoByLocationFail());
+        }
+    } catch (e) {
+        console.log(e);
+        yield put(buildingInfoByLocationFail());
+    }
+}
+
 function* watchMainBuildingInfo() {
     yield takeLatest(buildingInfoReq, mainBuildingInfo);
 }
 
-function* buildingSaga() {
-    yield all([fork(watchMainBuildingInfo)]);
+function* watchBuildingInfoByLocation() {
+    yield takeLatest(buildingInfoReqByLocation, buildingInfoByLocation);
+}
+
+export default function* buildingSaga(): Generator {
+    yield all([fork(watchMainBuildingInfo), fork(watchBuildingInfoByLocation)]);
 }
