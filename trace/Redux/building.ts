@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BuildingType } from "../@types/interface";
-import { stat } from "fs";
-import { start } from "repl";
 
 interface initialType {
     isloading: boolean;
