@@ -3,6 +3,9 @@ import Map from "assets/images/Map.png";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
 import Link from "next/link";
+import { colors } from "@material-ui/core";
+import { buildingInfoReqByLocation } from "Redux/building";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
     width: 100%;
@@ -21,6 +24,7 @@ const MapContainer = styled.div`
 
 // 타입 인터페이스를 emotion 에 적용.
 const Btn = styled(Button)<{ x: string; y: string }>`
+    padding: 0;
     position: absolute;
     top: ${(props) => props.y};
     left: ${(props) => props.x};
@@ -68,7 +72,31 @@ const Title = styled.div`
     font-size: ${(props) => props.theme.xls};
 `;
 
+interface LocationType {
+    JJOKMOON: string;
+    JUNGMOON: string;
+    CHULMOON: string;
+    DAEMYUNG: string;
+    HANSUNGSHIN: string;
+}
+
+const Location: LocationType = {
+    JJOKMOON: "JJOKMOON",
+    JUNGMOON: "JUNGMOON",
+    CHULMOON: "CHULMOON",
+    DAEMYUNG: "DAEMYUNG",
+    HANSUNGSHIN: "HANSUNGSHIN",
+};
+
 const HomeContainer = () => {
+    const dispatch = useDispatch();
+    // 지역별로 건물 리스트 요청
+    const BuildingByLocation = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const locationTarget = event.currentTarget.value;
+
+        dispatch(buildingInfoReqByLocation(locationTarget));
+    };
+
     return (
         <>
             <Container>
@@ -76,27 +104,53 @@ const HomeContainer = () => {
                 <MapContainer>
                     <MapImg src={Map}></MapImg>
                     <Link href="/building">
-                        <Btn x="530px" y="320px">
+                        <Btn
+                            x="530px"
+                            y="320px"
+                            type="button"
+                            value={Location.JUNGMOON}
+                            onClick={BuildingByLocation}
+                        >
                             🔵 정문/로터리
                         </Btn>
                     </Link>
                     <Link href="/building">
-                        <Btn x="270px" y="590px">
+                        <Btn
+                            x="270px"
+                            y="590px"
+                            value={Location.CHULMOON}
+                            onClick={BuildingByLocation}
+                        >
                             🔵 철문
                         </Btn>
                     </Link>
                     <Link href="/building">
-                        <Btn x="140px" y="180px">
+                        <Btn
+                            x="140px"
+                            y="180px"
+                            value={Location.JJOKMOON}
+                            onClick={BuildingByLocation}
+                        >
                             🔵 쪽문
                         </Btn>
                     </Link>
                     <Link href="/building">
-                        <Btn x="510px" y="190px">
+                        <Btn
+                            x="510px"
+                            y="190px"
+                            value={Location.HANSUNGSHIN}
+                            onClick={BuildingByLocation}
+                        >
                             🔵 한성대/성신
                         </Btn>
                     </Link>
                     <Link href="/building">
-                        <Btn x="300px" y="600px">
+                        <Btn
+                            x="300px"
+                            y="600px"
+                            value={Location.DAEMYUNG}
+                            onClick={BuildingByLocation}
+                        >
                             🔵 대명/대학로
                         </Btn>
                     </Link>
