@@ -14,7 +14,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { closeAlert } from "Redux/alertHandle";
 import { logoutReq } from "Redux/login";
-import { copyFileSync } from "fs";
+import { searchReq } from "Redux/Search";
 
 // 알림창 제어 컴포넌트
 function Alert(props: any) {
@@ -115,7 +115,12 @@ const Header = () => {
 
     const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
-        console.log("hi");
+        const testValue = {
+            address: "서울특별시 종로구 명륜1가",
+            lotNumber: "10-39",
+        };
+
+        dispatch(searchReq(testValue));
     };
 
     return (

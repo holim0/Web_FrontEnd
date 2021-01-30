@@ -26,11 +26,13 @@ function* AuthSagaReq() {
             console.log(Token);
             yield put(setAccessToken(Token));
             yield put(loginSuccess());
+            yield put(getAuthbyTokenReqSuccess());
             axios.defaults.headers.common["Authorization"] = `Bearer ${Token}`;
         } else {
             alert("오류 발생!");
         }
     } catch (error) {
+        yield put(getAuthbyTokenReqFail(error));
         console.log(error);
     }
 }

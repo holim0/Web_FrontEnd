@@ -7,7 +7,7 @@ import ModalPage from "./ModalPage";
 import login from "./login";
 import alertHandle from "./alertHandle";
 import getAuth from "./getAuth";
-
+import Search from "./Search";
 const rootReducer = (state: any, action: any) => {
     switch (action.type) {
         case HYDRATE:
@@ -21,6 +21,7 @@ const rootReducer = (state: any, action: any) => {
                 login,
                 alertHandle,
                 getAuth,
+                Search,
             });
             return combineReducer(state, action);
         }

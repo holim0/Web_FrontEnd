@@ -24,9 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        // Axios.defaults.headers.Authorization = "";
         if (token) {
-            // Axios.defaults.headers.Authorization = token;
             Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         } else {
             dispatch(getAuthbyTokenReq());

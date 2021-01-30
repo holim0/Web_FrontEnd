@@ -15,7 +15,7 @@ export const getAuth = createSlice({
             state.isloading = true;
         },
 
-        getAuthbyTokenReqSuccess: (state, { payload }) => {
+        getAuthbyTokenReqSuccess: (state) => {
             state.isloading = false;
         },
         getAuthbyTokenReqFail: (state, { payload }) => {
