@@ -3,7 +3,6 @@ import Map from "assets/images/Map.png";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
 import Link from "next/link";
-import { colors } from "@material-ui/core";
 import { buildingInfoReqByLocation } from "Redux/building";
 import { useDispatch } from "react-redux";
 

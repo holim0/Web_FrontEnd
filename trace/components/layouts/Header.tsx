@@ -1,9 +1,7 @@
 import React, { useEffect, useCallback } from "react";
-import { fade, makeStyles } from "@material-ui/core/styles";
 import styled from "@emotion/styled";
 import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
-import Image from "next/image";
+import { Button as Btn } from "@material-ui/core";
 import MainLogo from "assets/images/MainLogo.png";
 import Link from "next/link";
 import "antd/dist/antd.css";
@@ -16,65 +14,12 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { closeAlert } from "Redux/alertHandle";
 import { logoutReq } from "Redux/login";
+import { copyFileSync } from "fs";
 
 // 알림창 제어 컴포넌트
 function Alert(props: any) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-
-// 알림창 스타일
-const AlertStyles = makeStyles((theme) => ({
-    root: {
-        width: "100%",
-        "& > * + *": {
-            marginTop: theme.spacing(2),
-        },
-    },
-}));
-
-const useStyles = makeStyles((theme) => ({
-    search: {
-        display: "flex",
-        alignItems: "center",
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        "&:hover": {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: "10px",
-        width: "100%",
-        height: "50%",
-        [theme.breakpoints.up("sm")]: {
-            marginLeft: theme.spacing(3),
-            width: "auto",
-        },
-    },
-    searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: "100%",
-        position: "absolute",
-        pointerEvents: "none",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    inputRoot: {
-        color: "inherit",
-    },
-    inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create("width"),
-        width: "100%",
-        [theme.breakpoints.up("md")]: {
-            width: "20ch",
-            "&:focus": {
-                width: "50ch",
-            },
-        },
-    },
-}));
 
 const Container = styled.div`
     display: flex;
@@ -84,17 +29,9 @@ const Container = styled.div`
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
         0px 4px 5px 0px rgba(0, 0, 0, 0.14),
         0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-`;
 
-const SearchCotainer = styled.div`
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    background-color: fade("white", 0.15);
     width: 100%;
-    height: 100%;
 `;
-const Searchicon = styled(SearchIcon)``;
 
 const MenuContainer = styled.div`
     display: flex;
@@ -110,17 +47,35 @@ const MenuBtn = styled(Link)`
     text-decoration: none;
 `;
 
-const LogoImg = styled(Image)`
+const LogoImg = styled.img`
     cursor: pointer;
+    width: 250px;
+    height: 150px;
+    padding: 15px;
 `;
 
 const LoginForm = styled(Modal)``;
 
+const SearchForm = styled.form`
+    width: 25%;
+    display: flex;
+`;
+
+const SearchInput = styled.input`
+    border-radius: 5px;
+    border: 0;
+    width: 90%;
+    margin-right: 7px;
+    &:focus {
+        outline: none;
+        border: 2px solid dodgerblue;
+    }
+    padding: 5px;
+    font-size: 20px;
+`;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 const Header = () => {
-    const classes = useStyles();
     const dispatch = useDispatch();
-    const AlertClass = AlertStyles();
 
     //알림창 제어 상태들//
     const AlertVal = useSelector((state: RootState) => state.alertHandle);
@@ -158,9 +113,10 @@ const Header = () => {
         dispatch(logoutReq());
     }, []);
 
-    useEffect(() => {
-        console.log(isLoginSuccess);
-    }, [isLoginSuccess]);
+    const handleSearch = (event: React.FormEvent) => {
+        event.preventDefault();
+        console.log("hi");
+    };
 
     return (
         <Container>
@@ -222,26 +178,19 @@ const Header = () => {
                 </div>
             </Snackbar>
             <Link href="/">
-                <LogoImg
-                    src={MainLogo}
-                    alt="MainLogo"
-                    width={250}
-                    height={150}
-                />
+                <LogoImg src={MainLogo} />
             </Link>
-            <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                    <SearchIcon />
-                </div>
-                <InputBase
-                    placeholder="Search…"
-                    classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                    }}
-                    inputProps={{ "aria-label": "search" }}
-                />
-            </div>
+
+            <SearchForm onSubmit={handleSearch}>
+                <SearchInput placeholder="Search..."></SearchInput>
+                <Btn
+                    startIcon={<SearchIcon />}
+                    onSubmit={handleSearch}
+                    size="large"
+                    type="submit"
+                ></Btn>
+            </SearchForm>
+
             <MenuContainer>
                 <MenuBtn href="/">
                     <a>홈</a>
