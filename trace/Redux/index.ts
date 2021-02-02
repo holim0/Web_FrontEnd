@@ -8,6 +8,8 @@ import login from "./login";
 import alertHandle from "./alertHandle";
 import getAuth from "./getAuth";
 import Search from "./Search";
+import building from "./building"
+
 const rootReducer = (state: any, action: any) => {
     switch (action.type) {
         case HYDRATE:
@@ -22,6 +24,7 @@ const rootReducer = (state: any, action: any) => {
                 alertHandle,
                 getAuth,
                 Search,
+                building
             });
             return combineReducer(state, action);
         }

@@ -1,12 +1,15 @@
-import React from "react";
+import React , {useEffect, useState, ChangeEvent} from "react";
 import styled from "@emotion/styled";
 import { Container } from "styles/commonStyle";
 import Pagination from "@material-ui/lab/Pagination";
 import Button from "@material-ui/core/Button";
 import Link from "next/link";
-import faker from "faker";
 import Rating from "components/common/Rating";
 import BuildingSkeleton from "./BuildingSkeleton";
+import noImg from "assets/images/noImg.png"
+import {useSelector, useDispatch} from "react-redux";
+import { RootState } from "redux";
+import {buildingInfoReqByLocation, buildingInfoByLocationFail} from "Redux/building";
 
 const Container2 = styled(Container)`
     max-width: 1200px;
@@ -51,154 +54,126 @@ const Pagi = styled(Pagination)`
     margin: 50px auto;
 `;
 
-interface Props {
-    loading: boolean;
-    handleLocation: (
-        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => void;
+const ButtonGroup = ({handleOtherLocation} : any)=>{
+    return (
+    <BtnContainer>
+        <Button
+            variant="contained"
+            onClick={handleOtherLocation}
+            data-value="JJOKMOON"
+            color="primary"
+        >
+            쪽문
+        </Button>
+        <Button
+            variant="contained"
+            onClick={handleOtherLocation}
+            data-value="JUNGMOON"
+            color="primary"
+        >
+            정문/로터리
+        </Button>
+        <Button
+            variant="contained"
+            onClick={handleOtherLocation}
+            data-value="CHULMOON"
+            color="primary"
+        >
+            철문
+        </Button>
+        <Button
+            variant="contained"
+            onClick={handleOtherLocation}
+            data-value="DAEMYUNG"
+            color="primary"
+        >
+            대명/대학로
+        </Button>
+        <Button
+            variant="contained"
+            onClick={handleOtherLocation}
+            data-value="HANSUNGSHIN"
+            color="primary"
+        >
+            한성대/성신
+        </Button>
+    </BtnContainer>)
 }
 
-const BuildingContainer = ({ loading, handleLocation }: Props) => {
+const BuildingContainer = () => {
+    const dispatch = useDispatch();
+    const [page, setPage]= useState(1);
+   
+    const buildingList: Array<any> = useSelector((state: RootState) => (state.building.content));
+    const {curLocation, isLoading} = useSelector((state: RootState) =>state.building);
+
+    const handlePageChange = (event: ChangeEvent<unknown>, value: number)=>{
+        console.log(value)
+        setPage(value)
+        const data = {
+            locationTarget: curLocation,
+            pageNumber : value-1
+        }
+        console.log(data)
+        dispatch(buildingInfoReqByLocation(data));
+    } 
+    
+    const handleOtherLocation = (event: React.MouseEvent<HTMLButtonElement>)=>{
+        event.preventDefault();
+        const changeLocation = event.currentTarget.getAttribute('data-value');
+        const data = {
+            locationTarget: changeLocation,
+            pageNumber : 0
+        }
+        dispatch(buildingInfoReqByLocation(data))
+    }
+    
+    useEffect(()=>{
+        console.log(isLoading)
+        console.log(curLocation)
+        const data = {
+            locationTarget: "JJOKMOON",
+            pageNumber : page-1
+        }
+        dispatch(buildingInfoReqByLocation(data));
+    },[])
+    
     return (
         <Container2>
-            <BtnContainer>
-                <Button
-                    variant="contained"
-                    onClick={handleLocation}
-                    data-value="JJOKMOON"
-                    color="primary"
-                >
-                    쪽문
-                </Button>
-                <Button
-                    variant="contained"
-                    onClick={handleLocation}
-                    data-value="JUNGMOON"
-                    color="primary"
-                >
-                    정문/로터리
-                </Button>
-                <Button
-                    variant="contained"
-                    onClick={handleLocation}
-                    data-value="CHULMOON"
-                    color="primary"
-                >
-                    철문
-                </Button>
-                <Button
-                    variant="contained"
-                    onClick={handleLocation}
-                    data-value="DAEMYUNG"
-                    color="primary"
-                >
-                    대명/대학로
-                </Button>
-                <Button
-                    variant="contained"
-                    onClick={handleLocation}
-                    data-value="HANSUNGSHIN"
-                    color="primary"
-                >
-                    한성대/성신
-                </Button>
-            </BtnContainer>
-            {loading ? (
+            <ButtonGroup handleOtherLocation={handleOtherLocation}></ButtonGroup>
+            <div style={{fontSize: "40px", fontWeight: "bold"}}>{curLocation ? curLocation : null}</div>
+            {isLoading ? (
                 <MainContainer>
                     <BuildingSkeleton />
-                    <BuildingSkeleton /> <BuildingSkeleton />
-                    <BuildingSkeleton /> <BuildingSkeleton />
+                    <BuildingSkeleton />
+                    <BuildingSkeleton />
+                    <BuildingSkeleton /> 
+                    <BuildingSkeleton />
                     <BuildingSkeleton />
                 </MainContainer>
             ) : (
                 <MainContainer>
-                    <Link href="/building/123">
-                        <Building>
-                            <div>
-                                <img src={faker.image.abstract(300, 300)} />
-                            </div>
-                            <Info>
-                                <div>건물이름</div>
-                                <div>준공년도</div>
-                                <Rating score={4} size={18} />
-                            </Info>
-                        </Building>
-                    </Link>
-                    <Link href="/building/123">
-                        <Building>
-                            <div>
-                                <img src={faker.image.abstract(300, 300)} />
-                            </div>
-                            <Info>
-                                <div>건물이름</div>
-                                <div>준공년도</div>
-                                <Rating score={4} size={18} />
-                            </Info>
-                        </Building>
-                    </Link>
-                    <Link href="/building/123">
-                        <Building>
-                            <div>
-                                <img src={faker.image.abstract(300, 300)} />
-                            </div>
-                            <Info>
-                                <div>건물이름</div>
-                                <div>준공년도</div>
-                                <Rating score={4} size={18} />
-                            </Info>
-                        </Building>
-                    </Link>
-                    <Link href="/building/123">
-                        <Building>
-                            <div>
-                                <img src={faker.image.abstract(300, 300)} />
-                            </div>
-                            <Info>
-                                <div>건물이름</div>
-                                <div>준공년도</div>
-                                <Rating score={4} size={18} />
-                            </Info>
-                        </Building>
-                    </Link>
-                    <Link href="/building/123">
-                        <Building>
-                            <div>
-                                <img src={faker.image.abstract(300, 300)} />
-                            </div>
-                            <Info>
-                                <div>건물이름</div>
-                                <div>준공년도</div>
-                                <Rating score={4} size={18} />
-                            </Info>
-                        </Building>
-                    </Link>
-                    <Link href="/building/123">
-                        <Building>
-                            <div>
-                                <img src={faker.image.abstract(300, 300)} />
-                            </div>
-                            <Info>
-                                <div>건물이름</div>
-                                <div>준공년도</div>
-                                <Rating score={4} size={18} />
-                            </Info>
-                        </Building>
-                    </Link>
-                    <Link href="/building/123">
-                        <Building>
-                            <div>
-                                <img src={faker.image.abstract(300, 300)} />
-                            </div>
-                            <Info>
-                                <div>건물이름</div>
-                                <div>준공년도</div>
-                                <Rating score={4} size={18} />
-                            </Info>
-                        </Building>
-                    </Link>
+                    {buildingList ? 
+                        buildingList.map((building: any)=>{
+                            return(
+                                <Link href={`/building/${building.id}`} key={building.id}>
+                                    <Building >
+                                        <div>
+                                            <img src={noImg} style={{width: "300px", height:"300px"}} />
+                                        </div>
+                                        <Info>
+                                            <div>{`주소: ${building.address} ${building.lotNumber}`}</div>
+                                            <div>{`준공년도: ${building.completionDate ? building.completionDate : "정보없음"}`}</div>
+                                            <Rating score={4} size={18} />
+                                        </Info>
+                                    </Building>
+                                </Link>
+                        )})
+                        : null
+                    }
                 </MainContainer>
             )}
-            <Pagi count={10} color="primary" />
+            <Pagi count={10} page={page} onChange={handlePageChange} color="primary" showFirstButton showLastButton/>
         </Container2>
     );
 };

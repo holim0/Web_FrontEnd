@@ -89,11 +89,14 @@ const Location: LocationType = {
 
 const HomeContainer = () => {
     const dispatch = useDispatch();
-    // 지역별로 건물 리스트 요청
+    // 지역별로 건물 리스트 요청 : page => 0부터
     const BuildingByLocation = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const locationTarget = event.currentTarget.value;
-
-        dispatch(buildingInfoReqByLocation(locationTarget));
+        
+        const data = {
+            locationTarget : event.currentTarget.value,
+            pageNumber : 0
+        }
+        dispatch(buildingInfoReqByLocation(data));
     };
 
     return (

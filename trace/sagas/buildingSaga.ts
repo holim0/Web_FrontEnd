@@ -16,8 +16,8 @@ const mainBuildingInfoApi = () => {
 };
 
 // 지역별 건물 정보 요청
-const buildingInfoByLocationApi = (location: string) => {
-    return axios.get(`/api/v1/buildings?location=${location}`);
+const buildingInfoByLocationApi = (payload: any) => {
+    return axios.get(`/api/v1/buildings?location=${payload.locationTarget}&page=${payload.pageNumber}`);
 };
 
 function* mainBuildingInfo() {
@@ -36,9 +36,11 @@ function* mainBuildingInfo() {
     }
 }
 
-function* buildingInfoByLocation({ payload }: PayloadAction<string>) {
+function* buildingInfoByLocation({ payload }: PayloadAction) {
     try {
+        
         const res = yield call(buildingInfoByLocationApi, payload);
+        console.log(res)
         const value = res.data.data.content;
 
         if (res.data.success) {
