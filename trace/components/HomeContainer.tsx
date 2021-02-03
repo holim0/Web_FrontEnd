@@ -7,7 +7,7 @@ import { buildingInfoReqByLocation, buildingInfoReq } from "Redux/building";
 import { useDispatch, useSelector } from "react-redux";
 import noImg from "assets/images/noImg.png";
 import Rating from "components/common/Rating";
-import { RootState } from "redux";
+import { RootState } from "Redux";
 import build from "next/dist/build";
 
 const Container = styled.div`
