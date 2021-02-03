@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import Map from "assets/images/Map.png";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
+import RoomIcon from "@material-ui/icons/Room";
 import Link from "next/link";
 import { buildingInfoReqByLocation, buildingInfoReq } from "Redux/building";
 import { useDispatch, useSelector } from "react-redux";
 import noImg from "assets/images/noImg.png";
 import Rating from "components/common/Rating";
 import { RootState } from "Redux";
-import build from "next/dist/build";
 
 const Container = styled.div`
     width: 100%;
@@ -55,18 +55,6 @@ const BuildingContainer = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
-`;
-
-const Buildings = styled.div`
-    height: 50%;
-    width: 20%;
-    background-color: #efefef;
-    border: 2px solid black;
-    display: inline-block;
-    margin-left: 50px;
-    border-radius: 10px;
-    font-size: ${(props) => props.theme.xls};
-    box-shadow: 5px 5px 5px 5px gray;
 `;
 
 const Title = styled.div`
@@ -139,8 +127,9 @@ const HomeContainer = () => {
                             type="button"
                             value={Location.JUNGMOON}
                             onClick={BuildingByLocation}
+                            startIcon={<RoomIcon color="primary" />}
                         >
-                            🔵 정문/로터리
+                            정문/로터리
                         </Btn>
                     </Link>
                     <Link href="/building">
@@ -149,8 +138,9 @@ const HomeContainer = () => {
                             y="590px"
                             value={Location.CHULMOON}
                             onClick={BuildingByLocation}
+                            startIcon={<RoomIcon color="primary" />}
                         >
-                            🔵 철문
+                            철문
                         </Btn>
                     </Link>
                     <Link href="/building">
@@ -159,8 +149,9 @@ const HomeContainer = () => {
                             y="180px"
                             value={Location.JJOKMOON}
                             onClick={BuildingByLocation}
+                            startIcon={<RoomIcon color="primary" />}
                         >
-                            🔵 쪽문
+                            쪽문
                         </Btn>
                     </Link>
                     <Link href="/building">
@@ -169,8 +160,9 @@ const HomeContainer = () => {
                             y="190px"
                             value={Location.HANSUNGSHIN}
                             onClick={BuildingByLocation}
+                            startIcon={<RoomIcon color="primary" />}
                         >
-                            🔵 한성대/성신
+                            한성대/성신
                         </Btn>
                     </Link>
                     <Link href="/building">
@@ -179,8 +171,9 @@ const HomeContainer = () => {
                             y="600px"
                             value={Location.DAEMYUNG}
                             onClick={BuildingByLocation}
+                            startIcon={<RoomIcon color="primary" />}
                         >
-                            🔵 대명/대학로
+                            대명/대학로
                         </Btn>
                     </Link>
                 </MapContainer>
