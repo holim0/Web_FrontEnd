@@ -8,8 +8,8 @@ import Rating from "components/common/Rating";
 import BuildingSkeleton from "./BuildingSkeleton";
 import noImg from "assets/images/noImg.png"
 import {useSelector, useDispatch} from "react-redux";
-import { RootState } from "redux";
-import {buildingInfoReqByLocation, buildingInfoByLocationFail} from "Redux/building";
+import { RootState } from "Redux";
+import {buildingInfoReqByLocation} from "Redux/building";
 
 const Container2 = styled(Container)`
     max-width: 1200px;
