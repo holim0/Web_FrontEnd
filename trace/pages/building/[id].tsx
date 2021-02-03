@@ -3,10 +3,6 @@ import Building from "components/Building/BuildingDetail";
 import Axios from "axios";
 import { useRouter } from "next/dist/client/router";
 
-const fetcher = (url: string) => {
-    return Axios.get(url).then((res) => res.data);
-};
-
 export default () => {
     const [loading, setLoading] = useState(true);
     const router = useRouter();
