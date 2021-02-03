@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button";
 import Link from "next/link";
 import { buildingInfoReqByLocation } from "Redux/building";
 import { useDispatch } from "react-redux";
+import noImg from "assets/images/noImg.png";
+import Rating from "components/common/Rating";
 
 const Container = styled.div`
     width: 100%;
@@ -45,7 +47,6 @@ const BuildingContainer = styled.div`
     margin-bottom: 30px;
     overflow-x: scroll;
     white-space: nowrap;
-
     -ms-overflow-style: none;
     scrollbar-width: none;
 
@@ -68,7 +69,24 @@ const Buildings = styled.div`
 
 const Title = styled.div`
     margin-top: 20px;
-    font-size: ${(props) => props.theme.xls};
+    font-size: 40px;
+    font-weight: 700;
+`;
+
+const Building = styled.div`
+    display: inline-block;
+    box-shadow: 5px 5px 5px 5px gray;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 80px;
+    width: 300px;
+`;
+
+const Info = styled.div`
+    padding: 8px;
+    max-height: 85px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 `;
 
 interface LocationType {
@@ -91,18 +109,17 @@ const HomeContainer = () => {
     const dispatch = useDispatch();
     // 지역별로 건물 리스트 요청 : page => 0부터
     const BuildingByLocation = (event: React.MouseEvent<HTMLButtonElement>) => {
-        
         const data = {
-            locationTarget : event.currentTarget.value,
-            pageNumber : 0
-        }
+            locationTarget: event.currentTarget.value,
+            pageNumber: 0,
+        };
         dispatch(buildingInfoReqByLocation(data));
     };
 
     return (
         <>
             <Container>
-                <Title>지역을 선택해주세요!</Title>
+                <Title>지역을 선택해주세요</Title>
                 <MapContainer>
                     <MapImg src={Map}></MapImg>
                     <Link href="/building">
@@ -159,17 +176,66 @@ const HomeContainer = () => {
                 </MapContainer>
             </Container>
             <BuildingContainer>
-                <Buildings>준비 중입니다...</Buildings>
-                <Buildings>준비 중입니다...</Buildings>
-                <Buildings>준비 중입니다...</Buildings>
-                <Buildings>준비 중입니다...</Buildings>
-                <Buildings>준비 중입니다...</Buildings>
-                <Buildings>준비 중입니다...</Buildings>
-                <Buildings>준비 중입니다...</Buildings>
-                <Buildings>준비 중입니다...</Buildings>
-                <Buildings>준비 중입니다...</Buildings>
-                <Buildings>준비 중입니다...</Buildings>
-                <Buildings>준비 중입니다...</Buildings>
+                <Link href={`/building/`}>
+                    <Building>
+                        <div>
+                            <img
+                                src={noImg}
+                                style={{ width: "300px", height: "300px" }}
+                            />
+                        </div>
+                        <Info>
+                            {/* <div>{`주소: ${building.address} ${building.lotNumber}`}</div>
+                        <div>{`준공년도: ${building.completionDate ? building.completionDate : "정보없음"}`}</div> */}
+                            <Rating score={4} size={18} />
+                        </Info>
+                    </Building>
+                </Link>
+                <Link href={`/building/`}>
+                    <Building>
+                        <div>
+                            <img
+                                src={noImg}
+                                style={{ width: "300px", height: "300px" }}
+                            />
+                        </div>
+                        <Info>
+                            {/* <div>{`주소: ${building.address} ${building.lotNumber}`}</div>
+                        <div>{`준공년도: ${building.completionDate ? building.completionDate : "정보없음"}`}</div> */}
+                            <Rating score={4} size={18} />
+                        </Info>
+                    </Building>
+                </Link>
+                <Link href={`/building/`}>
+                    <Building>
+                        <div>
+                            <img
+                                src={noImg}
+                                style={{ width: "300px", height: "300px" }}
+                            />
+                        </div>
+                        <Info>
+                            {/* <div>{`주소: ${building.address} ${building.lotNumber}`}</div>
+                        <div>{`준공년도: ${building.completionDate ? building.completionDate : "정보없음"}`}</div> */}
+                            <Rating score={4} size={18} />
+                        </Info>
+                    </Building>
+                </Link>
+                <Link href={`/building/`}>
+                    <Building>
+                        <div>
+                            <img
+                                src={noImg}
+                                style={{ width: "300px", height: "300px" }}
+                            />
+                        </div>
+                        <Info>
+                            {/* <div>{`주소: ${building.address} ${building.lotNumber}`}</div>
+                        <div>{`준공년도: ${building.completionDate ? building.completionDate : "정보없음"}`}</div> */}
+                            <Rating score={4} size={18} />
+                        </Info>
+                    </Building>
+                </Link>
             </BuildingContainer>
         </>
     );
