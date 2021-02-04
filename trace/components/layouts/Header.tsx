@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import SearchIcon from "@material-ui/icons/Search";
 import { Button as Btn } from "@material-ui/core";
@@ -74,8 +74,13 @@ const SearchInput = styled.input`
     font-size: 20px;
 `;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+declare var daum: any;
+
 const Header = () => {
     const dispatch = useDispatch();
+
+    const [searchAddress, setSearchAddress] = useState("");
 
     //알림창 제어 상태들//
     const AlertVal = useSelector((state: RootState) => state.alertHandle);
@@ -115,16 +120,42 @@ const Header = () => {
 
     const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
-        const testValue = {
-            address: "서울특별시 종로구 명륜1가",
-            lotNumber: "10-39",
-        };
+        const sperateAddress = searchAddress.split(" ");
 
+        const address = sperateAddress
+            .slice(0, sperateAddress.length - 1)
+            .join(" ");
+        const lotNumber = sperateAddress[sperateAddress.length - 1];
+
+        console.log(address, lotNumber);
+        const testValue = {
+            address: address,
+            lotNumber: lotNumber,
+        };
         dispatch(searchReq(testValue));
+
+        setSearchAddress("");
     };
+
+    const handleAddress = () => {
+        if (process.browser) {
+            new daum.Postcode({
+                oncomplete: (data: any) => {
+                    if (data.userSelectedType === "R") {
+                    }
+                    setSearchAddress(data.jibunAddress);
+                },
+            }).open();
+        }
+    };
+
+    useEffect(() => {
+        console.log(searchAddress);
+    }, [searchAddress]);
 
     return (
         <Container>
+            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
             <Snackbar
                 anchorOrigin={{
                     vertical: "top",
@@ -187,7 +218,12 @@ const Header = () => {
             </Link>
 
             <SearchForm onSubmit={handleSearch}>
-                <SearchInput placeholder="Search..."></SearchInput>
+                <SearchInput
+                    placeholder="Search..."
+                    value={searchAddress}
+                    onClick={handleAddress}
+                    readOnly
+                ></SearchInput>
                 <Btn
                     startIcon={<SearchIcon />}
                     onSubmit={handleSearch}
