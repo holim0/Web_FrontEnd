@@ -16,7 +16,7 @@ function* searchSagaFunc({ payload }: AnyAction) {
             payload.address,
             payload.lotNumber
         );
-
+        console.log(res);
         if (res.data.success) {
             yield put(searchSuccess(res.data));
         } else {

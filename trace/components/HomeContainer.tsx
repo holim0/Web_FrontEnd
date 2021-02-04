@@ -55,6 +55,8 @@ const BuildingContainer = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
+
+    scroll-behavior: smooth;
 `;
 
 const Title = styled.div`
@@ -70,6 +72,10 @@ const Building = styled.div`
     cursor: pointer;
     margin-left: 80px;
     width: 300px;
+    transition: 0.3s all;
+    &:hover {
+        transform: translateY(-6px);
+    }
 `;
 
 const Info = styled.div`
