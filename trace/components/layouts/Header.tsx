@@ -120,14 +120,13 @@ const Header = () => {
 
     const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
-        const sperateAddress = searchAddress.split(" ");
-
+        let sperateAddress = searchAddress.split(" ");
+        sperateAddress[0] = sperateAddress[0] + "특별시";
         const address = sperateAddress
             .slice(0, sperateAddress.length - 1)
             .join(" ");
         const lotNumber = sperateAddress[sperateAddress.length - 1];
 
-        console.log(address, lotNumber);
         const testValue = {
             address: address,
             lotNumber: lotNumber,
@@ -148,10 +147,6 @@ const Header = () => {
             }).open();
         }
     };
-
-    useEffect(() => {
-        console.log(searchAddress);
-    }, [searchAddress]);
 
     return (
         <Container>
