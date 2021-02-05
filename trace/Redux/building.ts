@@ -7,7 +7,8 @@ interface initialType {
     isSuccess: boolean;
     isFail: boolean;
     content: BuildingType[] | null;
-    curLocation : string;
+    curLocation: string;
+    totalPages: number;
 }
 
 export const initialState: initialType = {
@@ -16,7 +17,8 @@ export const initialState: initialType = {
     isSuccess: false,
     isFail: false,
     content: null,
-    curLocation : "",
+    curLocation: "",
+    totalPages: 0,
 };
 
 const building = createSlice({
@@ -42,13 +44,13 @@ const building = createSlice({
         // 지역별로 건물 정보 요청
         buildingInfoReqByLocation: (state, { payload }) => {
             state.isLoading = true;
-            state.curLocation= payload.locationTarget;
+            state.curLocation = payload.locationTarget;
         },
         buildingInfoByLocationSuccess: (state, { payload }) => {
             state.isSuccess = true;
             state.isLoading = false;
-            state.content = payload;
-            
+            state.content = payload.buildingInfo;
+            state.totalPages = payload.totalPages;
         },
 
         buildingInfoByLocationFail: (state) => {

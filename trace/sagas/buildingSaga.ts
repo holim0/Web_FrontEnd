@@ -25,7 +25,7 @@ const buildingInfoByLocationApi = (payload: any) => {
 function* mainBuildingInfo() {
     try {
         const res = yield call(mainBuildingInfoApi);
-        console.log(res);
+
         const value = res.data.data.content;
 
         if (res.data.success) {
@@ -43,8 +43,10 @@ function* buildingInfoByLocation({ payload }: PayloadAction) {
     try {
         const res = yield call(buildingInfoByLocationApi, payload);
         console.log(res);
-        const value = res.data.data.content;
-
+        const value = {
+            buildingInfo: res.data.data.content,
+            totalPages: res.data.data.totalPages,
+        };
         if (res.data.success) {
             yield put(buildingInfoByLocationSuccess(value));
         } else {

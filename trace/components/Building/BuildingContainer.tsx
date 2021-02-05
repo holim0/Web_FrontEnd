@@ -108,12 +108,15 @@ const BuildingContainer = () => {
     const buildingList: Array<any> = useSelector(
         (state: RootState) => state.building.content
     );
-    const { curLocation, isLoading } = useSelector(
+    const { curLocation, isLoading, totalPages } = useSelector(
         (state: RootState) => state.building
     );
 
+    useEffect(() => {
+        console.log(buildingList, totalPages);
+    }, [buildingList, totalPages]);
+
     const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
-        console.log(value);
         setPage(value);
         const data = {
             locationTarget: curLocation,
@@ -136,8 +139,6 @@ const BuildingContainer = () => {
     };
 
     useEffect(() => {
-        console.log(isLoading);
-        console.log(curLocation);
         const data = {
             locationTarget: "JJOKMOON",
             pageNumber: page - 1,
@@ -198,7 +199,7 @@ const BuildingContainer = () => {
                 </MainContainer>
             )}
             <Pagi
-                count={10}
+                count={totalPages}
                 page={page}
                 onChange={handlePageChange}
                 color="primary"
