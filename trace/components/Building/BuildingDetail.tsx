@@ -115,10 +115,11 @@ const RoomReview = styled.div`
 interface Props {
     isLoading: boolean;
     curBuilding: BuildingType | null;
+    review: any;
 }
 
-const BuildingDetail = ({ isLoading, curBuilding }: Props) => {
-    console.log(curBuilding);
+const BuildingDetail = ({ isLoading, curBuilding, review }: Props) => {
+    console.log(review);
     return (
         <Container>
             {isLoading ? (

@@ -23,6 +23,7 @@ function writePost(data: any) {
 
 function* writeSubmit({ payload }: PayloadAction<ReviewSubmit>) {
     try {
+        console.log(payload);
         const formData = yield call(dataUrlToFormData, payload, "images");
         yield call(writePost, formData);
         yield put(reviewWriteSuccess());
