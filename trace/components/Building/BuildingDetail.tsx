@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Container } from "styles/commonStyle";
-import faker from "faker";
 import Rating from "components/common/Rating";
 import Link from "next/link";
 import { Button } from "antd";
 import BuildingDetailSkeleton from "./BuildingDetailSkeleton";
+import noImg from "assets/images/noImg.png";
+import { BuildingType } from "../../@types/interface";
 
 export const Box = styled.div`
     background-color: ${(props) => props.theme.white};
@@ -112,13 +113,15 @@ const RoomReview = styled.div`
 `;
 
 interface Props {
-    loading: boolean;
+    isLoading: boolean;
+    curBuilding: BuildingType | null;
 }
 
-const BuildingDetail = ({ loading }: Props) => {
+const BuildingDetail = ({ isLoading, curBuilding }: Props) => {
+    console.log(curBuilding);
     return (
         <Container>
-            {loading ? (
+            {isLoading ? (
                 <BuildingDetailSkeleton />
             ) : (
                 <Box>
@@ -129,21 +132,37 @@ const BuildingDetail = ({ loading }: Props) => {
                     </Link>
                     <BuildingSection>
                         <BuildingImg>
-                            <img src={faker.image.abstract(300, 300)} />
+                            <img
+                                src={noImg}
+                                style={{
+                                    width: "500px",
+                                    height: "500px",
+                                }}
+                            />
                         </BuildingImg>
                         <BuildingInfo>
-                            <div>
-                                <span>상세주소</span>
-                                <span>경기도성남시분당구</span>
-                            </div>
-                            <div>
-                                <span>건물이름</span>
-                                <span>트레이서 빌딩</span>
-                            </div>
-                            <div>
-                                <span>준공년도</span>
-                                <span>2012년</span>
-                            </div>
+                            {curBuilding && (
+                                <>
+                                    <div>
+                                        <span>상세주소</span>
+                                        <span>
+                                            {curBuilding.address}{" "}
+                                            {curBuilding.lotNumber}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>건물이름</span>
+                                        <span>트레이서 빌딩</span>
+                                    </div>
+                                    <div>
+                                        <span>준공년도</span>
+                                        <span>
+                                            {curBuilding.completionDate}년
+                                        </span>
+                                    </div>
+                                </>
+                            )}
+
                             <div>
                                 <Rating score={3} />
                             </div>
@@ -152,7 +171,13 @@ const BuildingDetail = ({ loading }: Props) => {
                     <RoomListSection>
                         <RoomListCard>
                             <div>
-                                <img src={faker.image.abstract(180, 180)} />
+                                <img
+                                    src={noImg}
+                                    style={{
+                                        width: "180px",
+                                        height: "180px",
+                                    }}
+                                />
                             </div>
                             <Link href="/building/review/123">
                                 <RoomReview>
