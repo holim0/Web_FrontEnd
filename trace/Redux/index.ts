@@ -8,7 +8,8 @@ import login from "./login";
 import alertHandle from "./alertHandle";
 import getAuth from "./getAuth";
 import Search from "./Search";
-import building from "./building"
+import building from "./building";
+import buildingReview from "./buildingReview";
 
 const rootReducer = (state: any, action: any) => {
     switch (action.type) {
@@ -24,7 +25,8 @@ const rootReducer = (state: any, action: any) => {
                 alertHandle,
                 getAuth,
                 Search,
-                building
+                building,
+                buildingReview,
             });
             return combineReducer(state, action);
         }
