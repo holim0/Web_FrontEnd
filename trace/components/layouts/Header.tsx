@@ -232,7 +232,7 @@ const Header = () => {
                     <a>홈</a>
                 </MenuBtn>
                 <MenuBtn href="/community">커뮤니티</MenuBtn>
-                <MenuBtn href="/write">글쓰기</MenuBtn>
+                {isLoginSuccess && <MenuBtn href="/write">글쓰기</MenuBtn>}
 
                 {isLoginSuccess ? (
                     <>
