@@ -32,9 +32,20 @@ const Search = createSlice({
             state.isloading = false;
             state.isFail = true;
         },
+        resetState: (state) => {
+            state.isloading = false;
+            state.isSuccess = false;
+            state.isFail = false;
+            state.searchResult = null;
+        },
     },
 });
 
-export const { searchReq, searchSuccess, searchFail } = Search.actions;
+export const {
+    searchReq,
+    searchSuccess,
+    searchFail,
+    resetState,
+} = Search.actions;
 
 export default Search.reducer;

@@ -18,7 +18,7 @@ function* searchSagaFunc({ payload }: AnyAction) {
         );
         console.log(res);
         if (res.data.success) {
-            yield put(searchSuccess(res.data));
+            yield put(searchSuccess(res.data.data.content));
         } else {
             alert("오류 발생!");
             yield put(searchFail());

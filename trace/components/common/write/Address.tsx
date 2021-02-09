@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { useDispatch, useSelector } from "react-redux";
+import { searchReq, resetState } from "Redux/Search";
+import { RootState } from "Redux";
 const AddressForm = styled.div`
     display: flex;
     padding: 12px;
@@ -11,7 +14,7 @@ const AddressForm = styled.div`
             border: 1px solid ${(props) => props.theme.darkWhite};
             &:nth-of-type(1) {
                 font-size: ${(props) => props.theme.ls};
-                width: 400px;
+                width: 300px;
                 border: none;
             }
             &:nth-of-type(2) {
@@ -19,7 +22,7 @@ const AddressForm = styled.div`
                 width: 250px;
                 text-align: left;
                 padding: 3px;
-                margin-left: 6px;
+                margin-left: 21px;
             }
         }
     }
@@ -41,11 +44,45 @@ interface Props {
 }
 
 const Address = ({ address, onAddress }: Props) => {
+    const dispatch = useDispatch();
     const [roomNumber, setRoomNumber] = useState("");
+    const [result, setResult] = useState([]);
 
     const handleRoomNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRoomNumber(event.target.value);
     };
+
+    const { searchResult, isSuccess } = useSelector(
+        (state: RootState) => state.Search
+    );
+
+    useEffect(() => {
+        if (searchResult) {
+            setResult(searchResult);
+        }
+        if (isSuccess && searchResult.length === 0) {
+            alert("해당 건물이 등록되어 있지 않습니다.");
+        }
+        dispatch(resetState());
+    }, [searchResult, isSuccess]);
+
+    const handleCheckAddress = () => {
+        if (address) {
+            let sperateAddress = address.split(" ");
+            sperateAddress[0] = sperateAddress[0] + "특별시";
+            const realAddress = sperateAddress
+                .slice(0, sperateAddress.length - 1)
+                .join(" ");
+            const lotNumber = sperateAddress[sperateAddress.length - 1];
+
+            const addressObject = {
+                address: realAddress,
+                lotNumber: lotNumber,
+            };
+            dispatch(searchReq(addressObject));
+        }
+    };
+
     return (
         <>
             <AddressForm>
@@ -55,12 +92,17 @@ const Address = ({ address, onAddress }: Props) => {
                 {address && (
                     <div>
                         <input type="text" value={address} readOnly />
-                        <input
-                            type="text"
-                            placeholder="상세 주소를 입력해 주세요."
-                            onChange={handleRoomNumber}
-                            value={roomNumber}
-                        />
+                        <button onClick={handleCheckAddress}>
+                            주소확인하기
+                        </button>
+                        {result.length ? (
+                            <input
+                                type="text"
+                                placeholder="상세 주소를 입력해 주세요."
+                                onChange={handleRoomNumber}
+                                value={roomNumber}
+                            />
+                        ) : null}
                     </div>
                 )}
             </AddressForm>
