@@ -3,21 +3,25 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ReviewWrite } from "../@types/interface";
 
 export interface ReviewState {
+    isLoading: boolean;
+    isSuccess: boolean;
+    isFail: boolean;
     isSell: boolean;
     write: ReviewWrite;
     fileListImg: File[];
-    isErr: boolean;
 }
 
 export const reviewState: ReviewState = {
     isSell: false,
-    isErr: false,
+    isFail: false,
+    isSuccess: false,
+    isLoading: false,
     fileListImg: [],
     write: {
-        roomNumber: "403호",
-        buildingId: 1,
+        roomNumber: "",
+        buildingId: null,
         images: [],
-        rentType: "MONTHLY",
+        rentType: "",
         deposit: 0,
         area: 0,
         monthlyRent: 0,
@@ -25,11 +29,11 @@ export const reviewState: ReviewState = {
         livingStart: null,
         livingEnd: null,
         remodeled: true,
-        waterPressure: "GOOD",
-        lighting: "GOOD",
-        frozen: "GOOD",
-        bug: "SOMETIMES",
-        noise: "QUIET",
+        waterPressure: "",
+        lighting: "",
+        frozen: "",
+        bug: "",
+        noise: "",
         option: "",
         nearBy: "",
         trueStory: "",
@@ -43,6 +47,9 @@ const review = createSlice({
     name: "review",
     initialState: reviewState,
     reducers: {
+        reviewWriteReq: (state, { payload }) => {
+            state.isLoading = true;
+        },
         reviewWrite: (state, { payload }) => {
             state.isSell = payload.isSell;
             state.write.buildingId = payload.buildingId;
@@ -73,19 +80,23 @@ const review = createSlice({
                 ? payload.durationEnd || null
                 : undefined;
         },
-        reviewWriteSubmit: (state, { payload }) => {},
-        reviewWriteSuccess: (state) => {},
-        reviewWriteFailure: (state, { payload }) => {
-            state.isErr = payload;
+
+        reviewWriteSuccess: (state) => {
+            state.isSuccess = true;
+            state.isLoading = false;
+        },
+        reviewWriteFail: (state) => {
+            state.isLoading = false;
+            state.isFail = true;
         },
     },
 });
 
 export const {
-    reviewWriteSubmit,
+    reviewWriteReq,
     reviewWrite,
     reviewWriteSuccess,
-    reviewWriteFailure,
+    reviewWriteFail,
 } = review.actions;
 
 export default review.reducer;

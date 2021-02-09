@@ -13,7 +13,7 @@ import { dataUrlToFormData } from "lib/dataUrlToFormData";
 
 // 글쓰기 업로드 서버에 요청
 
-function writePost(data: any) {
+function reviewWriteApiReq(data: any) {
     return axios.post("/api/v1/reviews", data, {
         headers: {
             "Content-Type": "multipart/form-data",
@@ -25,7 +25,7 @@ function* writeSubmit({ payload }: PayloadAction<ReviewSubmit>) {
     try {
         console.log(payload);
         const formData = yield call(dataUrlToFormData, payload, "images");
-        yield call(writePost, formData);
+        yield call(reviewWriteApiReq, formData);
         yield put(reviewWriteSuccess());
     } catch (err) {
         console.error(err);

@@ -47,6 +47,7 @@ const Address = ({ address, onAddress }: Props) => {
     const dispatch = useDispatch();
     const [roomNumber, setRoomNumber] = useState("");
     const [result, setResult] = useState([]);
+    const [check, setCheck] = useState(false);
 
     const handleRoomNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRoomNumber(event.target.value);
@@ -65,6 +66,12 @@ const Address = ({ address, onAddress }: Props) => {
         }
         dispatch(resetState());
     }, [searchResult, isSuccess]);
+
+    useEffect(() => {
+        if (result.length > 0) {
+            setCheck(true);
+        }
+    }, [result]);
 
     const handleCheckAddress = () => {
         if (address) {
