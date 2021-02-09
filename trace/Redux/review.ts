@@ -89,6 +89,10 @@ const review = createSlice({
             state.isLoading = false;
             state.isFail = true;
         },
+
+        setBuildingNumber: (state, { payload }) => {
+            state.write.buildingId = payload;
+        },
     },
 });
 
@@ -97,6 +101,7 @@ export const {
     reviewWrite,
     reviewWriteSuccess,
     reviewWriteFail,
+    setBuildingNumber,
 } = review.actions;
 
 export default review.reducer;

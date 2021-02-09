@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import { searchReq, resetState } from "Redux/Search";
 import { RootState } from "Redux";
+import { setBuildingNumber } from "Redux/review";
+
 const AddressForm = styled.div`
     display: flex;
     padding: 12px;
@@ -46,7 +48,7 @@ interface Props {
 const Address = ({ address, onAddress }: Props) => {
     const dispatch = useDispatch();
     const [roomNumber, setRoomNumber] = useState("");
-    const [result, setResult] = useState([]);
+    const [buildingResult, setBuildingResult] = useState<any[]>([]);
     const [check, setCheck] = useState(false);
 
     const handleRoomNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +61,7 @@ const Address = ({ address, onAddress }: Props) => {
 
     useEffect(() => {
         if (searchResult) {
-            setResult(searchResult);
+            setBuildingResult(searchResult);
         }
         if (isSuccess && searchResult.length === 0) {
             alert("해당 건물이 등록되어 있지 않습니다.");
@@ -68,10 +70,17 @@ const Address = ({ address, onAddress }: Props) => {
     }, [searchResult, isSuccess]);
 
     useEffect(() => {
-        if (result.length > 0) {
+        if (buildingResult.length > 0) {
             setCheck(true);
         }
-    }, [result]);
+    }, [buildingResult]);
+
+    useEffect(() => {
+        if (check) {
+            const buildingNumber: Number = buildingResult[0].id;
+            dispatch(setBuildingNumber(buildingNumber));
+        }
+    }, [check]);
 
     const handleCheckAddress = () => {
         if (address) {
@@ -102,7 +111,7 @@ const Address = ({ address, onAddress }: Props) => {
                         <button onClick={handleCheckAddress}>
                             주소확인하기
                         </button>
-                        {result.length ? (
+                        {buildingResult.length ? (
                             <input
                                 type="text"
                                 placeholder="상세 주소를 입력해 주세요."
