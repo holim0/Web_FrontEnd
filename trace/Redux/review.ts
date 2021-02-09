@@ -52,9 +52,7 @@ const review = createSlice({
         },
         reviewWrite: (state, { payload }) => {
             state.isSell = payload.isSell;
-            state.write.buildingId = payload.buildingId;
             state.write.area = payload.area;
-            state.write.roomNumber = payload.roomNumber;
             state.write.images = payload.images;
             state.write.rentType = payload.rentType;
             state.write.deposit = payload.deposit;
@@ -91,7 +89,8 @@ const review = createSlice({
         },
 
         setBuildingNumber: (state, { payload }) => {
-            state.write.buildingId = payload;
+            state.write.buildingId = payload.id;
+            state.write.roomNumber = payload.roomNumber;
         },
     },
 });

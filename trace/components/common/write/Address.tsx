@@ -78,9 +78,13 @@ const Address = ({ address, onAddress }: Props) => {
     useEffect(() => {
         if (check) {
             const buildingNumber: Number = buildingResult[0].id;
-            dispatch(setBuildingNumber(buildingNumber));
+            const addressData = {
+                id: buildingNumber,
+                roomNumber,
+            };
+            dispatch(setBuildingNumber(addressData));
         }
-    }, [check]);
+    }, [check, roomNumber]);
 
     const handleCheckAddress = () => {
         if (address) {
