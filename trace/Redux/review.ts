@@ -92,6 +92,11 @@ const review = createSlice({
             state.write.buildingId = payload.id;
             state.write.roomNumber = payload.roomNumber;
         },
+
+        resetState: (state) => {
+            state.isSuccess = false;
+            state.isFail = false;
+        },
     },
 });
 
@@ -101,6 +106,7 @@ export const {
     reviewWriteSuccess,
     reviewWriteFail,
     setBuildingNumber,
+    resetState,
 } = review.actions;
 
 export default review.reducer;

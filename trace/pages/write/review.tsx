@@ -5,13 +5,15 @@ import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux";
-import { reviewWrite, reviewWriteSubmit } from "Redux/review";
+import { reviewWrite, reviewWriteReq, resetState } from "Redux/review";
 
 const Review = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const writeReview = useSelector((state: RootState) => state.review.write);
-    const { isSell } = useSelector((state: RootState) => state.review);
+    const { isSell, isSuccess, isFail } = useSelector(
+        (state: RootState) => state.review
+    );
 
     // 폼을 작성합니다.
     const [form, handleFormChange, setForm] = useFormInput();
@@ -66,10 +68,12 @@ const Review = () => {
                 | React.MouseEvent<HTMLElement, MouseEvent>
         ) => {
             e.preventDefault();
-            if (!openModal) {
-                return setOpenModal(() => true);
+
+            if (openModal) {
+                setOpenModal(false);
             }
-            dispatch(reviewWriteSubmit({ writeReview, isSell }));
+
+            dispatch(reviewWriteReq({ writeReview, isSell }));
         },
         [openModal]
     );
@@ -78,6 +82,9 @@ const Review = () => {
         setOpenModal(() => false);
     }, []);
 
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
     // 이전 단계로 이동합니다.
     const handlePrev = useCallback(() => {
         router.back();
@@ -85,6 +92,21 @@ const Review = () => {
 
     // 렌더링 시 맨 위로 이동
     useScrollTop();
+
+    useEffect(() => {
+        dispatch(resetState());
+    }, []);
+
+    useEffect(() => {
+        if (isSuccess) {
+            console.log(isSuccess);
+            alert("저장 성공!");
+            dispatch(resetState());
+            router.push("/");
+        } else if (isFail) {
+            alert("저장에 실패했습니다. 다시 시도해주세요");
+        }
+    }, [isSuccess, isFail]);
 
     return (
         <>
@@ -108,6 +130,7 @@ const Review = () => {
                 handleFormChange={handleFormChange}
                 handleSubmit={handleSubmit}
                 handlePrev={handlePrev}
+                handleOpenModal={handleOpenModal}
             ></WriteReviewForm>
         </>
     );

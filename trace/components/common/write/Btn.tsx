@@ -42,7 +42,12 @@ const NextBtn = styled.div`
     }
 `;
 
-const BtnLink = ({ handleNext, handlePrev, handleSubmit }: WriteClick) => {
+const BtnLink = ({
+    handleNext,
+    handlePrev,
+    handleSubmit,
+    handleOpenModal,
+}: WriteClick) => {
     return (
         <Container>
             <PrevBtn>
@@ -54,7 +59,7 @@ const BtnLink = ({ handleNext, handlePrev, handleSubmit }: WriteClick) => {
             </PrevBtn>
             <NextBtn>
                 {handleSubmit ? (
-                    <button type="submit" onSubmit={handleSubmit}>
+                    <button type="button" onClick={handleOpenModal}>
                         완료 및 저장
                     </button>
                 ) : (
