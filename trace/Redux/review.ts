@@ -11,7 +11,7 @@ export interface ReviewState {
     fileListImg: File[];
 }
 
-export const reviewState: ReviewState = {
+export const reviewState: ReviewState | undefined = {
     isSell: false,
     isFail: false,
     isSuccess: false,
@@ -94,8 +94,7 @@ const review = createSlice({
         },
 
         resetState: (state) => {
-            state.isSuccess = false;
-            state.isFail = false;
+            state = undefined;
         },
     },
 });

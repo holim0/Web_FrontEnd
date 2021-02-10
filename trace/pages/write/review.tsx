@@ -94,10 +94,6 @@ const Review = () => {
     useScrollTop();
 
     useEffect(() => {
-        dispatch(resetState());
-    }, []);
-
-    useEffect(() => {
         if (isSuccess) {
             console.log(isSuccess);
             alert("저장 성공!");
