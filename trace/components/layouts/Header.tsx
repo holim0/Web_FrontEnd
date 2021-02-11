@@ -144,14 +144,22 @@ const Header = () => {
             dispatch(searchReq(testValue));
 
             setSearchAddress("");
-
-            router.push({
-                pathname: `/building/${searchBuilding[0].id}`,
-                query: { id: searchBuilding[0].id },
-            });
         },
         [searchBuilding, searchAddress]
     );
+
+    useEffect(() => {
+        if (searchBuilding) {
+            if (searchBuilding.length) {
+                router.push({
+                    pathname: `/building/${searchBuilding[0].id}`,
+                    query: { id: searchBuilding[0].id },
+                });
+            } else {
+                alert("검색결과가 없습니다.");
+            }
+        }
+    }, [searchBuilding]);
 
     const handleAddress = () => {
         if (process.browser) {

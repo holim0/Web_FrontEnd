@@ -13,6 +13,10 @@ export default () => {
         (state: RootState) => state.building
     );
 
+    const searchBuilding = useSelector(
+        (state: RootState) => state.Search.searchResult
+    );
+
     const { reviewList } = useSelector(
         (state: RootState) => state.buildingReview
     );
@@ -21,6 +25,8 @@ export default () => {
         if (content) {
             const curInfo = content.find(({ id }: any) => id === curid);
             setCurbuilding(curInfo);
+        } else {
+            setCurbuilding(searchBuilding);
         }
     }, [content, curid]);
 
