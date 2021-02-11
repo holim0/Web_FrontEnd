@@ -15,6 +15,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { closeAlert } from "Redux/alertHandle";
 import { logoutReq } from "Redux/login";
 import { searchReq } from "Redux/Search";
+import { useRouter } from "next/router";
 
 // 알림창 제어 컴포넌트
 function Alert(props: any) {
@@ -79,6 +80,7 @@ declare var daum: any;
 
 const Header = () => {
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const [searchAddress, setSearchAddress] = useState("");
 
@@ -118,23 +120,38 @@ const Header = () => {
         dispatch(logoutReq());
     }, []);
 
-    const handleSearch = (event: React.FormEvent) => {
-        event.preventDefault();
-        let sperateAddress = searchAddress.split(" ");
-        sperateAddress[0] = sperateAddress[0] + "특별시";
-        const address = sperateAddress
-            .slice(0, sperateAddress.length - 1)
-            .join(" ");
-        const lotNumber = sperateAddress[sperateAddress.length - 1];
+    const searchBuilding = useSelector(
+        (state: RootState) => state.Search.searchResult
+    );
+    const handleSearch = useCallback(
+        (event: React.FormEvent) => {
+            event.preventDefault();
+            if (searchAddress === "") {
+                alert("검색어를 입력해주세요.");
+                return;
+            }
+            let sperateAddress = searchAddress.split(" ");
+            sperateAddress[0] = sperateAddress[0] + "특별시";
+            const address = sperateAddress
+                .slice(0, sperateAddress.length - 1)
+                .join(" ");
+            const lotNumber = sperateAddress[sperateAddress.length - 1];
 
-        const testValue = {
-            address: address,
-            lotNumber: lotNumber,
-        };
-        dispatch(searchReq(testValue));
+            const testValue = {
+                address: address,
+                lotNumber: lotNumber,
+            };
+            dispatch(searchReq(testValue));
 
-        setSearchAddress("");
-    };
+            setSearchAddress("");
+
+            router.push({
+                pathname: `/building/${searchBuilding[0].id}`,
+                query: { id: searchBuilding[0].id },
+            });
+        },
+        [searchBuilding, searchAddress]
+    );
 
     const handleAddress = () => {
         if (process.browser) {

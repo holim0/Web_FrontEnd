@@ -94,7 +94,8 @@ const review = createSlice({
         },
 
         resetState: (state) => {
-            state = undefined;
+            state.isSuccess = false;
+            state.isFail = false;
         },
     },
 });
