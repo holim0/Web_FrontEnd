@@ -106,7 +106,7 @@ const BuildingContainer = () => {
     const [page, setPage] = useState(1);
 
     const buildingList: Array<any> = useSelector(
-        (state: RootState) => state.building.content
+        (state: RootState) => state.building.mainContent
     );
     const { curLocation, isLoading, totalPages } = useSelector(
         (state: RootState) => state.building

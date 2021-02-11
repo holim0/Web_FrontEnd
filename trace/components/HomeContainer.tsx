@@ -113,7 +113,7 @@ const HomeContainer = () => {
     };
 
     const buildingList = useSelector(
-        (state: RootState) => state.building.content
+        (state: RootState) => state.building.homeContent
     );
 
     useEffect(() => {

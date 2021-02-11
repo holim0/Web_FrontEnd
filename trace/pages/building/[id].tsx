@@ -9,7 +9,7 @@ export default () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const [curBuilding, setCurbuilding] = useState(null);
-    const { isLoading, content } = useSelector(
+    const { isLoading, mainContent } = useSelector(
         (state: RootState) => state.building
     );
 
@@ -22,34 +22,24 @@ export default () => {
     );
     const curid = Number(router.query.id);
     const getCurbuildingInfo = useCallback(() => {
-        if (content) {
-            console.log("함수 내2");
-            const curInfo = content.find(({ id }: any) => id === curid);
+        if (mainContent) {
+            const curInfo = mainContent.find(({ id }: any) => id === curid);
             setCurbuilding(curInfo);
         } else {
             if (searchBuilding && searchBuilding.length) {
-                console.log("함수 내");
-                console.log(searchBuilding);
                 setCurbuilding(searchBuilding[0]);
             }
         }
-    }, [content, curid, searchBuilding]);
+    }, [mainContent, curid, searchBuilding]);
 
     useEffect(() => {
         getCurbuildingInfo();
-    }, [content, searchBuilding, curBuilding]);
+    }, [mainContent, searchBuilding, curBuilding]);
 
     useEffect(() => {
         dispatch(buildingReviewReq(curid));
     }, [curid]);
 
-    useEffect(() => {
-        console.log("hi", curBuilding);
-    }, [curBuilding]);
-
-    useEffect(() => {
-        console.log("이거 뭐냐", content);
-    }, [content]);
     return (
         <Building
             isLoading={isLoading}
