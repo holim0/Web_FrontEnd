@@ -120,6 +120,8 @@ interface Props {
 
 const BuildingDetail = ({ isLoading, curBuilding, review }: Props) => {
     console.log(review);
+
+    console.log("inside detial", curBuilding);
     return (
         <Container>
             {isLoading ? (

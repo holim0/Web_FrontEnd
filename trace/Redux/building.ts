@@ -6,7 +6,8 @@ interface initialType {
     err: any;
     isSuccess: boolean;
     isFail: boolean;
-    content: BuildingType[] | null;
+    mainContent: BuildingType[] | null;
+    homeContent: BuildingType[] | null;
     curLocation: string;
     totalPages: number;
 }
@@ -16,7 +17,8 @@ export const initialState: initialType = {
     err: null,
     isSuccess: false,
     isFail: false,
-    content: null,
+    mainContent: null,
+    homeContent: null,
     curLocation: "",
     totalPages: 0,
 };
@@ -33,7 +35,7 @@ const building = createSlice({
         buildingInfoSuccess: (state, { payload }) => {
             state.isLoading = false;
             state.isSuccess = true;
-            state.content = payload;
+            state.homeContent = payload;
         },
 
         buildingInfoFail: (state) => {
@@ -49,7 +51,7 @@ const building = createSlice({
         buildingInfoByLocationSuccess: (state, { payload }) => {
             state.isSuccess = true;
             state.isLoading = false;
-            state.content = payload.buildingInfo;
+            state.mainContent = payload.buildingInfo;
             state.totalPages = payload.totalPages;
         },
 

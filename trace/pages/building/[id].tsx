@@ -23,18 +23,33 @@ export default () => {
     const curid = Number(router.query.id);
     const getCurbuildingInfo = useCallback(() => {
         if (content) {
+            console.log("함수 내2");
             const curInfo = content.find(({ id }: any) => id === curid);
             setCurbuilding(curInfo);
         } else {
-            setCurbuilding(searchBuilding);
+            if (searchBuilding && searchBuilding.length) {
+                console.log("함수 내");
+                console.log(searchBuilding);
+                setCurbuilding(searchBuilding[0]);
+            }
         }
-    }, [content, curid]);
+    }, [content, curid, searchBuilding]);
 
     useEffect(() => {
         getCurbuildingInfo();
-        dispatch(buildingReviewReq(curid));
-    }, [getCurbuildingInfo, content, curid]);
+    }, [content, searchBuilding, curBuilding]);
 
+    useEffect(() => {
+        dispatch(buildingReviewReq(curid));
+    }, [curid]);
+
+    useEffect(() => {
+        console.log("hi", curBuilding);
+    }, [curBuilding]);
+
+    useEffect(() => {
+        console.log("이거 뭐냐", content);
+    }, [content]);
     return (
         <Building
             isLoading={isLoading}
