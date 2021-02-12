@@ -26,7 +26,7 @@ import axios from "axios";
 function LoginPost(userData: { userId: string; password: string }) {
     return axios.post(`/api/v1/members/login`, userData, {
         withCredentials: true,
-        // headers: { "Access-Control-Allow-Origin": "http://jaggutrace.com" },
+        headers: { "Access-Control-Allow-Origin": "http://jaggutrace.com" },
     });
 }
 
