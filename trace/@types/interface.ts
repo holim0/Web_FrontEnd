@@ -7,7 +7,7 @@ export interface WriteClick {
     handleNext?: () => void;
     handlePrev?: () => void;
     handleSubmit?: Submit;
-    handleOpenModal: any;
+    handleOpenModal?: () => void;
 }
 
 // 리뷰 글쓰기 데이터

@@ -206,13 +206,15 @@ const WriteForm = ({
                             <>
                                 <Del
                                     data-link={images[countIdx - 1]}
-                                    onClick={handleDelImg}>
+                                    onClick={handleDelImg}
+                                >
                                     삭제
                                 </Del>
                                 {countIdx !== 1 && (
                                     <Btns
                                         type="button"
-                                        onClick={handlePrevSlide}>
+                                        onClick={handlePrevSlide}
+                                    >
                                         이전
                                     </Btns>
                                 )}
@@ -231,7 +233,8 @@ const WriteForm = ({
                                         <Btns
                                             next={true}
                                             type="button"
-                                            onClick={handleNextSlide}>
+                                            onClick={handleNextSlide}
+                                        >
                                             다음
                                         </Btns>
                                     )}
