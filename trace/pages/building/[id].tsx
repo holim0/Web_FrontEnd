@@ -20,6 +20,7 @@ export default () => {
     const { reviewList } = useSelector(
         (state: RootState) => state.buildingReview
     );
+
     const curid = Number(router.query.id);
     const getCurbuildingInfo = useCallback(() => {
         if (mainContent) {

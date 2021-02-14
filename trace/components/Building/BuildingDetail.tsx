@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Container } from "styles/commonStyle";
 import Rating from "components/common/Rating";
@@ -112,6 +112,8 @@ const RoomReview = styled.div`
     }
 `;
 
+const NoReview = styled.div``;
+
 interface Props {
     isLoading: boolean;
     curBuilding: BuildingType | null;
@@ -119,7 +121,9 @@ interface Props {
 }
 
 const BuildingDetail = ({ isLoading, curBuilding, review }: Props) => {
-    console.log(review);
+    useEffect(() => {
+        console.log(review);
+    }, [review]);
 
     return (
         <Container>
@@ -173,44 +177,53 @@ const BuildingDetail = ({ isLoading, curBuilding, review }: Props) => {
                         </BuildingInfo>
                     </BuildingSection>
                     <RoomListSection>
-                        <RoomListCard>
-                            <div>
-                                <img
-                                    src={noImg}
-                                    style={{
-                                        width: "180px",
-                                        height: "180px",
-                                    }}
-                                />
-                            </div>
-                            <Link href="/building/review/123">
-                                <RoomReview>
-                                    <div>
-                                        1000/45/3 <span>월세</span>
-                                    </div>
-                                    <div>
-                                        <strong>한줄평 :</strong>
-                                        <p>
-                                            Lorem ipsum, dolor sit amet
-                                            consectetur adipisicing elit.
-                                            Necessitatibus sed vero officia.
-                                            Nisi ad, cumque voluptates neque,
-                                            sunt, nulla delectus alias totam
-                                            aspernatur libero possimus veniam
-                                            cupiditate labore natus tempore?
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <Rating score={4} />
-                                    </div>
-                                    <div>
-                                        <Button type="primary">
-                                            자세히 보기
-                                        </Button>
-                                    </div>
-                                </RoomReview>
-                            </Link>
-                        </RoomListCard>
+                        {review && review.length ? (
+                            review.map((reviewInfo: any) => {
+                                return (
+                                    <RoomListCard key={reviewInfo.reviewId}>
+                                        <div>
+                                            <img
+                                                src={
+                                                    reviewInfo.images.length
+                                                        ? reviewInfo.images[0]
+                                                              .filePath
+                                                        : noImg
+                                                }
+                                                style={{
+                                                    width: "180px",
+                                                    height: "180px",
+                                                }}
+                                            />
+                                        </div>
+                                        <Link
+                                            href={`/building/review/${reviewInfo.reviewId}`}
+                                        >
+                                            <RoomReview>
+                                                <div>
+                                                    1000/45/3 <span>월세</span>
+                                                </div>
+                                                <div>
+                                                    <strong>한줄평 :</strong>
+                                                    <p>한줄 평입니다.</p>
+                                                </div>
+                                                <div>
+                                                    <Rating
+                                                        score={reviewInfo.score}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <Button type="primary">
+                                                        자세히 보기
+                                                    </Button>
+                                                </div>
+                                            </RoomReview>
+                                        </Link>
+                                    </RoomListCard>
+                                );
+                            })
+                        ) : (
+                            <NoReview>등록된 리뷰가 없습니다.</NoReview>
+                        )}
                     </RoomListSection>
                 </Box>
             )}
