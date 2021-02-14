@@ -200,7 +200,10 @@ const BuildingDetail = ({ isLoading, curBuilding, review }: Props) => {
                                         >
                                             <RoomReview>
                                                 <div>
-                                                    1000/45/3 <span>월세</span>
+                                                    {`${reviewInfo.deposit}/${reviewInfo.monthlyRent}`}{" "}
+                                                    <span>
+                                                        {reviewInfo.rentType}
+                                                    </span>
                                                 </div>
                                                 <div>
                                                     <strong>한줄평 :</strong>
@@ -210,6 +213,9 @@ const BuildingDetail = ({ isLoading, curBuilding, review }: Props) => {
                                                     <Rating
                                                         score={reviewInfo.score}
                                                     />
+                                                </div>
+                                                <div>
+                                                    작성자: {reviewInfo.userId}
                                                 </div>
                                                 <div>
                                                     <Button type="primary">
