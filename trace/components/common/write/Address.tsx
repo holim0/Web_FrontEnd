@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
-import { searchReq, resetState } from "Redux/Search";
+import { searchReq, resetSearchState } from "Redux/Search";
 import { RootState } from "Redux";
 import { setBuildingNumber } from "Redux/review";
 
@@ -66,7 +66,7 @@ const Address = ({ address, onAddress }: Props) => {
         if (isSuccess && searchResult.length === 0) {
             alert("해당 건물이 등록되어 있지 않습니다.");
         }
-        dispatch(resetState());
+        dispatch(resetSearchState());
     }, [searchResult, isSuccess]);
 
     useEffect(() => {
