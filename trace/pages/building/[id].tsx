@@ -9,7 +9,7 @@ export default () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const [curBuilding, setCurbuilding] = useState(null);
-    const { isLoading, mainContent } = useSelector(
+    const { isLoading, mainContent, homeContent } = useSelector(
         (state: RootState) => state.building
     );
 
@@ -26,10 +26,14 @@ export default () => {
         if (mainContent) {
             const curInfo = mainContent.find(({ id }: any) => id === curid);
             setCurbuilding(curInfo);
-        } else {
-            if (searchBuilding && searchBuilding.length) {
-                setCurbuilding(searchBuilding[0]);
-            }
+            return;
+        } else if (searchBuilding && searchBuilding.length) {
+            setCurbuilding(searchBuilding[0]);
+            return;
+        } else if (homeContent) {
+            const curInfo = homeContent.find(({ id }: any) => id === curid);
+            setCurbuilding(curInfo);
+            return;
         }
     }, [mainContent, curid, searchBuilding]);
 

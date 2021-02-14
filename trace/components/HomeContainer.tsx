@@ -205,7 +205,10 @@ const HomeContainer = () => {
                     buildingList.map((building: any) => {
                         return (
                             <Link
-                                href={`/building/${building.id}`}
+                                href={{
+                                    pathname: `/building/${building.id}`,
+                                    query: { id: building.id },
+                                }}
                                 key={building.id}
                             >
                                 <Building>
