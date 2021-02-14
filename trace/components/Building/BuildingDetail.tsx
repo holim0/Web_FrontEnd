@@ -123,7 +123,8 @@ interface Props {
 const BuildingDetail = ({ isLoading, curBuilding, review }: Props) => {
     useEffect(() => {
         console.log(review);
-    }, [review]);
+        console.log(curBuilding);
+    }, [review, curBuilding]);
 
     return (
         <Container>

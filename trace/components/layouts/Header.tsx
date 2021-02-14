@@ -16,6 +16,7 @@ import { closeAlert } from "Redux/alertHandle";
 import { logoutReq } from "Redux/login";
 import { searchReq } from "Redux/Search";
 import { useRouter } from "next/router";
+import { resetBuildingState } from "Redux/building";
 
 // 알림창 제어 컴포넌트
 function Alert(props: any) {
@@ -142,7 +143,7 @@ const Header = () => {
                 lotNumber: lotNumber,
             };
             dispatch(searchReq(testValue));
-
+            dispatch(resetBuildingState());
             setSearchAddress("");
         },
         [searchBuilding, searchAddress]

@@ -4,11 +4,16 @@ import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
 import RoomIcon from "@material-ui/icons/Room";
 import Link from "next/link";
-import { buildingInfoReqByLocation, buildingInfoReq } from "Redux/building";
+import {
+    buildingInfoReqByLocation,
+    buildingInfoReq,
+    resetBuildingState,
+} from "Redux/building";
 import { useDispatch, useSelector } from "react-redux";
 import noImg from "assets/images/noImg.png";
 import Rating from "components/common/Rating";
 import { RootState } from "Redux";
+import { resetSearchState } from "Redux/Search";
 
 const Container = styled.div`
     width: 100%;
@@ -116,9 +121,20 @@ const HomeContainer = () => {
         (state: RootState) => state.building.homeContent
     );
 
+    const { mainContent } = useSelector((state: RootState) => state.building);
+
+    const { searchResult } = useSelector((state: RootState) => state.Search);
     useEffect(() => {
         dispatch(buildingInfoReq());
     }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(resetBuildingState());
+    }, [mainContent]);
+
+    useEffect(() => {
+        dispatch(resetSearchState());
+    }, []);
 
     return (
         <>

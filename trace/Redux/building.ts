@@ -59,6 +59,10 @@ const building = createSlice({
             state.isLoading = false;
             state.isFail = true;
         },
+
+        resetBuildingState: (state) => {
+            state.mainContent = null;
+        },
     },
 });
 
@@ -69,6 +73,7 @@ export const {
     buildingInfoReqByLocation,
     buildingInfoByLocationSuccess,
     buildingInfoByLocationFail,
+    resetBuildingState,
 } = building.actions;
 
 export default building.reducer;

@@ -41,6 +41,10 @@ export default () => {
         dispatch(buildingReviewReq(curid));
     }, [curid]);
 
+    useEffect(() => {
+        console.log(curBuilding, searchBuilding);
+    }, [curBuilding, searchBuilding]);
+
     return (
         <Building
             isLoading={isLoading}
